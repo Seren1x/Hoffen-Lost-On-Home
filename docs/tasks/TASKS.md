@@ -24,7 +24,7 @@
 - [ ] **[Stretch]** Wire/cable-connect puzzle (⚠️ new scope — confirm this replaces or fits inside one moment, not a repeated system, given timeline)
 
 ### 🧍 Entities — Player
-- [ ] **[MVP]** Player movement
+- [x] **[MVP]** Player movement
 - [ ] **[MVP]** Basic shooting
 - [ ] **[MVP]** Ammo and reloading (links to Ammo System above)
 - [ ] **[MVP]** Animation states (idle/walk/shoot/melee/hit/death)
