@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://caruwat6xopc4"
+path="res://.godot/imported/AR Bolt Release WAV.wav-11c5ca4e22d1ad5b438431aea057bc9b.sample"
+
+[deps]
+
+source_file="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/AR Bolt Release WAV.wav"
+dest_files=["res://.godot/imported/AR Bolt Release WAV.wav-11c5ca4e22d1ad5b438431aea057bc9b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

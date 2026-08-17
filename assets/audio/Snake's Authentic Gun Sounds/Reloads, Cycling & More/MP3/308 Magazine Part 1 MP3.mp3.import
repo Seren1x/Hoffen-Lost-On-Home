@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cv5pg0jidv7kb"
+path="res://.godot/imported/308 Magazine Part 1 MP3.mp3-3a1f94c14aa6095fb8a2cd41b4009c4c.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/MP3/308 Magazine Part 1 MP3.mp3"
+dest_files=["res://.godot/imported/308 Magazine Part 1 MP3.mp3-3a1f94c14aa6095fb8a2cd41b4009c4c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

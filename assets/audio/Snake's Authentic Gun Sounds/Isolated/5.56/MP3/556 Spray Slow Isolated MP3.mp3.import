@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://csde3j0mtpr00"
+path="res://.godot/imported/556 Spray Slow Isolated MP3.mp3-d8a36645ba27167bf492daf72a03a249.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Snake's Authentic Gun Sounds/Isolated/5.56/MP3/556 Spray Slow Isolated MP3.mp3"
+dest_files=["res://.godot/imported/556 Spray Slow Isolated MP3.mp3-d8a36645ba27167bf492daf72a03a249.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

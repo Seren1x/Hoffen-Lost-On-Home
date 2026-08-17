@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cco3rs2t6xsre"
+path="res://.godot/imported/AK Rack MP3.mp3-8a8f8d99ea63bf329b283eec4b6716b9.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/MP3/AK Rack MP3.mp3"
+dest_files=["res://.godot/imported/AK Rack MP3.mp3-8a8f8d99ea63bf329b283eec4b6716b9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

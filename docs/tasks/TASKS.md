@@ -7,6 +7,7 @@
 - [ ] **[MVP]** Ammo system (count, reload, empty state) `(owner: ?)`
 - [ ] **[MVP]** Boss system (base health/phases, trigger arena) `(owner: ?)`
 - [ ] **[MVP]** Game state manager (current stage, player stats across scenes, win/lose) `(owner: ?)`
+- [ ] **[MVP]** Health System `(owner: ?)`
 - [ ] **[Stretch]** Quest/objective tracking system `(owner: ?)`
 - [ ] **[Stretch]** Resource/inventory system (beyond ammo — crafting, upgrades) `(owner: ?)`
 

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bre11viem8fue"
+path="res://.godot/imported/AK Reload Part 1 WAV.wav-1ebf896c5150d9d6ed7b90d1b29d9484.sample"
+
+[deps]
+
+source_file="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/AK Reload Part 1 WAV.wav"
+dest_files=["res://.godot/imported/AK Reload Part 1 WAV.wav-1ebf896c5150d9d6ed7b90d1b29d9484.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

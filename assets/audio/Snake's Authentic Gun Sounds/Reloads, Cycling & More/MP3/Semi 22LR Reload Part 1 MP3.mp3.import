@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b3eu4011ajaeg"
+path="res://.godot/imported/Semi 22LR Reload Part 1 MP3.mp3-b7024dfecf576073e6ce81a8ceada8a2.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/MP3/Semi 22LR Reload Part 1 MP3.mp3"
+dest_files=["res://.godot/imported/Semi 22LR Reload Part 1 MP3.mp3-b7024dfecf576073e6ce81a8ceada8a2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

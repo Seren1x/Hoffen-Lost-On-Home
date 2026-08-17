@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b1kegsuosm1al"
+path="res://.godot/imported/Angel Mag Reload Part 1 WAV.wav-42078bd8866a2262a432ab3160a94496.sample"
+
+[deps]
+
+source_file="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/Angel Mag Reload Part 1 WAV.wav"
+dest_files=["res://.godot/imported/Angel Mag Reload Part 1 WAV.wav-42078bd8866a2262a432ab3160a94496.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
