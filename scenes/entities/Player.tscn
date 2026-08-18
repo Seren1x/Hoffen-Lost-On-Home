@@ -1,24 +1,60 @@
 [gd_scene format=3 uid="uid://t8b0b32oie0"]
 
-[ext_resource type="Script" uid="uid://cw2r56nseyh7l" path="res://scripts/entities/player.gd" id="1_o7et6"]
-[ext_resource type="SpriteFrames" uid="uid://c2kqrwlwurddx" path="res://assets/sprites/player_sprites.tres" id="2_sprite"]
+[ext_resource type="Script" uid="uid://cw2r56nseyh7l" path="res://scripts/entities/player.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/player_sprites.tres" id="2_body"]
+[ext_resource type="SpriteFrames" uid="uid://ccet6qnw7cpu1" path="res://assets/sprites/player_nohands_sprites.tres" id="3_nohands"]
+[ext_resource type="SpriteFrames" uid="uid://djxmle8uxrlb0" path="res://assets/sprites/gun_sprites.tres" id="4_gun"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/bat_sprites.tres" id="5_bat"]
+[ext_resource type="SpriteFrames" uid="uid://d4ivyb5v34tex" path="res://assets/sprites/shotgun_sprites.tres" id="6_shotgun"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7et6"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shape"]
 size = Vector2(17.125, 17.75)
 
-[node name="Player" type="CharacterBody2D" unique_id=1660567079]
+[node name="Player" type="CharacterBody2D" unique_id=1449777169]
 position = Vector2(547, 318)
-script = ExtResource("1_o7et6")
+scale = Vector2(3, 3)
+script = ExtResource("1_script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=663839346]
+[node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=1598692750]
+visible = false
 texture_filter = 1
 position = Vector2(-2.670288e-05, -1.335144e-05)
 scale = Vector2(3, 3)
-sprite_frames = ExtResource("2_sprite")
-animation = &"pickup_right"
-frame_progress = 0.82033545
+sprite_frames = ExtResource("2_body")
+animation = &"idle_down"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=364922999]
-position = Vector2(201, 24)
+[node name="BodyNoHandsSprite" type="AnimatedSprite2D" parent="." unique_id=1640401876]
+texture_filter = 1
+position = Vector2(-2.670288e-05, -1.335144e-05)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("3_nohands")
+animation = &"idle_left"
+
+[node name="BatSprite" type="AnimatedSprite2D" parent="." unique_id=1407810675]
+visible = false
+z_index = 1
+texture_filter = 1
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("5_bat")
+animation = &"bat_down_idle"
+
+[node name="GunSprite" type="AnimatedSprite2D" parent="." unique_id=128114301]
+visible = false
+z_index = 1
+texture_filter = 1
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("4_gun")
+animation = &"gun_side_idle"
+
+[node name="ShotgunSprite" type="AnimatedSprite2D" parent="." unique_id=495897214]
+z_index = 1
+texture_filter = 1
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("6_shotgun")
+animation = &"shotgun_side_left_idle"
+offset = Vector2(0, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=533141208]
+position = Vector2(189, 0)
 scale = Vector2(4, 4)
-shape = SubResource("RectangleShape2D_o7et6")
+shape = SubResource("RectangleShape2D_shape")
