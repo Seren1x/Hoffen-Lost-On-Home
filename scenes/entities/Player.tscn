@@ -14,6 +14,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wp5od"]
 size = Vector2(32.76953, 32.875)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(29.5, 47.5)
+
 [node name="Player" type="CharacterBody2D" unique_id=1449777169]
 position = Vector2(547, 318)
 scale = Vector2(2, 2)
@@ -96,3 +99,10 @@ script = ExtResource("10_hitbox")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=685397127]
 position = Vector2(20.5, 2.5)
 shape = SubResource("RectangleShape2D_wp5od")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2130353274 groups=["player_hurtbox"]]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1188284990]
+position = Vector2(0.25, -0.25)
+shape = SubResource("RectangleShape2D_hurtbox")

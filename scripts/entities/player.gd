@@ -7,6 +7,9 @@ enum State { MOVE, PUNCH, PICKUP, DEATH, ATTACK }
 @export var MAX_SPEED: float = 200.0
 @export var ACCELERATION: float = 1500.0
 @export var FRICTION: float = 1200.0
+@export var max_health: int = 30
+
+var health: int = 100
 
 const BULLET_SCENE: PackedScene = preload("res://scenes/props/Bullet.tscn")
 
@@ -30,6 +33,7 @@ var active_body_sprite: AnimatedSprite2D
 
 func _ready() -> void:
 	add_to_group("player")
+	health = max_health
 	active_body_sprite = body_sprite
 
 	# Kondisi awal: tidak membawa senjata
@@ -156,6 +160,16 @@ func pickup() -> void:
 		var ws: AnimatedSprite2D = _weapon_sprite()
 		ws.position = _weapon_offset("pickup")
 	_sync_helmet()
+
+
+## Called when an enemy hits the player. Reduces health and dies at 0.
+func take_damage(amount: int) -> void:
+	if state == State.DEATH:
+		return
+	health -= amount
+	if health <= 0:
+		health = 0
+		die()
 
 
 func die() -> void:
