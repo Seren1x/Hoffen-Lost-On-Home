@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://dm8q0m7f0y3hg"]
+
+[ext_resource type="PackedScene" uid="uid://bfliv1dbjsjkw" path="res://scenes/levels/Outskirt.tscn" id="1_game_scene"]
+[ext_resource type="Script" uid="uid://d4g5qbri6hj2y" path="res://scripts/ui/MainMenu.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dbh1pb3l08l7b" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Play_Not-Pressed.png" id="3_play_normal"]
+[ext_resource type="Texture2D" uid="uid://iu3a7yxp247q" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Play_Pressed.png" id="4_play_pressed"]
+[ext_resource type="Texture2D" uid="uid://dbvg1oaksw4sf" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Settings_Not-Pressed.png" id="5_settings_normal"]
+[ext_resource type="Texture2D" uid="uid://dahxoarq5xf2g" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Settings_Pressed.png" id="6_settings_pressed"]
+[ext_resource type="Texture2D" uid="uid://bhbe3513r280m" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Quit_Not-Pressed.png" id="7_quit_normal"]
+[ext_resource type="Texture2D" uid="uid://dcclse7uneph4" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Quit_Pressed.png" id="8_quit_pressed"]
+
+[node name="MainMenu" type="Control" unique_id=804924042]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+game_scene = ExtResource("1_game_scene")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1571945067]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.08, 1)
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1320316058]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 30.0
+offset_right = 200.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9, 0.65, 0.2, 1)
+theme_override_font_sizes/font_size = 36
+text = "HOFFEN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonBox" type="ColorRect" parent="." unique_id=352288872]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -100.0
+offset_right = 110.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.08, 0.12, 0.9)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ButtonBox" unique_id=973537255]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -87.0
+offset_right = 84.0
+offset_bottom = 87.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="StartButton" type="TextureButton" parent="ButtonBox/VBoxContainer" unique_id=144229159]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(152, 42)
+layout_mode = 2
+texture_normal = ExtResource("3_play_normal")
+texture_pressed = ExtResource("4_play_pressed")
+stretch_mode = 5
+
+[node name="SettingsButton" type="TextureButton" parent="ButtonBox/VBoxContainer" unique_id=1176734468]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(152, 42)
+layout_mode = 2
+texture_normal = ExtResource("5_settings_normal")
+texture_pressed = ExtResource("6_settings_pressed")
+stretch_mode = 5
+
+[node name="ExitButton" type="TextureButton" parent="ButtonBox/VBoxContainer" unique_id=408209832]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(152, 42)
+layout_mode = 2
+texture_normal = ExtResource("7_quit_normal")
+texture_pressed = ExtResource("8_quit_pressed")
+stretch_mode = 5
