@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://6fodee3l5mqw"]
+
+[ext_resource type="Script" uid="uid://bm0eff4v3h8df" path="res://scripts/entities/zombie_axe.gd" id="1_zombie"]
+[ext_resource type="SpriteFrames" uid="uid://clrig5qo4satn" path="res://assets/sprites/zombie_axe_sprites.tres" id="2_zombie"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zombie"]
+size = Vector2(18, 26)
+
+[node name="ZombieAxe" type="CharacterBody2D" unique_id=926407069]
+scale = Vector2(2, 2)
+collision_layer = 2
+script = ExtResource("1_zombie")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=141537824]
+texture_filter = 1
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("2_zombie")
+animation = &"zombie_axe_down_idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2051440768]
+shape = SubResource("RectangleShape2D_zombie")
+
+[node name="AttackCooldown" type="Timer" parent="." unique_id=2070324924]
+wait_time = 1.2
+one_shot = true

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://4j05gxrq1ttp"]
+
+[ext_resource type="SpriteFrames" uid="uid://clrig5qo4satn" path="res://assets/sprites/zombie_axe_sprites.tres" id="1_kxock"]
+
+[node name="Zombie_axe" type="CharacterBody2D" unique_id=2026481249]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=486323975]
+position = Vector2(363, 154)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("1_kxock")
+animation = &"zombie_axe_side_left_second_attack"
+frame = 8
+frame_progress = 1.0

@@ -1,8 +1,24 @@
 [gd_scene format=3 uid="uid://bfliv1dbjsjkw"]
 
 [ext_resource type="PackedScene" uid="uid://t8b0b32oie0" path="res://scenes/entities/Player.tscn" id="1_1p0bk"]
+[ext_resource type="PackedScene" uid="uid://6fodee3l5mqw" path="res://scenes/entities/ZombieAxe.tscn" id="2_zombie"]
 
 [node name="Node2D" type="Node2D" unique_id=1773227402]
 
 [node name="Player" parent="." unique_id=1660567079 instance=ExtResource("1_1p0bk")]
 position = Vector2(276, 96)
+
+[node name="ZombieAxe" parent="." unique_id=1036071804 instance=ExtResource("2_zombie")]
+position = Vector2(441, 85)
+
+[node name="ZombieAxe2" parent="." unique_id=1532868313 instance=ExtResource("2_zombie")]
+position = Vector2(620, 200)
+
+[node name="ZombieAxe3" parent="." unique_id=1302747417 instance=ExtResource("2_zombie")]
+position = Vector2(860, 120)
+
+[node name="ZombieAxe4" parent="." unique_id=382821203 instance=ExtResource("2_zombie")]
+position = Vector2(500, 420)
+
+[node name="ZombieAxe5" parent="." unique_id=452061436 instance=ExtResource("2_zombie")]
+position = Vector2(900, 440)
