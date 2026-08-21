@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://bfliv1dbjsjkw"]
 
 [ext_resource type="PackedScene" uid="uid://t8b0b32oie0" path="res://scenes/entities/Player.tscn" id="1_1p0bk"]
+[ext_resource type="PackedScene" uid="uid://c2k5g3q0x1n4p" path="res://scenes/ui/PauseMenu.tscn" id="2_pause_menu"]
+[ext_resource type="PackedScene" uid="uid://bq3cy0p5q7y8k" path="res://scenes/ui/SettingsMenu.tscn" id="3_settings_scene"]
 
 [node name="Node2D" type="Node2D" unique_id=1773227402]
 
 [node name="Player" parent="." unique_id=1660567079 instance=ExtResource("1_1p0bk")]
 position = Vector2(276, 96)
+
+[node name="PauseMenu" parent="." unique_id=614050138 instance=ExtResource("2_pause_menu")]
+settings_scene = ExtResource("3_settings_scene")

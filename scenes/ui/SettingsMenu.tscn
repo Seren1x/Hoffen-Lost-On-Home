@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://bq3cy0p5q7y8k"]
+
+[ext_resource type="Script" uid="uid://detuhg4t8rqh4" path="res://scripts/ui/SettingsMenu.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://7hitl7ncgib7" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Blank_Not-Pressed.png" id="2_blank_normal"]
+[ext_resource type="Texture2D" uid="uid://0uwigv666dof" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Blank_Pressed.png" id="3_blank_pressed"]
+
+[node name="SettingsMenu" type="Control" unique_id=605019369]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="." unique_id=2082002437]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.08, 1)
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1028827975]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 30.0
+offset_right = 200.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9, 0.65, 0.2, 1)
+theme_override_font_sizes/font_size = 36
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingsBox" type="ColorRect" parent="." unique_id=1869077687]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -120.0
+offset_right = 160.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.08, 0.12, 0.9)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsBox" unique_id=1905672841]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -95.0
+offset_right = 130.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="VolumeRow" type="HBoxContainer" parent="SettingsBox/VBoxContainer" unique_id=1416676695]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="VolumeLabel" type="Label" parent="SettingsBox/VBoxContainer/VolumeRow" unique_id=1511456964]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 18
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsBox/VBoxContainer/VolumeRow" unique_id=325922225]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 80.0
+
+[node name="FullscreenRow" type="HBoxContainer" parent="SettingsBox/VBoxContainer" unique_id=15046879]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="FullscreenLabel" type="Label" parent="SettingsBox/VBoxContainer/FullscreenRow" unique_id=2068197757]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 18
+text = "Fullscreen"
+
+[node name="FullscreenCheck" type="CheckButton" parent="SettingsBox/VBoxContainer/FullscreenRow" unique_id=666686316]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BackButton" type="TextureButton" parent="SettingsBox/VBoxContainer" unique_id=1077908178]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(152, 42)
+layout_mode = 2
+texture_normal = ExtResource("2_blank_normal")
+texture_pressed = ExtResource("3_blank_pressed")
+stretch_mode = 5
+
+[node name="BackLabel" type="Label" parent="SettingsBox/VBoxContainer/BackButton" unique_id=400298450]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "BACK"
+horizontal_alignment = 1
+vertical_alignment = 1

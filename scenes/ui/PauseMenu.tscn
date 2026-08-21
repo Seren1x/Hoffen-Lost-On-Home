@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://c2k5g3q0x1n4p"]
+
+[ext_resource type="Script" uid="uid://s3njcasbm1mw" path="res://scripts/ui/PauseMenu.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dbh1pb3l08l7b" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Play_Not-Pressed.png" id="2_csaq8"]
+[ext_resource type="Texture2D" uid="uid://iu3a7yxp247q" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Play_Pressed.png" id="3_rw35d"]
+[ext_resource type="Texture2D" uid="uid://dbvg1oaksw4sf" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Settings_Not-Pressed.png" id="4_settings_normal"]
+[ext_resource type="Texture2D" uid="uid://dahxoarq5xf2g" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Settings_Pressed.png" id="5_settings_pressed"]
+[ext_resource type="Texture2D" uid="uid://bhbe3513r280m" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Quit_Not-Pressed.png" id="6_quit_normal"]
+[ext_resource type="Texture2D" uid="uid://dcclse7uneph4" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Quit_Pressed.png" id="7_quit_pressed"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rw35d"]
+content_margin_left = 28.0
+content_margin_top = 22.0
+content_margin_right = 28.0
+content_margin_bottom = 22.0
+bg_color = Color(0.078431375, 0.078431375, 0.12156863, 0.9019608)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1675111820]
+script = ExtResource("1_script")
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=174373198]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Layout" type="VBoxContainer" parent="." unique_id=1622344263]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TopSpacer" type="Control" parent="Layout" unique_id=1525511796]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PauseLabel" type="Label" parent="Layout" unique_id=1255898213]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="MidSpacer" type="Control" parent="Layout" unique_id=1304135268]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonPanel" type="PanelContainer" parent="Layout" unique_id=1855134055]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_rw35d")
+
+[node name="ButtonList" type="VBoxContainer" parent="Layout/ButtonPanel" unique_id=2068704017]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ResumeButton" type="TextureButton" parent="Layout/ButtonPanel/ButtonList" unique_id=657247962]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(152, 42)
+layout_mode = 2
+texture_normal = ExtResource("2_csaq8")
+texture_pressed = ExtResource("3_rw35d")
+stretch_mode = 5
+
+[node name="SettingsButton" type="TextureButton" parent="Layout/ButtonPanel/ButtonList" unique_id=894148429]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(152, 42)
+layout_mode = 2
+texture_normal = ExtResource("4_settings_normal")
+texture_pressed = ExtResource("5_settings_pressed")
+stretch_mode = 5
+
+[node name="ExitToMainButton" type="TextureButton" parent="Layout/ButtonPanel/ButtonList" unique_id=384017489]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(152, 42)
+layout_mode = 2
+texture_normal = ExtResource("6_quit_normal")
+texture_pressed = ExtResource("7_quit_pressed")
+stretch_mode = 5
+
+[node name="BottomSpacer" type="Control" parent="Layout" unique_id=629581869]
+layout_mode = 2
+size_flags_vertical = 3
