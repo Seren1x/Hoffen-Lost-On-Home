@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://d3x1a7k2nan6h"]
+
+[ext_resource type="Script" uid="uid://ddp22wdof6ban" path="res://scripts/ui/HUD.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://kxj705v1ynos" path="res://assets/ui/UI - PostApocalypse/HP/Heart_Full.png" id="2_heart_full"]
+[ext_resource type="Texture2D" uid="uid://b84l68b3nepyd" path="res://assets/ui/UI - PostApocalypse/Hunger/Hunger_Full.png" id="3_stamina_icon"]
+[ext_resource type="Texture2D" uid="uid://co2bta5lkl8ib" path="res://assets/ui/UI - PostApocalypse/Bullet Indicators/Pistol-Bullet.png" id="4_bullet_full"]
+[ext_resource type="Texture2D" uid="uid://dcexy4rv75qih" path="res://assets/ui/UI - PostApocalypse/Inventory/Inventory-Cell.png" id="5_cell"]
+
+[node name="HUD" type="CanvasLayer" unique_id=16936636]
+script = ExtResource("1_script")
+
+[node name="TopLeft" type="VBoxContainer" parent="." unique_id=1461443745]
+offset_left = 12.0
+offset_top = 12.0
+theme_override_constants/separation = 8
+
+[node name="Hearts" type="HBoxContainer" parent="TopLeft" unique_id=1577701102]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Heart1" type="TextureRect" parent="TopLeft/Hearts" unique_id=2002599855]
+custom_minimum_size = Vector2(26, 24)
+layout_mode = 2
+texture = ExtResource("2_heart_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Heart2" type="TextureRect" parent="TopLeft/Hearts" unique_id=100000001]
+custom_minimum_size = Vector2(26, 24)
+layout_mode = 2
+texture = ExtResource("2_heart_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Heart3" type="TextureRect" parent="TopLeft/Hearts" unique_id=100000002]
+custom_minimum_size = Vector2(26, 24)
+layout_mode = 2
+texture = ExtResource("2_heart_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Heart4" type="TextureRect" parent="TopLeft/Hearts" unique_id=100000003]
+custom_minimum_size = Vector2(26, 24)
+layout_mode = 2
+texture = ExtResource("2_heart_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Heart5" type="TextureRect" parent="TopLeft/Hearts" unique_id=100000004]
+custom_minimum_size = Vector2(26, 24)
+layout_mode = 2
+texture = ExtResource("2_heart_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StaminaRow" type="HBoxContainer" parent="TopLeft" unique_id=1639040718]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StaminaIcon" type="TextureRect" parent="TopLeft/StaminaRow" unique_id=546170722]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+texture = ExtResource("3_stamina_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StaminaBar" type="ProgressBar" parent="TopLeft/StaminaRow" unique_id=1325579073]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 14)
+layout_mode = 2
+value = 100.0
+
+[node name="Bullets" type="HBoxContainer" parent="TopLeft" unique_id=100000005]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Bullet1" type="TextureRect" parent="TopLeft/Bullets" unique_id=100000006]
+custom_minimum_size = Vector2(14, 26)
+layout_mode = 2
+texture = ExtResource("4_bullet_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bullet2" type="TextureRect" parent="TopLeft/Bullets" unique_id=100000007]
+custom_minimum_size = Vector2(14, 26)
+layout_mode = 2
+texture = ExtResource("4_bullet_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bullet3" type="TextureRect" parent="TopLeft/Bullets" unique_id=100000008]
+custom_minimum_size = Vector2(14, 26)
+layout_mode = 2
+texture = ExtResource("4_bullet_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bullet4" type="TextureRect" parent="TopLeft/Bullets" unique_id=100000009]
+custom_minimum_size = Vector2(14, 26)
+layout_mode = 2
+texture = ExtResource("4_bullet_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bullet5" type="TextureRect" parent="TopLeft/Bullets" unique_id=100000010]
+custom_minimum_size = Vector2(14, 26)
+layout_mode = 2
+texture = ExtResource("4_bullet_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bullet6" type="TextureRect" parent="TopLeft/Bullets" unique_id=100000011]
+custom_minimum_size = Vector2(14, 26)
+layout_mode = 2
+texture = ExtResource("4_bullet_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Weapons" type="HBoxContainer" parent="TopLeft" unique_id=100000012]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Slot1" type="TextureRect" parent="TopLeft/Weapons" unique_id=100000013]
+custom_minimum_size = Vector2(38, 40)
+layout_mode = 2
+texture = ExtResource("5_cell")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot2" type="TextureRect" parent="TopLeft/Weapons" unique_id=100000014]
+custom_minimum_size = Vector2(38, 40)
+layout_mode = 2
+texture = ExtResource("5_cell")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot3" type="TextureRect" parent="TopLeft/Weapons" unique_id=100000015]
+custom_minimum_size = Vector2(38, 40)
+layout_mode = 2
+texture = ExtResource("5_cell")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot4" type="TextureRect" parent="TopLeft/Weapons" unique_id=100000016]
+custom_minimum_size = Vector2(38, 40)
+layout_mode = 2
+texture = ExtResource("5_cell")
+expand_mode = 1
+stretch_mode = 5

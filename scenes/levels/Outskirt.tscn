@@ -2,8 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://t8b0b32oie0" path="res://scenes/entities/Player.tscn" id="1_1p0bk"]
 [ext_resource type="PackedScene" uid="uid://c2k5g3q0x1n4p" path="res://scenes/ui/PauseMenu.tscn" id="2_pause_menu"]
-[ext_resource type="PackedScene" uid="uid://bq3cy0p5q7y8k" path="res://scenes/ui/SettingsMenu.tscn" id="3_settings_scene"]
 [ext_resource type="PackedScene" uid="uid://6fodee3l5mqw" path="res://scenes/entities/ZombieAxe.tscn" id="2_zombie"]
+[ext_resource type="PackedScene" uid="uid://bq3cy0p5q7y8k" path="res://scenes/ui/SettingsMenu.tscn" id="3_settings_scene"]
+[ext_resource type="PackedScene" uid="uid://d3x1a7k2nan6h" path="res://scenes/ui/HUD.tscn" id="4_hud"]
 
 [node name="Node2D" type="Node2D" unique_id=1773227402]
 
@@ -27,3 +28,5 @@ position = Vector2(500, 420)
 
 [node name="ZombieAxe5" parent="." unique_id=452061436 instance=ExtResource("2_zombie")]
 position = Vector2(900, 440)
+
+[node name="HUD" parent="." unique_id=1369203186 instance=ExtResource("4_hud")]
