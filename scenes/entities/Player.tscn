@@ -17,9 +17,10 @@ size = Vector2(32.76953, 32.875)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
 size = Vector2(29.5, 47.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rafx0"]
+size = Vector2(34, 50)
+
 [node name="Player" type="CharacterBody2D" unique_id=1449777169]
-position = Vector2(547, 318)
-scale = Vector2(2, 2)
 script = ExtResource("1_script")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=1598692750]
@@ -31,6 +32,7 @@ sprite_frames = ExtResource("2_body")
 animation = &"idle_down"
 
 [node name="BodyNoHandsSprite" type="AnimatedSprite2D" parent="." unique_id=1640401876]
+visible = false
 texture_filter = 1
 position = Vector2(-2.670288e-05, -1.335144e-05)
 scale = Vector2(3, 3)
@@ -76,6 +78,7 @@ sprite_frames = ExtResource("7_pistol")
 animation = &"pistol_side_idle"
 
 [node name="HelmetSprite" type="AnimatedSprite2D" parent="." unique_id=481911641]
+visible = false
 z_index = 2
 texture_filter = 1
 scale = Vector2(3, 3)
@@ -106,3 +109,7 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1188284990]
 position = Vector2(0.25, -0.25)
 shape = SubResource("RectangleShape2D_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1254278389]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_rafx0")
