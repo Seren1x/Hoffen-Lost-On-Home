@@ -603,6 +603,7 @@ position = Vector2(441, 85)
 scale = Vector2(1, 1)
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=853882475]
+visible = false
 
 [node name="ForestBoundary_02" type="StaticBody2D" parent="LevelBounds" unique_id=1355353806]
 
