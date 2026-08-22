@@ -4,7 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://7hitl7ncgib7" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Blank_Not-Pressed.png" id="2_blank_normal"]
 [ext_resource type="Texture2D" uid="uid://0uwigv666dof" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Blank_Pressed.png" id="3_blank_pressed"]
 
-[node name="SettingsMenu" type="Control" unique_id=605019369]
+[sub_resource type="StyleBoxFlat" id="panel_bg"]
+content_margin_left = 28.0
+content_margin_top = 22.0
+content_margin_right = 28.0
+content_margin_bottom = 22.0
+bg_color = Color(0.08, 0.08, 0.12, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="SettingsMenu" type="Control" unique_id=610970547]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Background" type="ColorRect" parent="." unique_id=2082002437]
+[node name="Background" type="ColorRect" parent="." unique_id=276670440]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,82 +33,72 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.05, 0.05, 0.08, 1)
 
-[node name="TitleLabel" type="Label" parent="." unique_id=1028827975]
+[node name="Layout" type="VBoxContainer" parent="." unique_id=739447471]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_top = 30.0
-offset_right = 200.0
-offset_bottom = 80.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TopSpacer" type="Control" parent="Layout" unique_id=738331020]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TitleLabel" type="Label" parent="Layout" unique_id=1697653163]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.65, 0.2, 1)
 theme_override_font_sizes/font_size = 36
 text = "SETTINGS"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="SettingsBox" type="ColorRect" parent="." unique_id=1869077687]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -120.0
-offset_right = 160.0
-offset_bottom = 120.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.08, 0.08, 0.12, 0.9)
+[node name="MidSpacer" type="Control" parent="Layout" unique_id=1270070531]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsBox" unique_id=1905672841]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -130.0
-offset_top = -95.0
-offset_right = 130.0
-offset_bottom = 95.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="SettingsPanel" type="PanelContainer" parent="Layout" unique_id=408514901]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("panel_bg")
+
+[node name="SettingsList" type="VBoxContainer" parent="Layout/SettingsPanel" unique_id=12878453]
+layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="VolumeRow" type="HBoxContainer" parent="SettingsBox/VBoxContainer" unique_id=1416676695]
+[node name="VolumeRow" type="HBoxContainer" parent="Layout/SettingsPanel/SettingsList" unique_id=400838428]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="VolumeLabel" type="Label" parent="SettingsBox/VBoxContainer/VolumeRow" unique_id=1511456964]
+[node name="VolumeLabel" type="Label" parent="Layout/SettingsPanel/SettingsList/VolumeRow" unique_id=1104442318]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 18
 text = "Volume"
 
-[node name="VolumeSlider" type="HSlider" parent="SettingsBox/VBoxContainer/VolumeRow" unique_id=325922225]
+[node name="VolumeSlider" type="HSlider" parent="Layout/SettingsPanel/SettingsList/VolumeRow" unique_id=1443803028]
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 value = 80.0
 
-[node name="FullscreenRow" type="HBoxContainer" parent="SettingsBox/VBoxContainer" unique_id=15046879]
+[node name="FullscreenRow" type="HBoxContainer" parent="Layout/SettingsPanel/SettingsList" unique_id=870759959]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="FullscreenLabel" type="Label" parent="SettingsBox/VBoxContainer/FullscreenRow" unique_id=2068197757]
+[node name="FullscreenLabel" type="Label" parent="Layout/SettingsPanel/SettingsList/FullscreenRow" unique_id=282005488]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 18
 text = "Fullscreen"
 
-[node name="FullscreenCheck" type="CheckButton" parent="SettingsBox/VBoxContainer/FullscreenRow" unique_id=666686316]
+[node name="FullscreenCheck" type="CheckButton" parent="Layout/SettingsPanel/SettingsList/FullscreenRow" unique_id=1685004678]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="BackButton" type="TextureButton" parent="SettingsBox/VBoxContainer" unique_id=1077908178]
+[node name="BackButton" type="TextureButton" parent="Layout/SettingsPanel/SettingsList" unique_id=1709877068]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(152, 42)
 layout_mode = 2
@@ -105,7 +106,7 @@ texture_normal = ExtResource("2_blank_normal")
 texture_pressed = ExtResource("3_blank_pressed")
 stretch_mode = 5
 
-[node name="BackLabel" type="Label" parent="SettingsBox/VBoxContainer/BackButton" unique_id=400298450]
+[node name="BackLabel" type="Label" parent="Layout/SettingsPanel/SettingsList/BackButton" unique_id=1471497408]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -117,3 +118,7 @@ theme_override_font_sizes/font_size = 14
 text = "BACK"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BottomSpacer" type="Control" parent="Layout" unique_id=1541515604]
+layout_mode = 2
+size_flags_vertical = 3

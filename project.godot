@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Hoffen"
-run/main_scene="uid://bfliv1dbjsjkw"
+run/main_scene="uid://dm8q0m7f0y3hg"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
