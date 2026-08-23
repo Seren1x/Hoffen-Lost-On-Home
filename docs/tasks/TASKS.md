@@ -1,14 +1,15 @@
 ## Task List
 
-*Tag legend: **[MVP]** = required for minimum playable game · **[Stretch]** = only if time allows · `(owner: ?)` = fill in per person*
+*Tag legend: **[MVP]** = required for minimum playable game · **[Stretch]** = only if time allows · `(owner: ?)` = fill in per person
+[~] = currently in progress . [R] = need refactoring . [x] = finished . [U] = used avail placeholder*
 
 ### 🧠 Core Systems
-- [ ] **[MVP]** Combat system (shoot + melee, damage calc) `(owner: ?)`
-- [ ] **[MVP]** Ammo system (count, reload, empty state) `(owner: ?)`
+- [~] **[MVP]** Combat system (shoot + melee, damage calc) `(owner: ?)`
+- [~] **[MVP]** Ammo system (count, reload, empty state) `(owner: ?)`
 - [ ] **[MVP]** Boss system (base health/phases, trigger arena) `(owner: ?)`
 - [ ] **[MVP]** Game state manager (current stage, player stats across scenes, win/lose) `(owner: ?)`
-- [ ] **[MVP]** Health System `(owner: ?)`
-- [ ] **[Stretch]** Quest/objective tracking system `(owner: ?)`
+- [~] **[MVP]** Health System `(owner: ?)`
+- [ ] **[Stretch]** Quest/objective tracking system `(owner: Farras)`
 - [ ] **[Stretch]** Resource/inventory system (beyond ammo — crafting, upgrades) `(owner: ?)`
 
 ### 🖥️ UI
@@ -25,14 +26,14 @@
 
 ### 🧍 Entities — Player
 - [x] **[MVP]** Player movement
-- [ ] **[MVP]** Basic shooting
-- [ ] **[MVP]** Ammo and reloading (links to Ammo System above)
-- [ ] **[MVP]** Animation states (idle/walk/shoot/melee/hit/death)
-- [ ] **[Stretch]** Melee system (if not folded into MVP combat)
+- [R] **[MVP]** Basic shooting
+- [R] **[MVP]** Ammo and reloading (links to Ammo System above)
+- [R] **[MVP]** Animation states (idle/walk/shoot/melee/hit/death)
+- [R] **[Stretch]** Melee system (if not folded into MVP combat)
 
 ### 👾 Entities — Enemy
-- [ ] **[MVP]** Enemy basics (movement, collision, health)
-- [ ] **[MVP]** Simple AI (chase within range)
+- [R] **[MVP]** Enemy basics (movement, collision, health)
+- [R] **[MVP]** Simple AI (chase within range)
 - [ ] **[MVP]** Boss attack pattern(s) — at least 1 for MVP stage
 - [ ] **[Stretch]** Enemy patrol state
 - [ ] **[Stretch]** Second enemy type / ranged enemy
@@ -43,15 +44,15 @@
 - [ ] **[Stretch]** Doors / environmental interactables
 
 ### 🎨 Art / Story
-- [ ] **[MVP]** Pixel art spec doc (canvas size, palette) — do this FIRST, before any sprite work
-- [ ] **[MVP]** Player sprite (idle/walk/shoot/melee frames)
-- [ ] **[MVP]** Enemy sprite(s)
+- [~] **[MVP]** Pixel art spec doc (canvas size, palette) — do this FIRST, before any sprite work
+- [~] **[MVP]** Player sprite (idle/walk/shoot/melee frames)
+- [U] **[MVP]** Enemy sprite(s)
 - [ ] **[MVP]** Boss sprite
 - [ ] **[MVP]** Story beats written per stage (what's shown/said, intro + ending text)
 - [ ] **[Stretch]** Environmental storytelling (notes, logs, visual details)
 
 ### 🗺️ Level Design (Areas)
-- [ ] **[MVP]** Outskirt
+- [~] **[MVP]** Outskirt
 - [ ] **[Stretch]** Downtown
 - [ ] **[Stretch]** Home
 
