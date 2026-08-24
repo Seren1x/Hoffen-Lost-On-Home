@@ -30,6 +30,12 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
 
+[node name="TextureRect" type="TextureRect" parent="Overlay" unique_id=1196478564]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+expand_mode = 3
+
 [node name="Layout" type="VBoxContainer" parent="." unique_id=1622344263]
 anchors_preset = 15
 anchor_right = 1.0
