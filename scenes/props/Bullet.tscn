@@ -1,21 +1,18 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://ckyw11sbf7ba4"]
 
-[ext_resource type="Script" uid="uid://by4844nyrtpab" path="res://scripts/entities/bullet.gd" id="1_bullet"]
-[ext_resource type="Texture2D" uid="uid://btrhfp7qstjef" path="res://assets/sprites/Character - PostApocalypse/Guns/Bullets/Gun-bullet_Bullet.png" id="2_btex"]
+[ext_resource type="Script" uid="uid://dj0y0146wwk7w" path="res://scripts/entities/bullet.gd" id="1_bullet"]
+[ext_resource type="Texture2D" uid="uid://bhkf07bynh7b3" path="res://assets/objects/Bullet/RifleAmmoSmall.png" id="1_o0hai"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bullet"]
-size = Vector2(10, 5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wr03b"]
+size = Vector2(19, 8)
 
-[node name="Bullet" type="Area2D"]
-collision_layer = 0
-collision_mask = 2
-monitoring = true
+[node name="bullet" type="Area2D" unique_id=1204309616]
 script = ExtResource("1_bullet")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture_filter = 1
-scale = Vector2(5, 5)
-texture = ExtResource("2_btex")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1883533423]
+scale = Vector2(1.3125, 1)
+texture = ExtResource("1_o0hai")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_bullet")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=443230063]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_wr03b")

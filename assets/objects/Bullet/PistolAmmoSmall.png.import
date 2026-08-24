@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djhy22wb42p5x"
-path="res://.godot/imported/Tileset_Topdown.png-cba11aecbefe2209cbf7481965e29a16.ctex"
+uid="uid://5343erclf40p"
+path="res://.godot/imported/PistolAmmoSmall.png-d4325b0ecbeb2b3934d130f4c0b359ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/Tileset_Topdown.png"
-dest_files=["res://.godot/imported/Tileset_Topdown.png-cba11aecbefe2209cbf7481965e29a16.ctex"]
+source_file="res://assets/objects/Bullet/PistolAmmoSmall.png"
+dest_files=["res://.godot/imported/PistolAmmoSmall.png-d4325b0ecbeb2b3934d130f4c0b359ab.ctex"]
 
 [params]
 

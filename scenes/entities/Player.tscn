@@ -1,115 +1,31 @@
-[gd_scene format=3 uid="uid://t8b0b32oie0"]
+[gd_scene format=3 uid="uid://dkni40rly0yix"]
 
-[ext_resource type="Script" uid="uid://cw2r56nseyh7l" path="res://scripts/entities/player.gd" id="1_script"]
-[ext_resource type="SpriteFrames" uid="uid://u8eaf5qr31st" path="res://assets/sprites/player_sprites.tres" id="2_body"]
-[ext_resource type="SpriteFrames" uid="uid://ccet6qnw7cpu1" path="res://assets/sprites/player_nohands_sprites.tres" id="3_nohands"]
-[ext_resource type="SpriteFrames" uid="uid://djxmle8uxrlb0" path="res://assets/sprites/gun_sprites.tres" id="4_gun"]
-[ext_resource type="SpriteFrames" uid="uid://icqx7noy4fvi" path="res://assets/sprites/bat_sprites.tres" id="5_bat"]
-[ext_resource type="SpriteFrames" uid="uid://d4ivyb5v34tex" path="res://assets/sprites/shotgun_sprites.tres" id="6_shotgun"]
-[ext_resource type="SpriteFrames" uid="uid://cug0krn07705" path="res://assets/sprites/pistol_sprites.tres" id="7_pistol"]
-[ext_resource type="SpriteFrames" uid="uid://c3bgwrhdoy71t" path="res://assets/sprites/helmet_sprites.tres" id="8_helmet"]
-[ext_resource type="SpriteFrames" uid="uid://bwrti4cfh60cg" path="res://assets/sprites/fire_sprites.tres" id="9_fire"]
-[ext_resource type="Script" uid="uid://sqp4d1qh75e5" path="res://scripts/entities/player_hitbox.gd" id="10_hitbox"]
+[ext_resource type="Texture2D" uid="uid://1txlpje71t02" path="res://assets/sprites/player_sprite.png" id="1_o7et6"]
+[ext_resource type="Script" uid="uid://b8feogb3jjcva" path="res://scripts/entities/player.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://oknnikmc0hdw" path="res://assets/objects/Gun/AK47.png" id="2_24gqh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wp5od"]
-size = Vector2(32.76953, 32.875)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wr03b"]
+size = Vector2(34, 60)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
-size = Vector2(29.5, 47.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rafx0"]
-size = Vector2(34, 50)
-
-[node name="Player" type="CharacterBody2D" unique_id=1449777169]
+[node name="Player" type="CharacterBody2D" unique_id=2041947310]
 script = ExtResource("1_script")
 
-[node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=1598692750]
-visible = false
-texture_filter = 1
-position = Vector2(-2.670288e-05, -1.335144e-05)
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("2_body")
-animation = &"idle_down"
+[node name="Body" type="Sprite2D" parent="." unique_id=1918051430]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_o7et6")
 
-[node name="BodyNoHandsSprite" type="AnimatedSprite2D" parent="." unique_id=1640401876]
-visible = false
-texture_filter = 1
-position = Vector2(-2.670288e-05, -1.335144e-05)
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("3_nohands")
-animation = &"idle_right"
+[node name="CollisionBody" type="CollisionShape2D" parent="." unique_id=2063828633]
+position = Vector2(1, 7)
+shape = SubResource("RectangleShape2D_wr03b")
 
-[node name="BatSprite" type="AnimatedSprite2D" parent="." unique_id=1407810675]
-visible = false
-z_index = 1
-texture_filter = 1
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("5_bat")
-animation = &"bat_side_attack"
-frame = 1
-frame_progress = 0.821232
+[node name="Weapon" type="Sprite2D" parent="." unique_id=1669677891]
+position = Vector2(29, 4)
+scale = Vector2(2, 2)
+texture = ExtResource("2_24gqh")
+offset = Vector2(0, 2.485)
 
-[node name="GunSprite" type="AnimatedSprite2D" parent="." unique_id=128114301]
-visible = false
-z_index = 1
-texture_filter = 1
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("4_gun")
-animation = &"gun_side_idle"
+[node name="BulletSpawnPoint" type="Node2D" parent="Weapon" unique_id=502705788]
+position = Vector2(22, 2)
 
-[node name="ShotgunSprite" type="AnimatedSprite2D" parent="." unique_id=495897214]
-visible = false
-z_index = 1
-texture_filter = 1
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("6_shotgun")
-animation = &"shotgun_side_left_idle"
-offset = Vector2(0, 2)
-
-[node name="Bullet" type="AnimatedSprite2D" parent="." unique_id=1883047296]
-visible = false
-
-[node name="PistolSprite" type="AnimatedSprite2D" parent="." unique_id=848970128]
-visible = false
-z_index = 1
-texture_filter = 1
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("7_pistol")
-animation = &"pistol_side_idle"
-
-[node name="HelmetSprite" type="AnimatedSprite2D" parent="." unique_id=481911641]
-visible = false
-z_index = 2
-texture_filter = 1
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("8_helmet")
-animation = &"helmet_up_idle"
-offset = Vector2(0, -3.5)
-
-[node name="FireSprite" type="AnimatedSprite2D" parent="." unique_id=1772588297]
-visible = false
-z_index = 3
-texture_filter = 1
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("9_fire")
-animation = &"fire_side"
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=166572470]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("10_hitbox")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=685397127]
-position = Vector2(20.5, 2.5)
-shape = SubResource("RectangleShape2D_wp5od")
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2130353274 groups=["player_hurtbox"]]
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1188284990]
-position = Vector2(0.25, -0.25)
-shape = SubResource("RectangleShape2D_hurtbox")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1254278389]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_rafx0")
+[node name="AttackCooldown" type="Timer" parent="." unique_id=1927100027]
+wait_time = 0.2
