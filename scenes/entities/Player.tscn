@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://dkni40rly0yix"]
+[gd_scene format=3 uid="uid://dwrtdkp875uwk"]
 
 [ext_resource type="Texture2D" uid="uid://1txlpje71t02" path="res://assets/sprites/player_sprite.png" id="1_o7et6"]
 [ext_resource type="Script" uid="uid://b8feogb3jjcva" path="res://scripts/entities/player.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://oknnikmc0hdw" path="res://assets/objects/Gun/AK47.png" id="2_24gqh"]
+[ext_resource type="PackedScene" uid="uid://dd45jdbh6skxa" path="res://scenes/props/Weapon.tscn" id="4_sweqy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr03b"]
 size = Vector2(34, 60)
@@ -18,14 +18,4 @@ texture = ExtResource("1_o7et6")
 position = Vector2(1, 7)
 shape = SubResource("RectangleShape2D_wr03b")
 
-[node name="Weapon" type="Sprite2D" parent="." unique_id=1669677891]
-position = Vector2(29, 4)
-scale = Vector2(2, 2)
-texture = ExtResource("2_24gqh")
-offset = Vector2(0, 2.485)
-
-[node name="BulletSpawnPoint" type="Node2D" parent="Weapon" unique_id=502705788]
-position = Vector2(22, 2)
-
-[node name="AttackCooldown" type="Timer" parent="." unique_id=1927100027]
-wait_time = 0.2
+[node name="Weapon" parent="." unique_id=241826160 instance=ExtResource("4_sweqy")]

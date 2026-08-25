@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://cd4vodfck8dh8"]
+
+[ext_resource type="Script" uid="uid://df4w0tffnntqy" path="res://scripts/entities/enemy.gd" id="1_2dc7q"]
+[ext_resource type="Texture2D" uid="uid://dq8ofhdgvg8oh" path="res://assets/sprites/Enemies - PostApocalypse/Zombie_Small/Zombie_Small_Side_Idle-Sheet6.png" id="2_78qrw"]
+[ext_resource type="Script" uid="uid://dw1yg0coon0nw" path="res://scripts/components/hurtbox.gd" id="3_306ko"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mj3ic"]
+atlas = ExtResource("2_78qrw")
+region = Rect2(0, 0, 11, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rhtt"]
+atlas = ExtResource("2_78qrw")
+region = Rect2(11, 0, 11, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqkod"]
+atlas = ExtResource("2_78qrw")
+region = Rect2(22, 0, 11, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfkeh"]
+atlas = ExtResource("2_78qrw")
+region = Rect2(33, 0, 11, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m80fk"]
+atlas = ExtResource("2_78qrw")
+region = Rect2(44, 0, 11, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jhey"]
+atlas = ExtResource("2_78qrw")
+region = Rect2(55, 0, 11, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wr03b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mj3ic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rhtt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqkod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfkeh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m80fk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jhey")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wr03b"]
+size = Vector2(9, 12)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1956139057]
+texture_filter = 1
+script = ExtResource("1_2dc7q")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=278083109]
+sprite_frames = SubResource("SpriteFrames_wr03b")
+frame_progress = 0.95905846
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2138419745]
+shape = SubResource("RectangleShape2D_wr03b")
+
+[node name="Health" type="Node" parent="." unique_id=1323679127]
+metadata/_custom_type_script = "uid://yve3v7mjs3j"
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=644635421]
+script = ExtResource("3_306ko")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=135010454]
+shape = SubResource("RectangleShape2D_wr03b")
+
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]

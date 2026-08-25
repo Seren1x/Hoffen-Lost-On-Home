@@ -4,15 +4,20 @@
 [ext_resource type="Texture2D" uid="uid://bhkf07bynh7b3" path="res://assets/objects/Bullet/RifleAmmoSmall.png" id="1_o0hai"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr03b"]
-size = Vector2(19, 8)
+size = Vector2(20, 8)
 
 [node name="bullet" type="Area2D" unique_id=1204309616]
 script = ExtResource("1_bullet")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1883533423]
-scale = Vector2(1.3125, 1)
 texture = ExtResource("1_o0hai")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=443230063]
-position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_wr03b")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2041598784]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=873154053]
+shape = SubResource("RectangleShape2D_wr03b")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

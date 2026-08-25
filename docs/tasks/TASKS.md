@@ -4,30 +4,30 @@
 [~] = currently in progress . [R] = need refactoring . [x] = finished . [U] = used avail placeholder*
 
 ### 🧠 Core Systems
-- [~] **[MVP]** Combat system (shoot + melee, damage calc) `(owner: ?)`
-- [~] **[MVP]** Ammo system (count, reload, empty state) `(owner: ?)`
+- [R] **[MVP]** Combat system (shoot + melee, damage calc) `(owner: ?)`
+- [x] **[MVP]** Ammo system (count, reload, empty state) `(owner: ?)`
 - [ ] **[MVP]** Boss system (base health/phases, trigger arena) `(owner: ?)`
 - [ ] **[MVP]** Game state manager (current stage, player stats across scenes, win/lose) `(owner: ?)`
-- [~] **[MVP]** Health System `(owner: ?)`
-- [ ] **[Stretch]** Quest/objective tracking system `(owner: Farras)`
+- [X] **[MVP]** Health System `(owner: Farras)`
+- [~] **[Stretch]** Quest/objective tracking system `(owner: Rexy)`
 - [ ] **[Stretch]** Resource/inventory system (beyond ammo — crafting, upgrades) `(owner: ?)`
 
 ### 🖥️ UI
-- [ ] **[MVP]** Main menu scene
-- [ ] **[MVP]** HUD (health, ammo)
+- [x] **[MVP]** Main menu scene
+- [x] **[MVP]** HUD (health, ammo)
 - [ ] **[MVP]** Game over screen
 - [ ] **[MVP]** Restart flow
 - [ ] **[MVP]** Scene transitions
-- [ ] **[Stretch]** Pause menu
-- [ ] **[Stretch]** Settings (audio/controls)
+- [x] **[Stretch]** Pause menu
+- [~] **[Stretch]** Settings (audio/controls)
 
 ### 🧩 Puzzle
 - [ ] **[Stretch]** Wire/cable-connect puzzle (⚠️ new scope — confirm this replaces or fits inside one moment, not a repeated system, given timeline)
 
 ### 🧍 Entities — Player
 - [x] **[MVP]** Player movement
-- [R] **[MVP]** Basic shooting
-- [R] **[MVP]** Ammo and reloading (links to Ammo System above)
+- [x] **[MVP]** Basic shooting
+- [x] **[MVP]** Ammo and reloading (links to Ammo System above)
 - [R] **[MVP]** Animation states (idle/walk/shoot/melee/hit/death)
 - [R] **[Stretch]** Melee system (if not folded into MVP combat)
 

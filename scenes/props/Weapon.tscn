@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dd45jdbh6skxa"]
+
+[ext_resource type="Script" uid="uid://dq16f0bcrkic2" path="res://scripts/systems/weapon.gd" id="1_46ivp"]
+[ext_resource type="Texture2D" uid="uid://oknnikmc0hdw" path="res://assets/objects/Gun/AK47.png" id="2_wwy3r"]
+
+[node name="Weapon" type="Node2D" unique_id=241826160]
+script = ExtResource("1_46ivp")
+
+[node name="Texture" type="Sprite2D" parent="." unique_id=1847096734]
+position = Vector2(29, 6)
+scale = Vector2(2, 2)
+texture = ExtResource("2_wwy3r")
+offset = Vector2(0, 2.485)
+
+[node name="BulletSpawnPoint" type="Node2D" parent="Texture" unique_id=163399812]
+position = Vector2(19, 2)
+
+[node name="AttackCooldown" type="Timer" parent="." unique_id=1298327424]
+wait_time = 0.2
+
+[node name="ReloadCooldown" type="Timer" parent="." unique_id=2093476174]
+wait_time = 3.0
+
+[node name="Label" type="Label" parent="." unique_id=527175020]
+offset_right = 40.0
+offset_bottom = 23.0
