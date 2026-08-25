@@ -4,13 +4,11 @@ class_name OutskirtLevel
 
 @onready var _progress: TaskManager = $TaskManager
 @onready var _hud: HUD = $HUD
-@onready var _player: Player = $YSortEntities/Player
 
 
 func _ready() -> void:
 	_define_tasks()
 	_connect_enemies()
-	_connect_player_health()
 	_connect_task_signals()
 	_progress.activate("escape_forest")
 
@@ -52,10 +50,6 @@ func _connect_enemies() -> void:
 	for zombie: ZombieAxe in get_tree().get_nodes_in_group("enemies"):
 		if not zombie.died.is_connected(_on_zombie_died):
 			zombie.died.connect(_on_zombie_died)
-
-
-func _connect_player_health() -> void:
-	_hud.update_health(_player.health, _player.max_health)
 
 
 func _connect_task_signals() -> void:
