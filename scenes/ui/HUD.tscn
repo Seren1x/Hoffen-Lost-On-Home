@@ -1,31 +1,42 @@
-[gd_scene format=3 uid="uid://d3x1a7k2nan6h"]
+[gd_scene load_steps=9 format=3 uid="uid://d3x1a7k2nan6h"]
 
-[ext_resource type="Script" uid="uid://ohe6fterjgct" path="res://scripts/ui/HUD.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dpso58nh6136n" path="res://assets/ui/Custom/HP/HP.png" id="2_hp_fill"]
 [ext_resource type="Texture2D" uid="uid://c1m8td4qes8sg" path="res://assets/ui/Custom/HP/HP-Bar.png" id="3_hp_bar_bg"]
 [ext_resource type="Texture2D" uid="uid://cxbkkq3ts6bm5" path="res://assets/ui/Custom/Energy/Energy.png" id="4_energy_fill"]
 [ext_resource type="Texture2D" uid="uid://bcvfki6i5susg" path="res://assets/ui/Custom/Energy/Energy-Bar.png" id="5_energy_bar_bg"]
 [ext_resource type="Texture2D" uid="uid://c3xnlmpkc1rw6" path="res://assets/ui/Custom/Inventory/Inventory-Cell.png" id="6_cell"]
 
-[node name="HUD" type="CanvasLayer" unique_id=1399248869]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_task"]
+bg_color = Color(0.05, 0.05, 0.08, 0.85)
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_script")
 
-[node name="Margin" type="MarginContainer" parent="." unique_id=343668329]
+[node name="Margin" type="MarginContainer" parent="."]
 offset_right = 200.0
 offset_bottom = 200.0
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 
-[node name="VBox" type="VBoxContainer" parent="Margin" unique_id=1540065100]
+[node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
-theme_override_constants/separation = 6
+theme_override_constants/separation = 4
 
-[node name="HPBarWrapper" type="Control" parent="Margin/VBox" unique_id=1108555258]
+[node name="HPBarWrapper" type="Control" parent="Margin/VBox"]
 custom_minimum_size = Vector2(110, 24)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="HPBar" type="TextureProgressBar" parent="Margin/VBox/HPBarWrapper" unique_id=1073124951]
+[node name="HPBar" type="TextureProgressBar" parent="Margin/VBox/HPBarWrapper"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 55.0
@@ -37,12 +48,12 @@ texture_under = ExtResource("3_hp_bar_bg")
 texture_progress = ExtResource("2_hp_fill")
 texture_progress_offset = Vector2(6, 5)
 
-[node name="EnergyBarWrapper" type="Control" parent="Margin/VBox" unique_id=1185893357]
+[node name="EnergyBarWrapper" type="Control" parent="Margin/VBox"]
 custom_minimum_size = Vector2(100, 26)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="EnergyBar" type="TextureProgressBar" parent="Margin/VBox/EnergyBarWrapper" unique_id=435888609]
+[node name="EnergyBar" type="TextureProgressBar" parent="Margin/VBox/EnergyBarWrapper"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 50.0
@@ -54,34 +65,65 @@ texture_under = ExtResource("5_energy_bar_bg")
 texture_progress = ExtResource("4_energy_fill")
 texture_progress_offset = Vector2(6, 5)
 
-[node name="Weapons" type="HBoxContainer" parent="Margin/VBox" unique_id=1109140001]
+[node name="Weapons" type="HBoxContainer" parent="Margin/VBox"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Slot1" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=1748009908]
-custom_minimum_size = Vector2(38, 40)
+[node name="Slot1" type="TextureRect" parent="Margin/VBox/Weapons"]
 layout_mode = 2
+custom_minimum_size = Vector2(38, 40)
 texture = ExtResource("6_cell")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot2" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=162220617]
-custom_minimum_size = Vector2(38, 40)
+[node name="Slot2" type="TextureRect" parent="Margin/VBox/Weapons"]
 layout_mode = 2
+custom_minimum_size = Vector2(38, 40)
 texture = ExtResource("6_cell")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot3" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=41527089]
-custom_minimum_size = Vector2(38, 40)
+[node name="Slot3" type="TextureRect" parent="Margin/VBox/Weapons"]
 layout_mode = 2
+custom_minimum_size = Vector2(38, 40)
 texture = ExtResource("6_cell")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot4" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=780601668]
-custom_minimum_size = Vector2(38, 40)
+[node name="Slot4" type="TextureRect" parent="Margin/VBox/Weapons"]
 layout_mode = 2
+custom_minimum_size = Vector2(38, 40)
 texture = ExtResource("6_cell")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="TaskPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -212.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 64.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_task")
+
+[node name="TaskVBox" type="VBoxContainer" parent="TaskPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TaskTitle" type="Label" parent="TaskPanel/TaskVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 14
+text = "Task Title"
+mouse_filter = 2
+
+[node name="TaskObjectives" type="VBoxContainer" parent="TaskPanel/TaskVBox"]
+unique_name_in_owner = true
+layout_mode = 2

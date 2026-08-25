@@ -4,6 +4,8 @@ extends CharacterBody2D
 ## Zombie_Axe enemy. Chases the player, attacks in melee, and takes damage from
 ## the player's bat hitbox (which detects the "enemies" group on collision layer 2).
 
+signal died
+
 @export var max_health: int = 30
 @export var speed: float = 20.0
 @export var chase_range: float = 400.0
@@ -204,6 +206,7 @@ func take_damage(amount: int) -> void:
 
 func _die() -> void:
 	dead = true
+	died.emit()
 	sprite.speed_scale = 1.0
 	_reset_sprite_position()
 	velocity = Vector2.ZERO
