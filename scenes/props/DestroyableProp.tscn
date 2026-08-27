@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3yhmzxkq7d8c"]
+
+[ext_resource type="Script" path="res://scripts/components/destroyable.gd" id="1_des"]
+[ext_resource type="Texture2D" uid="uid://beuij5viba3dr" path="res://assets/objects/Objects - PostApocalypse/Barrel_red_1.png" id="2_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hit"]
+size = Vector2(28, 28)
+
+[node name="DestroyableProp" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Destroyable" type="Area2D" parent="."]
+collision_mask = 1
+script = ExtResource("1_des")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Destroyable"]
+shape = SubResource("RectangleShape2D_hit")

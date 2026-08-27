@@ -207,6 +207,9 @@ func take_damage(amount: int) -> void:
 func _die() -> void:
 	dead = true
 	died.emit()
+	# Sometimes drop an ammo (or health) pickup for the player.
+	if has_node("LootDropper"):
+		$LootDropper.drop()
 	sprite.speed_scale = 1.0
 	_reset_sprite_position()
 	velocity = Vector2.ZERO
