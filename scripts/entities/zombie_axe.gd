@@ -57,6 +57,7 @@ var facing: String = "down"
 var dead: bool = false
 var _can_attack: bool = true
 var _current_attack: String = "first"
+var _flash_tween: Tween
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var attack_timer: Timer = $AttackCooldown
@@ -201,8 +202,19 @@ func take_damage(amount: int) -> void:
 	if dead:
 		return
 	health -= amount
+	_flash_red()
 	if health <= 0:
 		_die()
+
+
+## Briefly tints the sprite red when the enemy takes damage (hit flash).
+## The sprite goes red instantly and fades back to normal over ~0.2s.
+func _flash_red() -> void:
+	if _flash_tween:
+		_flash_tween.kill()
+	sprite.modulate = Color.RED
+	_flash_tween = create_tween()
+	_flash_tween.tween_property(sprite, "modulate", Color.WHITE, 0.2)
 
 func _die() -> void:
 	dead = true

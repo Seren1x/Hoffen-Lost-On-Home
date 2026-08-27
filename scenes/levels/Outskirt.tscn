@@ -608,10 +608,9 @@ settings_scene = ExtResource("3_settings_scene")
 
 [node name="Monsters" type="Node2D" parent="." unique_id=2050271935]
 
-[node name="ZombieAxe" parent="Monsters" unique_id=1036071804 instance=ExtResource("2_zombie")]
-position = Vector2(441, 85)
+[node name="ZombieAxe" parent="Monsters" unique_id=926407069 instance=ExtResource("2_zombie")]
+position = Vector2(402, 85)
 scale = Vector2(1, 1)
-script = null
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=853882475]
 
