@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1v7q0j8m3x6f"]
+
+[ext_resource type="Script" path="res://scripts/demo/prop_demo.gd" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://1txlpje71t02" path="res://assets/sprites/player_sprite.png" id="2_ptex"]
+[ext_resource type="PackedScene" path="res://scenes/props/HealthProp.tscn" id="3_hp"]
+[ext_resource type="PackedScene" path="res://scenes/props/AmmoProp.tscn" id="4_ap"]
+[ext_resource type="PackedScene" path="res://scenes/props/DestroyableProp.tscn" id="5_dp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(24, 32)
+
+[node name="PropDemo" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(40, 260)
+script = ExtResource("1_player")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_ptex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_player")
+
+[node name="HealthPickup" parent="." instance=ExtResource("3_hp")]
+position = Vector2(120, 260)
+
+[node name="AmmoPickup" parent="." instance=ExtResource("4_ap")]
+position = Vector2(240, 260)
+
+[node name="BlockCrate" parent="." instance=ExtResource("5_dp")]
+position = Vector2(440, 260)
+
+[node name="LootCrate" parent="." instance=ExtResource("5_dp")]
+position = Vector2(640, 260)
+
+[node name="Destroyable" parent="LootCrate" index="2"]
+loot = 2
+loot_amount = 5

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cd4x3kk06xab2"]
+
+[ext_resource type="Script" uid="uid://c6uawf3nawb60" path="res://scripts/props/ammo_prop.gd" id="1_ap"]
+[ext_resource type="Script" uid="uid://bac7ljqqdxa3w" path="res://scripts/components/interactable.gd" id="2_int"]
+[ext_resource type="Texture2D" uid="uid://btuvripk3iasi" path="res://assets/objects/Objects - PostApocalypse/Pickable/Ammo-crate_Green.png" id="3_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_range"]
+radius = 24.0
+
+[node name="AmmoProp" type="Node2D" unique_id=108534833]
+position = Vector2(285, 233)
+script = ExtResource("1_ap")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1615134386]
+scale = Vector2(4, 4)
+texture = ExtResource("3_tex")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=697331064]
+script = ExtResource("2_int")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=156075539]
+shape = SubResource("CircleShape2D_range")

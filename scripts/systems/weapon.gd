@@ -66,3 +66,9 @@ func weapon_reload():
 	current_ammo = max_ammo
 	call_weapon_reload.emit()
 	print("reload")
+
+
+## Adds [param amount] ammo (clamped to max_ammo). Used by ammo pickups.
+func add_ammo(amount: int) -> void:
+	current_ammo = clampi(current_ammo + amount, 0, max_ammo)
+	print("Current ammo: " + str(current_ammo))

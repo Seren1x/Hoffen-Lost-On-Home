@@ -8,6 +8,10 @@ var axis: Vector2 = Vector2.ZERO
 
 # references
 
+func _ready() -> void:
+	# The Interactable component looks for the "player" group by default.
+	add_to_group("player")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	move(delta)

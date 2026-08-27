@@ -7,6 +7,7 @@
 size = Vector2(20, 8)
 
 [node name="bullet" type="Area2D" unique_id=1204309616]
+collision_mask = 2
 script = ExtResource("1_bullet")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1883533423]
@@ -15,9 +16,4 @@ texture = ExtResource("1_o0hai")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=443230063]
 shape = SubResource("RectangleShape2D_wr03b")
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=2041598784]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=873154053]
-shape = SubResource("RectangleShape2D_wr03b")
-
-[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://bfliv1dbjsjkw"]
 
-[ext_resource type="PackedScene" uid="uid://dwrtdkp875uwk" path="res://scenes/entities/Player.tscn" id="1_1p0bk"]
+[ext_resource type="PackedScene" uid="uid://dkni40rly0yix" path="res://scenes/entities/Player.tscn" id="1_1p0bk"]
 [ext_resource type="Texture2D" uid="uid://bnd1oytl2axsb" path="res://assets/tiles/Tiles - PostApocalypse/Background_Dark-Green_TileSet.png" id="1_cq50m"]
 [ext_resource type="Texture2D" uid="uid://cithawjf374hx" path="res://assets/tiles/Tiles - PostApocalypse/Wire-Fence/Wire-Fence_TileSet.png" id="2_o3su5"]
 [ext_resource type="PackedScene" uid="uid://c2k5g3q0x1n4p" path="res://scenes/ui/PauseMenu.tscn" id="2_pause_menu"]
@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://uny1irugfg5e" path="res://assets/objects/Objects - PostApocalypse/Nature/Dark-Green/Tree_6_Big-pine_Dark-Green.png" id="5_44gpo"]
 [ext_resource type="Script" uid="uid://dq3p1bernvty3" path="res://scripts/systems/task_manager.gd" id="11_x3xno"]
 [ext_resource type="Script" uid="uid://c84uln1wpyotv" path="res://scripts/levels/outskirt.gd" id="12_level_script"]
+[ext_resource type="PackedScene" uid="uid://cd4x3kk06xab2" path="res://scenes/props/AmmoProp.tscn" id="13_fmj8f"]
+[ext_resource type="PackedScene" uid="uid://d3yhm0xkq7d8c" path="res://scenes/props/DestroyableProp.tscn" id="14_6wdre"]
+[ext_resource type="PackedScene" uid="uid://bhp0q06rk8c1a" path="res://scenes/props/HealthProp.tscn" id="15_p1sb4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3su5"]
 texture = ExtResource("1_cq50m")
@@ -605,10 +608,9 @@ settings_scene = ExtResource("3_settings_scene")
 
 [node name="Monsters" type="Node2D" parent="." unique_id=2050271935]
 
-[node name="ZombieAxe" parent="Monsters" unique_id=1036071804 instance=ExtResource("2_zombie")]
-position = Vector2(441, 85)
+[node name="ZombieAxe" parent="Monsters" unique_id=926407069 instance=ExtResource("2_zombie")]
+position = Vector2(402, 85)
 scale = Vector2(1, 1)
-script = null
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=853882475]
 
@@ -625,7 +627,7 @@ polygon = PackedVector2Array(646, 35, 568, 259, 493, 383, 491, 614, 1019, 614, 1
 [node name="ForestBoundary_03" type="StaticBody2D" parent="LevelBounds" unique_id=131664308]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelBounds/ForestBoundary_03" unique_id=2004874310]
-polygon = PackedVector2Array(12, 14, 7, 611, 259, 611, 220, 386, 126, 185, 102, 128, 82, 74, 73, 16)
+polygon = PackedVector2Array(12, 14, 7, 611, 259, 611, 220, 386, 126, 185, 102, 128, 91.61537, 99.96156, 82, 74, 73, 16)
 
 [node name="ForestBoundary_04" type="StaticBody2D" parent="LevelBounds" unique_id=1522662345]
 
@@ -647,3 +649,15 @@ polygon = PackedVector2Array(3489, 1571, 3633, 1571, 3709, 1462, 3941, 1162, 396
 [node name="TaskManager" type="Node" parent="." unique_id=1268582341]
 script = ExtResource("11_x3xno")
 metadata/_custom_type_script = "uid://dq3p1bernvty3"
+
+[node name="AmmoProp" parent="." unique_id=401466787 instance=ExtResource("13_fmj8f")]
+position = Vector2(302, 174)
+
+[node name="DestroyableProp" parent="." unique_id=947042246 instance=ExtResource("14_6wdre")]
+position = Vector2(405, 162)
+
+[node name="HealthProp" parent="." unique_id=1401478732 instance=ExtResource("15_p1sb4")]
+position = Vector2(405, 217)
+
+[node name="DestroyableProp2" parent="." unique_id=1714991517 instance=ExtResource("14_6wdre")]
+position = Vector2(431, 162)

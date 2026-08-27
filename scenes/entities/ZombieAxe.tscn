@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://6fodee3l5mqw"]
+[gd_scene load_steps=3 format=3 uid="uid://6fodee3l5mqw"]
 
 [ext_resource type="Script" uid="uid://bm0eff4v3h8df" path="res://scripts/entities/zombie_axe.gd" id="1_zombie"]
 [ext_resource type="SpriteFrames" uid="uid://clrig5qo4satn" path="res://assets/sprites/zombie_axe_sprites.tres" id="2_zombie"]
+[ext_resource type="Script" uid="uid://cankmr0fbebjx" path="res://scripts/components/loot_dropper.gd" id="3_loot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_zombie"]
 size = Vector2(31.5, 54.5)
@@ -35,3 +36,6 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1284164041]
 position = Vector2(-16, 4.5)
 shape = SubResource("RectangleShape2D_attack")
+
+[node name="LootDropper" type="Node" parent="."]
+script = ExtResource("3_loot")

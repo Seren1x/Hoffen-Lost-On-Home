@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bhp0q06rk8c1a"]
+
+[ext_resource type="Script" uid="uid://banaaf0keurtk" path="res://scripts/props/health_prop.gd" id="1_hp"]
+[ext_resource type="Script" uid="uid://bac7ljqqdxa3w" path="res://scripts/components/interactable.gd" id="2_int"]
+[ext_resource type="Texture2D" uid="uid://cvpgutuvy6ur2" path="res://assets/objects/Objects - PostApocalypse/Pickable/Bandage.png" id="3_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_range"]
+radius = 24.0
+
+[node name="HealthProp" type="Node2D" unique_id=1456965867]
+script = ExtResource("1_hp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1264484073]
+scale = Vector2(4, 4)
+texture = ExtResource("3_tex")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=1442433499]
+script = ExtResource("2_int")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=1167953683]
+shape = SubResource("CircleShape2D_range")

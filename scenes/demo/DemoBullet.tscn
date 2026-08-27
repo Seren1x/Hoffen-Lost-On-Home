@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2kvyc7yaf9g5"]
+
+[ext_resource type="Script" path="res://scripts/demo/demo_bullet.gd" id="1_b"]
+[ext_resource type="Texture2D" uid="uid://btrhfp7qstjef" path="res://assets/sprites/Character - PostApocalypse/Guns/Bullets/Gun-bullet_Bullet.png" id="2_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bullet"]
+size = Vector2(10, 5)
+
+[node name="DemoBullet" type="Area2D"]
+collision_layer = 1
+script = ExtResource("1_b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bullet")
