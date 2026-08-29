@@ -20,6 +20,7 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=1675111820]
+layer = 2
 script = ExtResource("1_script")
 
 [node name="Overlay" type="ColorRect" parent="." unique_id=174373198]

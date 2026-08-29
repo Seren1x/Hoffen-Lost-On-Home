@@ -18,25 +18,26 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="HUD" type="CanvasLayer" unique_id=1207793974]
+[node name="HUD" type="CanvasLayer" unique_id=950845318]
+layer = 2
 script = ExtResource("1_script")
 
-[node name="Margin" type="MarginContainer" parent="." unique_id=674850900]
+[node name="Margin" type="MarginContainer" parent="." unique_id=1259566668]
 offset_right = 200.0
 offset_bottom = 200.0
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 
-[node name="VBox" type="VBoxContainer" parent="Margin" unique_id=852381502]
+[node name="VBox" type="VBoxContainer" parent="Margin" unique_id=864105246]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="HPBarWrapper" type="Control" parent="Margin/VBox" unique_id=10601454]
+[node name="HPBarWrapper" type="Control" parent="Margin/VBox" unique_id=243246282]
 custom_minimum_size = Vector2(110, 24)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="HPBar" type="TextureProgressBar" parent="Margin/VBox/HPBarWrapper" unique_id=2087117062]
+[node name="HPBar" type="TextureProgressBar" parent="Margin/VBox/HPBarWrapper" unique_id=1077423678]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 55.0
@@ -44,16 +45,16 @@ offset_bottom = 12.0
 scale = Vector2(2, 2)
 step = 0.0
 value = 100.0
-texture_under = ExtResource("3_hp_bar_bg")
+texture_over = ExtResource("3_hp_bar_bg")
 texture_progress = ExtResource("2_hp_fill")
-texture_progress_offset = Vector2(6, 5)
+texture_progress_offset = Vector2(10, 4)
 
-[node name="EnergyBarWrapper" type="Control" parent="Margin/VBox" unique_id=495799480]
+[node name="EnergyBarWrapper" type="Control" parent="Margin/VBox" unique_id=864528530]
 custom_minimum_size = Vector2(100, 26)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="EnergyBar" type="TextureProgressBar" parent="Margin/VBox/EnergyBarWrapper" unique_id=547278940]
+[node name="EnergyBar" type="TextureProgressBar" parent="Margin/VBox/EnergyBarWrapper" unique_id=431332710]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 50.0
@@ -61,43 +62,43 @@ offset_bottom = 13.0
 scale = Vector2(2, 2)
 step = 0.0
 value = 100.0
-texture_under = ExtResource("5_energy_bar_bg")
+texture_over = ExtResource("5_energy_bar_bg")
 texture_progress = ExtResource("4_energy_fill")
 texture_progress_offset = Vector2(6, 5)
 
-[node name="Weapons" type="HBoxContainer" parent="Margin/VBox" unique_id=762826967]
+[node name="Weapons" type="HBoxContainer" parent="Margin/VBox" unique_id=1782167356]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Slot1" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=1538222734]
-custom_minimum_size = Vector2(38, 40)
+[node name="Slot1" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=1401057869]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("6_cell")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot2" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=1904058749]
-custom_minimum_size = Vector2(38, 40)
+[node name="Slot2" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=435725494]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("6_cell")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot3" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=435221653]
-custom_minimum_size = Vector2(38, 40)
+[node name="Slot3" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=1820943187]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("6_cell")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot4" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=1975451415]
-custom_minimum_size = Vector2(38, 40)
+[node name="Slot4" type="TextureRect" parent="Margin/VBox/Weapons" unique_id=1520443716]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("6_cell")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TaskPanel" type="PanelContainer" parent="." unique_id=905973686]
+[node name="TaskPanel" type="PanelContainer" parent="." unique_id=728305102]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 1
@@ -111,17 +112,17 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_task")
 
-[node name="TaskVBox" type="VBoxContainer" parent="TaskPanel" unique_id=212959202]
+[node name="TaskVBox" type="VBoxContainer" parent="TaskPanel" unique_id=1173111342]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="TaskTitle" type="Label" parent="TaskPanel/TaskVBox" unique_id=1866691438]
+[node name="TaskTitle" type="Label" parent="TaskPanel/TaskVBox" unique_id=1002107511]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 theme_override_font_sizes/font_size = 14
 text = "Task Title"
 
-[node name="TaskObjectives" type="VBoxContainer" parent="TaskPanel/TaskVBox" unique_id=999231097]
+[node name="TaskObjectives" type="VBoxContainer" parent="TaskPanel/TaskVBox" unique_id=1547989496]
 unique_name_in_owner = true
 layout_mode = 2

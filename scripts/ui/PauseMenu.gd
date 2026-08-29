@@ -4,6 +4,7 @@ class_name PauseMenu
 @export var settings_scene: PackedScene
 
 var _hud: HUD
+var _settings_instance: Control = null
 
 @onready var _stats_panel: VBoxContainer = %StatsPanel
 @onready var _hp_label: Label = %HPLabel
@@ -23,7 +24,10 @@ func _input(event: InputEvent) -> void:
 	if not (event is InputEventKey):
 		return
 	if event.pressed and event.keycode == KEY_ESCAPE:
-		if visible:
+		if _settings_instance != null and is_instance_valid(_settings_instance):
+			# Settings is open: Escape closes it and returns to the pause menu.
+			_close_settings()
+		elif visible:
 			_resume()
 		else:
 			_pause()
@@ -66,13 +70,19 @@ func _on_resume_pressed() -> void:
 func _on_settings_pressed() -> void:
 	if not settings_scene:
 		return
+	if _settings_instance != null and is_instance_valid(_settings_instance):
+		return  # Already open.
 	var settings: Control = settings_scene.instantiate()
-	settings.back_pressed.connect(_on_settings_closed.bind(settings))
+	_settings_instance = settings
+	settings.back_pressed.connect(_close_settings)
 	add_child(settings)
 
 
-func _on_settings_closed(settings: Control) -> void:
-	settings.queue_free()
+func _close_settings() -> void:
+	var settings := _settings_instance
+	_settings_instance = null
+	if settings != null and is_instance_valid(settings):
+		settings.queue_free()
 
 
 func _on_quit_to_menu_pressed() -> void:
