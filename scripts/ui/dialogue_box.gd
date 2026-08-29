@@ -133,7 +133,9 @@ func _close() -> void:
 func _input(event: InputEvent) -> void:
 	if not visible:
 		return
-	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel"):
+	# Advance on confirm (Space / Enter) or mouse click. Escape ("ui_cancel") is
+	# deliberately NOT handled here so it stays reserved for pausing the game.
+	if event.is_action_pressed("ui_accept"):
 		advance()
 		get_viewport().set_input_as_handled()
 	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
