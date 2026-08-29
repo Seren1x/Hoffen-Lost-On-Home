@@ -8,7 +8,6 @@
 radius = 24.0
 
 [node name="AmmoProp" type="Node2D" unique_id=108534833]
-position = Vector2(285, 233)
 script = ExtResource("1_ap")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1615134386]

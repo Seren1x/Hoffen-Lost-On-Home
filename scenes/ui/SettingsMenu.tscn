@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bq3cy0p5q7y8k"]
 
-[ext_resource type="Script" uid="uid://detuhg4t8rqh4" path="res://scripts/ui/SettingsMenu.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://detuhg4t8rqh4" path="res://scripts/ui/settings_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://7hitl7ncgib7" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Blank_Not-Pressed.png" id="2_blank_normal"]
 [ext_resource type="Texture2D" uid="uid://0uwigv666dof" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Blank_Pressed.png" id="3_blank_pressed"]
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c2k5g3q0x1n4p"]
 
-[ext_resource type="Script" uid="uid://s3njcasbm1mw" path="res://scripts/ui/PauseMenu.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://s3njcasbm1mw" path="res://scripts/ui/pause_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dbh1pb3l08l7b" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Play_Not-Pressed.png" id="2_csaq8"]
 [ext_resource type="Texture2D" uid="uid://iu3a7yxp247q" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Play_Pressed.png" id="3_rw35d"]
 [ext_resource type="Texture2D" uid="uid://dbvg1oaksw4sf" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Settings_Not-Pressed.png" id="4_settings_normal"]

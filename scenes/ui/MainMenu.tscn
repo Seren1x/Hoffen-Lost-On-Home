@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://dm8q0m7f0y3hg"]
 
-[ext_resource type="PackedScene" uid="uid://bfliv1dbjsjkw" path="res://scenes/levels/Outskirt.tscn" id="1_game_scene"]
-[ext_resource type="Script" uid="uid://d4g5qbri6hj2y" path="res://scripts/ui/MainMenu.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://bq3cy0p5q7y8k" path="res://scenes/ui/SettingsMenu.tscn" id="2_settings_scene"]
+[ext_resource type="Script" uid="uid://d4g5qbri6hj2y" path="res://scripts/ui/main_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dbh1pb3l08l7b" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Play_Not-Pressed.png" id="3_play_normal"]
 [ext_resource type="Texture2D" uid="uid://iu3a7yxp247q" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Play_Pressed.png" id="4_play_pressed"]
 [ext_resource type="Texture2D" uid="uid://dbvg1oaksw4sf" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Settings_Not-Pressed.png" id="5_settings_normal"]
@@ -29,8 +27,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
-game_scene = ExtResource("1_game_scene")
-settings_scene = ExtResource("2_settings_scene")
 
 [node name="Background" type="ColorRect" parent="." unique_id=490465165]
 layout_mode = 1

@@ -1,12 +1,10 @@
 [gd_scene format=4 uid="uid://bfliv1dbjsjkw"]
 
-[ext_resource type="PackedScene" uid="uid://dkni40rly0yix" path="res://scenes/entities/Player.tscn" id="1_1p0bk"]
+[ext_resource type="PackedScene" uid="uid://dwrtdkp875uwk" path="res://scenes/entities/Player.tscn" id="1_1p0bk"]
 [ext_resource type="Texture2D" uid="uid://bnd1oytl2axsb" path="res://assets/tiles/Tiles - PostApocalypse/Background_Dark-Green_TileSet.png" id="1_cq50m"]
 [ext_resource type="Texture2D" uid="uid://cithawjf374hx" path="res://assets/tiles/Tiles - PostApocalypse/Wire-Fence/Wire-Fence_TileSet.png" id="2_o3su5"]
-[ext_resource type="PackedScene" uid="uid://c2k5g3q0x1n4p" path="res://scenes/ui/PauseMenu.tscn" id="2_pause_menu"]
 [ext_resource type="PackedScene" uid="uid://6fodee3l5mqw" path="res://scenes/entities/ZombieAxe.tscn" id="2_zombie"]
 [ext_resource type="Texture2D" uid="uid://cmca8sp1f2y25" path="res://assets/tiles/Tiles - PostApocalypse/Buildings/Buildings_beige_TileSet.png" id="3_m1vei"]
-[ext_resource type="PackedScene" uid="uid://bq3cy0p5q7y8k" path="res://scenes/ui/SettingsMenu.tscn" id="3_settings_scene"]
 [ext_resource type="PackedScene" uid="uid://d3x1a7k2nan6h" path="res://scenes/ui/HUD.tscn" id="4_hud"]
 [ext_resource type="Texture2D" uid="uid://jd4dhlx3jnru" path="res://assets/objects/Objects - PostApocalypse/Nature/Dark-Green/Tree_5_Big_Dark-Green.png" id="4_xxwn1"]
 [ext_resource type="Texture2D" uid="uid://uny1irugfg5e" path="res://assets/objects/Objects - PostApocalypse/Nature/Dark-Green/Tree_6_Big-pine_Dark-Green.png" id="5_44gpo"]
@@ -602,14 +600,18 @@ tile_set = SubResource("TileSet_df06i")
 
 [node name="Trees" type="TileMapLayer" parent="YSortEntities" unique_id=842882185]
 
-[node name="PauseMenu" parent="." unique_id=614050138 instance=ExtResource("2_pause_menu")]
-visible = false
-settings_scene = ExtResource("3_settings_scene")
-
 [node name="Monsters" type="Node2D" parent="." unique_id=2050271935]
 
-[node name="ZombieAxe" parent="Monsters" unique_id=926407069 instance=ExtResource("2_zombie")]
+[node name="ZombieAxe2" parent="Monsters" unique_id=926407069 instance=ExtResource("2_zombie")]
+position = Vector2(464, 144)
+scale = Vector2(1, 1)
+
+[node name="ZombieAxe" parent="Monsters" unique_id=2014770505 instance=ExtResource("2_zombie")]
 position = Vector2(402, 85)
+scale = Vector2(1, 1)
+
+[node name="ZombieAxe3" parent="Monsters" unique_id=1722860683 instance=ExtResource("2_zombie")]
+position = Vector2(425, 279)
 scale = Vector2(1, 1)
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=853882475]
