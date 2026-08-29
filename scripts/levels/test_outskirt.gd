@@ -7,9 +7,12 @@ class_name TestOutskirtLevel
 @onready var _progress: TaskManager = $TaskManager
 @onready var _hud: HUD = $HUD
 @onready var _dialogue: DialogueBox = $DialogueBox
+@onready var _fog: FogOverlay = $FogOverlay
 
 
 func _ready() -> void:
+	# Demo: a tighter, stronger vignette than the defaults.
+	_fog.set_fog(0.5, 0.4, 0.85)
 	_define_tasks()
 	_connect_enemies()
 	_connect_task_signals()
@@ -18,7 +21,7 @@ func _ready() -> void:
 	_progress.activate("find_shelter")
 	# Show a demo dialogue so you can see the component.
 	_dialogue.show_lines([
-		{"speaker": "Rain", "text": "Welcome to the test level! Press Space or click to advance."},
+		{"speaker": "Rain", "text": "Welcome to the test level! Press Space to advance."},
 		{"text": "This is a monologue line with no speaker name."},
 	])
 
