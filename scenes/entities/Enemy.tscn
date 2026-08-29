@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://df4w0tffnntqy" path="res://scripts/entities/enemy.gd" id="1_2dc7q"]
 [ext_resource type="Texture2D" uid="uid://dq8ofhdgvg8oh" path="res://assets/sprites/Enemies - PostApocalypse/Zombie_Small/Zombie_Small_Side_Idle-Sheet6.png" id="2_78qrw"]
 [ext_resource type="Script" uid="uid://dw1yg0coon0nw" path="res://scripts/components/hurtbox.gd" id="3_306ko"]
+[ext_resource type="Script" uid="uid://62lqmbok05m" path="res://scripts/components/health.gd" id="4_health"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mj3ic"]
 atlas = ExtResource("2_78qrw")
@@ -59,22 +60,29 @@ size = Vector2(9, 12)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1956139057]
 texture_filter = 1
+position = Vector2(149, 82)
+scale = Vector2(3, 3)
 script = ExtResource("1_2dc7q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=278083109]
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_wr03b")
 frame_progress = 0.95905846
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2138419745]
+scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_wr03b")
 
 [node name="Health" type="Node" parent="." unique_id=1323679127]
-metadata/_custom_type_script = "uid://yve3v7mjs3j"
+script = ExtResource("4_health")
+metadata/_custom_type_script = "uid://62lqmbok05m"
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=644635421]
+scale = Vector2(3, 3)
 script = ExtResource("3_306ko")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=135010454]
+scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_wr03b")
 
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]

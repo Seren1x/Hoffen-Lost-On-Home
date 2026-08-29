@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://6fodee3l5mqw"]
+[gd_scene load_steps=6 format=3 uid="uid://6fodee3l5mqw"]
 
 [ext_resource type="Script" uid="uid://bm0eff4v3h8df" path="res://scripts/entities/zombie_axe.gd" id="1_zombie"]
 [ext_resource type="SpriteFrames" uid="uid://clrig5qo4satn" path="res://assets/sprites/zombie_axe_sprites.tres" id="2_zombie"]
 [ext_resource type="Script" uid="uid://cankmr0fbebjx" path="res://scripts/components/loot_dropper.gd" id="3_loot"]
+[ext_resource type="Script" uid="uid://62lqmbok05m" path="res://scripts/components/health.gd" id="4_health"]
+[ext_resource type="Script" uid="uid://dw1yg0coon0nw" path="res://scripts/components/hurtbox.gd" id="5_hurtbox"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_zombie"]
 size = Vector2(31.5, 54.5)
@@ -10,9 +12,13 @@ size = Vector2(31.5, 54.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_attack"]
 size = Vector2(30, 37)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurt"]
+size = Vector2(31.5, 54.5)
+
 [node name="ZombieAxe" type="CharacterBody2D" unique_id=926407069]
 scale = Vector2(2, 2)
 collision_layer = 2
+max_health = 30
 script = ExtResource("1_zombie")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=141537824]
@@ -36,6 +42,17 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1284164041]
 position = Vector2(-16, 4.5)
 shape = SubResource("RectangleShape2D_attack")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("4_health")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("5_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_hurt")
 
 [node name="LootDropper" type="Node" parent="."]
 script = ExtResource("3_loot")
