@@ -8,6 +8,11 @@ class_name HUD
 @onready var _task_objectives: VBoxContainer = %TaskObjectives
 
 
+func _ready() -> void:
+	# Group so gameplay scripts (e.g. the player) can find the HUD to update bars.
+	add_to_group("hud")
+
+
 func update_health(current: int, maximum: int) -> void:
 	hp_bar.max_value = float(maximum)
 	hp_bar.value = float(current)

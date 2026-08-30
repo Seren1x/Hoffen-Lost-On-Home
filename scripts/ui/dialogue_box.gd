@@ -11,8 +11,9 @@ extends CanvasLayer
 ##   ])
 ##   db.finished.connect(_on_dialogue_done)
 ##
-## The player advances by clicking / pressing Space or Enter. You can also
-## call advance() from code. Emits `finished` when all lines are shown.
+## The player advances by pressing Space or Enter (left-click is reserved for
+## firing the weapon). You can also call advance() from code. Emits `finished`
+## when all lines are shown.
 
 signal finished
 
@@ -22,6 +23,7 @@ var _lines: Array[Dictionary] = []
 var _index: int = 0
 var _typing: bool = false
 var _tween: Tween
+var _was_paused: bool = false  ## whether the game was already paused before this box opened
 
 @onready var _panel: PanelContainer = %Panel
 @onready var _speaker_label: Label = %SpeakerLabel
@@ -30,6 +32,8 @@ var _tween: Tween
 
 
 func _ready() -> void:
+	# Keep running (typewriter, input) even while the game is paused by this box.
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
 	_panel.hide()
 
@@ -53,6 +57,9 @@ func show_lines(lines: Array[Dictionary]) -> void:
 	_continue_icon.hide()
 	show()
 	_show_current_line()
+	# Freeze the game while the dialogue is up (unless it's already paused).
+	_was_paused = get_tree().paused
+	get_tree().paused = true
 
 
 ## Advance: skip the typewriter, or move to the next line (or finish).
@@ -127,15 +134,19 @@ func _close() -> void:
 	hide()
 	_panel.hide()
 	_lines = []
+	# Unfreeze the game now that the dialogue is finished, but only if we froze it.
+	if not _was_paused:
+		get_tree().paused = false
 	finished.emit()
 
 
 func _input(event: InputEvent) -> void:
 	if not visible:
 		return
-	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel"):
-		advance()
-		get_viewport().set_input_as_handled()
-	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+	# Only Space / Enter ("ui_accept") advances the dialogue. Left-click is left
+	# completely untouched so it stays reserved for firing the player's weapon.
+	# Escape ("ui_cancel") is also NOT handled here, so it stays reserved for
+	# pausing the game.
+	if event.is_action_pressed("ui_accept"):
 		advance()
 		get_viewport().set_input_as_handled()

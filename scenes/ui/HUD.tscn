@@ -19,6 +19,7 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="HUD" type="CanvasLayer" unique_id=950845318]
+layer = 2
 script = ExtResource("1_script")
 
 [node name="Margin" type="MarginContainer" parent="." unique_id=1259566668]

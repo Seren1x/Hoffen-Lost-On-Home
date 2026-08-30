@@ -1,12 +1,11 @@
 class_name ZombieAxe
-extends CharacterBody2D
+extends Enemy
 
-## Zombie_Axe enemy. Chases the player, attacks in melee, and takes damage from
-## the player's bat hitbox (which detects the "enemies" group on collision layer 2).
+## Zombie_Axe enemy. Chases the player, attacks in melee, flashes red when hit
+## (via the base Enemy's hit flash), drops loot, and plays a death animation.
+## HP and death handling live in the base Enemy class, which uses the universal
+## Health component (health.gd).
 
-signal died
-
-@export var max_health: int = 30
 @export var speed: float = 20.0
 @export var chase_range: float = 400.0
 @export var attack_range: float = 60.0
@@ -52,21 +51,19 @@ const ATTACK_ANIM_SPEED: float = 1
 	"up": Vector2.ZERO,
 }
 
-var health: int
 var facing: String = "down"
-var dead: bool = false
 var _can_attack: bool = true
 var _current_attack: String = "first"
-var _flash_tween: Tween
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var attack_timer: Timer = $AttackCooldown
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
 
-func _ready() -> void:
-	health = max_health
-	add_to_group("enemies")
+## Base Enemy runs this hook during its _ready(). Point the hit-flash at our
+## sprite and wire up animations.
+func _ready_enemy() -> void:
+	flash_sprite = sprite
 	_reset_sprite_position()
 	sprite.play("zombie_axe_down_idle")
 	attack_timer.timeout.connect(_reset_attack)
@@ -198,27 +195,8 @@ func _on_anim_finished() -> void:
 		attack_area.monitoring = false
 		_play_idle()
 
-func take_damage(amount: int) -> void:
-	if dead:
-		return
-	health -= amount
-	_flash_red()
-	if health <= 0:
-		_die()
-
-
-## Briefly tints the sprite red when the enemy takes damage (hit flash).
-## The sprite goes red instantly and fades back to normal over ~0.2s.
-func _flash_red() -> void:
-	if _flash_tween:
-		_flash_tween.kill()
-	sprite.modulate = Color.RED
-	_flash_tween = create_tween()
-	_flash_tween.tween_property(sprite, "modulate", Color.WHITE, 0.2)
-
+## Base Enemy has already set dead=true and emitted died. Add loot + death anim.
 func _die() -> void:
-	dead = true
-	died.emit()
 	# Sometimes drop an ammo (or health) pickup for the player.
 	if has_node("LootDropper"):
 		$LootDropper.drop()
