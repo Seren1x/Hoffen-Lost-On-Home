@@ -8,13 +8,15 @@
 [ext_resource type="Texture2D" uid="uid://jd4dhlx3jnru" path="res://assets/objects/Objects - PostApocalypse/Nature/Dark-Green/Tree_5_Big_Dark-Green.png" id="6_2ok8o"]
 [ext_resource type="Texture2D" uid="uid://uny1irugfg5e" path="res://assets/objects/Objects - PostApocalypse/Nature/Dark-Green/Tree_6_Big-pine_Dark-Green.png" id="7_dsihe"]
 [ext_resource type="PackedScene" uid="uid://c2k5g3q0x1n4p" path="res://scenes/ui/PauseMenu.tscn" id="8_aqt4u"]
-[ext_resource type="PackedScene" uid="uid://bq3cy0p5q7y8k" path="res://scenes/ui/SettingsMenu.tscn" id="9_6dog5"]
 [ext_resource type="PackedScene" uid="uid://6fodee3l5mqw" path="res://scenes/entities/ZombieAxe.tscn" id="10_gbx2i"]
 [ext_resource type="PackedScene" uid="uid://cd4vodfck8dh8" path="res://scenes/entities/Enemy.tscn" id="11_4knum"]
 [ext_resource type="PackedScene" uid="uid://d3x1a7k2nan6h" path="res://scenes/ui/HUD.tscn" id="11_d6c80"]
 [ext_resource type="Script" uid="uid://dq3p1bernvty3" path="res://scripts/systems/task_manager.gd" id="12_nrcpd"]
 [ext_resource type="PackedScene" uid="uid://dqbyat3kcn0h1" path="res://scenes/ui/DialogueBox.tscn" id="13_dialogue"]
-[ext_resource type="PackedScene" path="res://scenes/ui/FogOverlay.tscn" id="14_fog"]
+[ext_resource type="PackedScene" uid="uid://dfimobed18euq" path="res://scenes/ui/FogOverlay.tscn" id="14_fog"]
+[ext_resource type="PackedScene" uid="uid://d3yhm0xkq7d8c" path="res://scenes/props/DestroyableProp.tscn" id="15_2ok8o"]
+[ext_resource type="PackedScene" uid="uid://cd4x3kk06xab2" path="res://scenes/props/AmmoProp.tscn" id="15_ocyy2"]
+[ext_resource type="PackedScene" uid="uid://bhp0q06rk8c1a" path="res://scenes/props/HealthProp.tscn" id="17_dsihe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3su5"]
 texture = ExtResource("2_rcd8k")
@@ -602,7 +604,6 @@ tile_set = SubResource("TileSet_df06i")
 
 [node name="PauseMenu" parent="." unique_id=614050138 instance=ExtResource("8_aqt4u")]
 visible = false
-settings_scene = ExtResource("9_6dog5")
 
 [node name="Monsters" type="Node2D" parent="." unique_id=2050271935]
 
@@ -613,7 +614,6 @@ script = null
 
 [node name="Enemy" parent="Monsters" unique_id=1956139057 instance=ExtResource("11_4knum")]
 position = Vector2(465, 147)
-scale = Vector2(3, 3)
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=853882475]
 
@@ -657,3 +657,12 @@ visible = false
 [node name="TaskManager" type="Node" parent="." unique_id=1268582341]
 script = ExtResource("12_nrcpd")
 metadata/_custom_type_script = "uid://dq3p1bernvty3"
+
+[node name="DestroyableProp" parent="." unique_id=1302025203 instance=ExtResource("15_2ok8o")]
+position = Vector2(330, 236)
+
+[node name="AmmoProp" parent="." unique_id=108534833 instance=ExtResource("15_ocyy2")]
+position = Vector2(285, 203)
+
+[node name="HealthProp" parent="." unique_id=1456965867 instance=ExtResource("17_dsihe")]
+position = Vector2(299, 284)

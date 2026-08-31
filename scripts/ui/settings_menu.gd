@@ -1,8 +1,6 @@
 extends Control
 class_name SettingsMenu
 
-signal back_pressed
-
 const MASTER_BUS := 0  ## index of the "Master" audio bus
 
 @onready var _volume_slider: HSlider = %VolumeSlider
@@ -19,7 +17,7 @@ func _ready() -> void:
 
 
 func _on_back_pressed() -> void:
-	back_pressed.emit()
+	StateManager.pop_state()
 
 
 # ── Master volume ──

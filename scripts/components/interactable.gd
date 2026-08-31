@@ -31,18 +31,17 @@ func _ready() -> void:
 	body_exited.connect(_on_body_exited)
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_on_area_exited)
-	_ensure_interact_action()
 
 
 ## Makes sure an "interact" input action exists (mapped to E) even if the project
 ## has not defined one yet, so the component works out of the box.
-func _ensure_interact_action() -> void:
-	if InputMap.has_action("interact"):
-		return
-	InputMap.add_action("interact")
-	var ev: InputEventKey = InputEventKey.new()
-	ev.physical_keycode = KEY_E
-	InputMap.action_add_event("interact", ev)
+#func _ensure_interact_action() -> void:
+	#if InputMap.has_action("interact"):
+		#return
+	#InputMap.add_action("interact")
+	#var ev: InputEventKey = InputEventKey.new()
+	#ev.physical_keycode = KEY_E
+	#InputMap.action_add_event("interact", ev)
 
 
 func _unhandled_input(event: InputEvent) -> void:

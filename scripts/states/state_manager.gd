@@ -15,6 +15,7 @@ const STATE_SCENES: Dictionary = {
 	"paused": preload("res://scenes/ui/PauseMenu.tscn"),
 	"settings": preload("res://scenes/ui/SettingsMenu.tscn"),
 	# "game_over": preload("res://scenes/states/game_over_state.tscn"),
+	"demo_task": preload("res://scenes/demo/DemoTask.tscn")
 }
 
 var _stack: Array[Node] = []   # was: Array[GameState]

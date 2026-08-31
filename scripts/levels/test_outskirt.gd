@@ -59,7 +59,7 @@ func _define_tasks() -> void:
 
 
 func _connect_enemies() -> void:
-	for zombie: ZombieAxe in get_tree().get_nodes_in_group("enemies"):
+	for zombie: Enemy in get_tree().get_nodes_in_group("enemies"):
 		if not zombie.died.is_connected(_on_zombie_died):
 			zombie.died.connect(_on_zombie_died)
 

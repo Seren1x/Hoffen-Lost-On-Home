@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://ciybgl013vdr2"]
+
+[ext_resource type="PackedScene" uid="uid://dwrtdkp875uwk" path="res://scenes/entities/Player.tscn" id="1_662lx"]
+[ext_resource type="Script" uid="uid://1kv46bf8f4d2" path="res://scripts/demo/demo_task.gd" id="1_6367r"]
+[ext_resource type="Script" uid="uid://dq3p1bernvty3" path="res://scripts/systems/task_manager.gd" id="3_1erp7"]
+[ext_resource type="PackedScene" uid="uid://d3x1a7k2nan6h" path="res://scenes/ui/HUD.tscn" id="4_w1745"]
+[ext_resource type="PackedScene" uid="uid://6fodee3l5mqw" path="res://scenes/entities/ZombieAxe.tscn" id="5_1lvhx"]
+
+[node name="DemoTask" type="Node2D" unique_id=1762708429]
+script = ExtResource("1_6367r")
+
+[node name="Player" parent="." unique_id=2041947310 instance=ExtResource("1_662lx")]
+position = Vector2(71, 82)
+
+[node name="TaskManager" type="Node" parent="." unique_id=1881963016]
+script = ExtResource("3_1erp7")
+metadata/_custom_type_script = "uid://dq3p1bernvty3"
+
+[node name="HUD" parent="." unique_id=950845318 instance=ExtResource("4_w1745")]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1187458972]
+
+[node name="ZombieAxe" parent="Node2D" unique_id=926407069 instance=ExtResource("5_1lvhx")]
+position = Vector2(411, 157)
+
+[node name="ZombieAxe2" parent="Node2D" unique_id=2112333723 instance=ExtResource("5_1lvhx")]
+position = Vector2(668, 333)
+
+[node name="ZombieAxe3" parent="Node2D" unique_id=854350152 instance=ExtResource("5_1lvhx")]
+position = Vector2(179, 515)
+
+[node name="ZombieAxe4" parent="Node2D" unique_id=510796055 instance=ExtResource("5_1lvhx")]
+position = Vector2(943, 459)
+
+[node name="ZombieAxe5" parent="Node2D" unique_id=1769463333 instance=ExtResource("5_1lvhx")]
+position = Vector2(824, 181)

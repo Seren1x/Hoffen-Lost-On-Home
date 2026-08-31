@@ -8,11 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://d3x1a7k2nan6h" path="res://scenes/ui/HUD.tscn" id="4_hud"]
 [ext_resource type="Texture2D" uid="uid://jd4dhlx3jnru" path="res://assets/objects/Objects - PostApocalypse/Nature/Dark-Green/Tree_5_Big_Dark-Green.png" id="4_xxwn1"]
 [ext_resource type="Texture2D" uid="uid://uny1irugfg5e" path="res://assets/objects/Objects - PostApocalypse/Nature/Dark-Green/Tree_6_Big-pine_Dark-Green.png" id="5_44gpo"]
+[ext_resource type="PackedScene" uid="uid://dqbyat3kcn0h1" path="res://scenes/ui/DialogueBox.tscn" id="11_8vjh4"]
 [ext_resource type="Script" uid="uid://dq3p1bernvty3" path="res://scripts/systems/task_manager.gd" id="11_x3xno"]
+[ext_resource type="Script" uid="uid://bac7ljqqdxa3w" path="res://scripts/components/interactable.gd" id="12_8vjh4"]
 [ext_resource type="Script" uid="uid://c84uln1wpyotv" path="res://scripts/levels/outskirt.gd" id="12_level_script"]
-[ext_resource type="PackedScene" uid="uid://cd4x3kk06xab2" path="res://scenes/props/AmmoProp.tscn" id="13_fmj8f"]
-[ext_resource type="PackedScene" uid="uid://d3yhm0xkq7d8c" path="res://scenes/props/DestroyableProp.tscn" id="14_6wdre"]
-[ext_resource type="PackedScene" uid="uid://bhp0q06rk8c1a" path="res://scenes/props/HealthProp.tscn" id="15_p1sb4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3su5"]
 texture = ExtResource("1_cq50m")
@@ -563,6 +562,24 @@ texture_region_size = Vector2i(27, 49)
 sources/0 = SubResource("TileSetAtlasSource_f2566")
 sources/1 = SubResource("TileSetAtlasSource_3gc8i")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wr03b"]
+size = Vector2(50, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_foc1e"]
+size = Vector2(30, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_df06i"]
+size = Vector2(75, 75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lm8io"]
+size = Vector2(25, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_647tg"]
+size = Vector2(75, 75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dusk4"]
+size = Vector2(250, 250)
+
 [node name="Outskirt" type="Node2D" unique_id=1773227402]
 script = ExtResource("12_level_script")
 
@@ -584,9 +601,9 @@ y_sort_enabled = true
 
 [node name="Player" parent="YSortEntities" unique_id=2041947310 instance=ExtResource("1_1p0bk")]
 position = Vector2(240, 84)
+collision_layer = 8
 
 [node name="Camera2D" type="Camera2D" parent="YSortEntities/Player" unique_id=167174838]
-position = Vector2(276, 97.33334)
 limit_left = 0
 limit_top = 5
 limit_right = 4450
@@ -598,23 +615,70 @@ scale = Vector2(3, 3)
 tile_map_data = PackedByteArray("AAANAAYAAAAAAAAAAAAQAAAAAAAAAAAAAAARAAQAAAAAAAAAAAAUAAIAAQAAAAAAAAAUAAgAAAAAAAAAAAAEABIAAAAAAAAAAAAGABEAAAAAAAAAAAAJABQAAAAAAAAAAAAQABIAAAAAAAAAAAARABMAAAAAAAAAAAATABEAAAAAAAAAAAABABYAAAAAAAAAAAADAB8AAAAAAAAAAAAEABgAAAAAAAAAAAARABsAAAAAAAAAAAATAB8AAAAAAAAAAAAkABIAAAAAAAAAAAAoABIAAAAAAAAAAAAhABEAAAAAAAAAAAAaABUAAAAAAAAAAABIAB0AAAAAAAAAAABKABsAAAAAAAAAAABKAB4AAAAAAAAAAABLABYAAQAAAAAAAABNABMAAAAAAAAAAABNABQAAAAAAAAAAABNABcAAAAAAAAAAABNABkAAAAAAAAAAABPABYAAQAAAAAAAAAHABwAAAAAAAAAAAAJABwAAAAAAAAAAAANABwAAAAAAAAAAAAPABwAAQAAAAAAAAAPAB8AAAAAAAAAAAAHAB0AAQAAAAAAAAAIAB8AAQAAAAAAAAAJAB0AAQAAAAAAAAAKAB8AAQAAAAAAAAANAB8AAQAAAAAAAAAiABIAAQAAAAAAAAAjABMAAQAAAAAAAAAPAAcAAQAAAAAAAAAPAAkAAQAAAAAAAAAQAAMAAQAAAAAAAAARAAUAAQAAAAAAAAARAAgAAQAAAAAAAAATAAUAAQAAAAAAAAAUAAoAAQAAAAAAAAAKAAcAAQAAAAAAAAAKAAoAAQAAAAAAAAAAAAgAAQAAAAAAAAAAAAoAAQAAAAAAAAADAAYAAQAAAAAAAAAEAAkAAQAAAAAAAAAEAAsAAQAAAAAAAAAAAAQAAQAAAAAAAAABAAUAAQAAAAAAAAAOAAMAAQAAAAAAAAABAAAAAAAAAAAAAAACAAIAAAAAAAAAAAAEAAcAAAAAAAAAAAAAAAIAAQAAAAAAAAACAAcAAQAAAAAAAAAMAAIAAAAAAAAAAAAOAAAAAAAAAAAAAAALAAUAAAAAAAAAAAATAAAAAQAAAAAAAAAVAAUAAQAAAAAAAAATAAsAAQAAAAAAAAAMAAgAAAAAAAAAAAASAAcAAQAAAAAAAAAPABQAAAAAAAAAAAAOABIAAAAAAAAAAAAMABEAAAAAAAAAAAAMABMAAAAAAAAAAAAKABIAAAAAAAAAAAAIABIAAAAAAAAAAAABABIAAAAAAAAAAAADABQAAAAAAAAAAAAFABUAAQAAAAAAAAAHABMAAQAAAAAAAAACABkAAQAAAAAAAAAEABsAAQAAAAAAAAAMAB0AAQAAAAAAAAARAB0AAQAAAAAAAAABABwAAAAAAAAAAAADAB0AAAAAAAAAAAAFAB4AAQAAAAAAAAAaABsAAQAAAAAAAAAaAB4AAQAAAAAAAAAmAB8AAQAAAAAAAAAiAB4AAQAAAAAAAAAeABwAAQAAAAAAAAAcABwAAAAAAAAAAAAdAB0AAAAAAAAAAAAgAB4AAAAAAAAAAAAkAB8AAAAAAAAAAAAcAB8AAQAAAAAAAAAaABcAAQAAAAAAAAAaABkAAAAAAAAAAAAeABEAAAAAAAAAAAAaABEAAAAAAAAAAAAcABEAAQAAAAAAAAAgABEAAQAAAAAAAAAaABMAAQAAAAAAAAAoABYAAAAAAAAAAAAmABUAAQAAAAAAAAAkABQAAQAAAAAAAAAoABQAAAAAAAAAAAAmABIAAQAAAAAAAABFAAMAAAAAAAAAAABFAAUAAAAAAAAAAABFAAcAAAAAAAAAAABIAAEAAAAAAAAAAABIAAYAAAAAAAAAAABJAAsAAAAAAAAAAABKAAgAAAAAAAAAAABLAAAAAAAAAAAAAABLAAUAAAAAAAAAAABHAAoAAAAAAAAAAABFAAAAAAAAAAAAAABJAAAAAAAAAAAAAABEAAsAAQAAAAAAAABFAAYAAQAAAAAAAABGAAsAAQAAAAAAAABJAAUAAQAAAAAAAABKAAMAAQAAAAAAAABHAAgAAAAAAAAAAABJAAkAAQAAAAAAAABHAAMAAQAAAAAAAABSABIAAAAAAAAAAABPABMAAAAAAAAAAABRABQAAQAAAAAAAABJABcAAAAAAAAAAABLABkAAAAAAAAAAABLABoAAQAAAAAAAABIABkAAQAAAAAAAAACAAsAAAAAAAAAAAANAAsAAQAAAAAAAAAPAAsAAQAAAAAAAAARAAsAAAAAAAAAAAALAAsAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_df06i")
 
-[node name="Trees" type="TileMapLayer" parent="YSortEntities" unique_id=842882185]
-
 [node name="Monsters" type="Node2D" parent="." unique_id=2050271935]
 
 [node name="ZombieAxe2" parent="Monsters" unique_id=926407069 instance=ExtResource("2_zombie")]
-position = Vector2(464, 144)
+position = Vector2(675, 748)
 scale = Vector2(1, 1)
+max_health = 10
 
 [node name="ZombieAxe" parent="Monsters" unique_id=2014770505 instance=ExtResource("2_zombie")]
-position = Vector2(402, 85)
+position = Vector2(935, 732)
 scale = Vector2(1, 1)
+max_health = 10
 
 [node name="ZombieAxe3" parent="Monsters" unique_id=1722860683 instance=ExtResource("2_zombie")]
-position = Vector2(425, 279)
+position = Vector2(152, 748)
 scale = Vector2(1, 1)
+max_health = 10
+
+[node name="ZombieAxe4" parent="Monsters" unique_id=834867807 instance=ExtResource("2_zombie")]
+position = Vector2(1560, 110)
+scale = Vector2(1, 1)
+max_health = 10
+
+[node name="ZombieAxe5" parent="Monsters" unique_id=1611669889 instance=ExtResource("2_zombie")]
+position = Vector2(2000, 174)
+scale = Vector2(1, 1)
+max_health = 10
+
+[node name="ZombieAxe6" parent="Monsters" unique_id=108993203 instance=ExtResource("2_zombie")]
+position = Vector2(641, 1244)
+scale = Vector2(1, 1)
+max_health = 10
+
+[node name="ZombieAxe7" parent="Monsters" unique_id=613295218 instance=ExtResource("2_zombie")]
+position = Vector2(1677, 1157)
+scale = Vector2(1, 1)
+max_health = 10
+
+[node name="ZombieAxe8" parent="Monsters" unique_id=1936195640 instance=ExtResource("2_zombie")]
+position = Vector2(2719, 167)
+scale = Vector2(1, 1)
+max_health = 10
+
+[node name="ZombieAxe9" parent="Monsters" unique_id=2044809441 instance=ExtResource("2_zombie")]
+position = Vector2(2990, 62)
+scale = Vector2(1, 1)
+max_health = 10
+
+[node name="ZombieAxe10" parent="Monsters" unique_id=909950167 instance=ExtResource("2_zombie")]
+position = Vector2(3389, 750)
+scale = Vector2(1, 1)
+max_health = 10
+
+[node name="ZombieAxe11" parent="Monsters" unique_id=1626871305 instance=ExtResource("2_zombie")]
+position = Vector2(1801, 1217)
+scale = Vector2(1, 1)
+max_health = 10
+
+[node name="ZombieAxe12" parent="Monsters" unique_id=383577706 instance=ExtResource("2_zombie")]
+position = Vector2(1642, 1316)
+scale = Vector2(1, 1)
+max_health = 10
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=853882475]
+visible = false
 
 [node name="ForestBoundary_02" type="StaticBody2D" parent="LevelBounds" unique_id=1355353806]
 
@@ -646,20 +710,70 @@ polygon = PackedVector2Array(3272, -12, 3259, 603, 3643, 603, 3643, -15)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelBounds/ForestBoundary_06" unique_id=924176723]
 polygon = PackedVector2Array(3489, 1571, 3633, 1571, 3709, 1462, 3941, 1162, 3965, 1049, 4023, 990, 4024, 865, 3739, 955, 3495, 1141)
 
+[node name="QuestRelated" type="Node2D" parent="." unique_id=922535067]
+
+[node name="DestinationMarker" type="Area2D" parent="QuestRelated" unique_id=832223635]
+position = Vector2(357, 203)
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/DestinationMarker" unique_id=793803488]
+shape = SubResource("RectangleShape2D_wr03b")
+
+[node name="WeaponPickup" type="Node2D" parent="QuestRelated" unique_id=1733493147]
+position = Vector2(360, 382)
+
+[node name="Interactable" type="Area2D" parent="QuestRelated/WeaponPickup" unique_id=1051935576]
+collision_mask = 9
+script = ExtResource("12_8vjh4")
+metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/WeaponPickup/Interactable" unique_id=1898335023]
+shape = SubResource("RectangleShape2D_foc1e")
+
+[node name="Generator" type="Node2D" parent="QuestRelated" unique_id=492441061]
+position = Vector2(3000, 200)
+
+[node name="Interactable" type="Area2D" parent="QuestRelated/Generator" unique_id=474846051]
+collision_mask = 9
+script = ExtResource("12_8vjh4")
+metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/Generator/Interactable" unique_id=1677467404]
+shape = SubResource("RectangleShape2D_df06i")
+
+[node name="PinPickup" type="Node2D" parent="QuestRelated" unique_id=711446376]
+position = Vector2(1625, 1000)
+
+[node name="Interactable" type="Area2D" parent="QuestRelated/PinPickup" unique_id=1437221024]
+collision_mask = 9
+script = ExtResource("12_8vjh4")
+metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/PinPickup/Interactable" unique_id=1286321304]
+shape = SubResource("RectangleShape2D_lm8io")
+
+[node name="Gate" type="Node2D" parent="QuestRelated" unique_id=791578804]
+
+[node name="Interactable" type="Area2D" parent="QuestRelated/Gate" unique_id=2146509482]
+position = Vector2(4000, 550)
+collision_mask = 9
+script = ExtResource("12_8vjh4")
+metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/Gate/Interactable" unique_id=1854579762]
+shape = SubResource("RectangleShape2D_647tg")
+
+[node name="Area2D" type="Area2D" parent="QuestRelated/Gate" unique_id=57275456]
+position = Vector2(3700, 750)
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/Gate/Area2D" unique_id=1242064941]
+shape = SubResource("RectangleShape2D_dusk4")
+
 [node name="HUD" parent="." unique_id=1369203186 instance=ExtResource("4_hud")]
 
 [node name="TaskManager" type="Node" parent="." unique_id=1268582341]
 script = ExtResource("11_x3xno")
 metadata/_custom_type_script = "uid://dq3p1bernvty3"
 
-[node name="AmmoProp" parent="." unique_id=401466787 instance=ExtResource("13_fmj8f")]
-position = Vector2(302, 174)
-
-[node name="DestroyableProp" parent="." unique_id=947042246 instance=ExtResource("14_6wdre")]
-position = Vector2(405, 162)
-
-[node name="HealthProp" parent="." unique_id=1401478732 instance=ExtResource("15_p1sb4")]
-position = Vector2(405, 217)
-
-[node name="DestroyableProp2" parent="." unique_id=1714991517 instance=ExtResource("14_6wdre")]
-position = Vector2(431, 162)
+[node name="DialogueBox" parent="." unique_id=1743582627 instance=ExtResource("11_8vjh4")]
