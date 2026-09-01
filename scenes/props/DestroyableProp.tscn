@@ -9,18 +9,18 @@ size = Vector2(24, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hit"]
 size = Vector2(28, 28)
 
-[node name="DestroyableProp" type="StaticBody2D"]
+[node name="DestroyableProp" type="StaticBody2D" unique_id=1713444924]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=977373933]
 texture = ExtResource("2_tex")
 scale = Vector2(2, 2)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1474774442]
 shape = SubResource("RectangleShape2D_body")
 
-[node name="Destroyable" type="Area2D" parent="."]
+[node name="Destroyable" type="Area2D" parent="." unique_id=1348591800]
 collision_mask = 1
 script = ExtResource("1_des")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Destroyable"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Destroyable" unique_id=1001937744]
 shape = SubResource("RectangleShape2D_hit")

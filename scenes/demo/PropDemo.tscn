@@ -9,31 +9,31 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(24, 32)
 
-[node name="PropDemo" type="Node2D"]
+[node name="PropDemo" type="Node2D" unique_id=307837624]
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=819678776]
 position = Vector2(40, 260)
 script = ExtResource("1_player")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=53281680]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_ptex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1071313889]
 shape = SubResource("RectangleShape2D_player")
 
-[node name="HealthPickup" parent="." instance=ExtResource("3_hp")]
+[node name="HealthPickup" parent="." unique_id=1656893657 instance=ExtResource("3_hp")]
 position = Vector2(120, 260)
 
-[node name="AmmoPickup" parent="." instance=ExtResource("4_ap")]
+[node name="AmmoPickup" parent="." unique_id=2103779286 instance=ExtResource("4_ap")]
 position = Vector2(240, 260)
 
-[node name="BlockCrate" parent="." instance=ExtResource("5_dp")]
+[node name="BlockCrate" parent="." unique_id=1565698374 instance=ExtResource("5_dp")]
 position = Vector2(440, 260)
 
-[node name="LootCrate" parent="." instance=ExtResource("5_dp")]
+[node name="LootCrate" parent="." unique_id=1548527765 instance=ExtResource("5_dp")]
 position = Vector2(640, 260)
 
-[node name="Destroyable" parent="LootCrate" index="2"]
+[node name="Destroyable" parent="LootCrate" index="2" unique_id=1386752925]
 loot = 2
 loot_amount = 5

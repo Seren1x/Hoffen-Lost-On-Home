@@ -6,13 +6,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bullet"]
 size = Vector2(10, 5)
 
-[node name="DemoBullet" type="Area2D"]
+[node name="DemoBullet" type="Area2D" unique_id=824913169]
 collision_layer = 1
 script = ExtResource("1_b")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1008304897]
 scale = Vector2(3, 3)
 texture = ExtResource("2_tex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=976834773]
 shape = SubResource("RectangleShape2D_bullet")
