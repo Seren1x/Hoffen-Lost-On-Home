@@ -984,7 +984,7 @@ shape = SubResource("RectangleShape2D_df06i")
 
 [node name="Marker" type="Sprite2D" parent="QuestRelated/Generator" unique_id=1257507899]
 position = Vector2(50, -35)
-scale = Vector2(6, 6)
+scale = Vector2(5, 5)
 texture = ExtResource("26_pkeuy")
 
 [node name="PinPickup" type="Node2D" parent="QuestRelated" unique_id=711446376]

@@ -18,11 +18,22 @@ class_name OutskirtLevel
 
 const ZOMBIE_SCENE: PackedScene = preload("res://scenes/entities/ZombieAxe.tscn")
 
+@onready var QUEST_MARKERS: Dictionary = {
+	"move_to_point": [$QuestRelated/DestinationMarker/Marker],      
+	"get_weapon": [$QuestRelated/WeaponPickup/Marker],
+	"find_gate": [$QuestRelated/Gate/Area2D/Marker],
+	"activate_power": [$QuestRelated/Generator/Marker],
+	"return_to_gate": [$QuestRelated/Gate/Area2D/Marker],
+	"find_pin": [$QuestRelated/PinPickup/Marker],
+	"open_gate": [$QuestRelated/Gate/Interactable/Marker],
+}
+
 func _ready() -> void:
 	_define_tasks()
 	_connect_enemies()
 	_connect_triggers()
 	_connect_task_signals()
+	_hide_all_markers()  
 	_progress.activate("move_to_point")   # first task in the chain
 
 
@@ -62,7 +73,7 @@ func _connect_enemies() -> void:
 func _spawn_mutant(at_position: Vector2) -> void:
 	var zombie: ZombieAxe = ZOMBIE_SCENE.instantiate()
 	zombie.position = at_position
-	$Monsters.add_child(zombie)
+	$YSortEntities/Monsters.add_child(zombie)
 	zombie.died.connect(_on_mutant_died)   # must connect manually — _connect_enemies() only runs once at _ready()
 
 func _change_gate_tiles() -> void:
@@ -72,6 +83,11 @@ func _change_gate_tiles() -> void:
 	_walls_tile_layer.set_cell(Vector2i(81, 10), 0, Vector2i(3, 0))
 	
 	_walls_tile_layer.erase_cell(Vector2i(80, 11))
+
+func _hide_all_markers() -> void:
+	for markers: Array in QUEST_MARKERS.values():
+		for marker: Sprite2D in markers:
+			marker.visible = false
 
 ## Wires every physical trigger in the level to its matching task step.
 ## This is the part that has no reusable pattern to copy — build once here.
@@ -165,7 +181,8 @@ func _on_task_activated(task_id: StringName) -> void:
 	if not task:
 		return
 	_hud.show_task(task.title, task.objectives)
-
+	for marker: Sprite2D in QUEST_MARKERS.get(task_id, []):
+		marker.visible = true
 
 func _on_objective_advanced(_task_id: StringName, index: int, current: int, required: int) -> void:
 	_hud.update_objective(index, current, required)
@@ -186,6 +203,8 @@ const NEXT_TASK: Dictionary = {
 
 func _on_task_completed(task_id: StringName) -> void:
 	_hud.hide_task()
+	for marker: Sprite2D in QUEST_MARKERS.get(task_id, []):
+		marker.visible = false
 	var next_id: StringName = NEXT_TASK.get(task_id, &"")
 	if next_id != &"":
 		_progress.activate(next_id)
