@@ -14,6 +14,8 @@ class_name OutskirtLevel
 @onready var _pin_pickup: Interactable = $QuestRelated/PinPickup/Interactable
 @onready var _gate_open: Interactable = $QuestRelated/Gate/Interactable  # the actual "open" action (step 8)
 
+@onready var _walls_tile_layer: TileMapLayer = $TileMapLayers/Walls
+
 const ZOMBIE_SCENE: PackedScene = preload("res://scenes/entities/ZombieAxe.tscn")
 
 func _ready() -> void:
@@ -63,6 +65,13 @@ func _spawn_mutant(at_position: Vector2) -> void:
 	$Monsters.add_child(zombie)
 	zombie.died.connect(_on_mutant_died)   # must connect manually — _connect_enemies() only runs once at _ready()
 
+func _change_gate_tiles() -> void:
+	_walls_tile_layer.set_cell(Vector2i(79, 11), 0, Vector2i(2, 1))
+	_walls_tile_layer.set_cell(Vector2i(79, 10), 0, Vector2i(2, 0))
+	_walls_tile_layer.set_cell(Vector2i(81, 11), 0, Vector2i(3, 1))
+	_walls_tile_layer.set_cell(Vector2i(81, 10), 0, Vector2i(3, 0))
+	
+	_walls_tile_layer.erase_cell(Vector2i(80, 11))
 
 ## Wires every physical trigger in the level to its matching task step.
 ## This is the part that has no reusable pattern to copy — build once here.
@@ -138,6 +147,9 @@ func _on_gate_open_attempted(_interactor: Node2D) -> void:
 		return
 	_progress.advance("open_gate", 0, 1)
 	_dialogue.show_monologue("Gate's open. Let's move.")
+	
+	# open the gate
+	_change_gate_tiles()
 
 
 # ── Task chain progression + HUD relay ──
