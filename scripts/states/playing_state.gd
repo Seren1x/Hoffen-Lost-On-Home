@@ -12,6 +12,7 @@ var _level: Node = null
 
 func state_enter(data: Dictionary = {}) -> void:
 	var level_scene: PackedScene = data.get("level", default_level)
+	print("[DBG] PlayingState.state_enter level=", level_scene.resource_path)
 	_level = level_scene.instantiate()
 	add_child(_level)
 

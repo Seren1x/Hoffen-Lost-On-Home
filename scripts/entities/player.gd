@@ -1,5 +1,19 @@
 extends CharacterBody2D
 
+## Death animation sheets (Rain Death Animation SpreadSheet Allround). Each
+## sheet is a 4-frame horizontal strip; the frames are 64x64, matching the base
+## sprite frames. Keyed by facing direction. Sliced at runtime via AtlasTexture
+## so we reuse the already-imported sheets (no extra imported textures needed).
+const DEATH_SHEETS: Dictionary = {
+	"down": "res://assets/sprites/Rain Death Animation SpreadSheet Allround/deathfront.png",
+	"left": "res://assets/sprites/Rain Death Animation SpreadSheet Allround/deathleftt.png",
+	"right": "res://assets/sprites/Rain Death Animation SpreadSheet Allround/deathRight.png",
+	"up": "res://assets/sprites/Rain Death Animation SpreadSheet Allround/deathupt.png",
+}
+const DEATH_FRAME_SIZE := 64
+const DEATH_FRAMES := 4
+const DEATH_ANIM_SPEED := 6.0
+
 @export var WALK_SPEED: float = 200.0
 @export var RUN_SPEED: float = 320.0
 @export var ACCELERATION: float = 1500.0
@@ -25,6 +39,14 @@ var axis: Vector2 = Vector2.ZERO
 var facing: String = "down"
 var is_running: bool = false
 
+## True once the player has died. Movement, input and collision are locked and
+## the matching directional death animation plays. Set by [method _on_player_died].
+var _dead: bool = false
+
+## Emitted once the player enters the death state (after the death animation starts).
+## Listen here for game-over / level restart instead of coupling logic into the player.
+signal player_died
+
 @onready var anim: AnimatedSprite2D = $Body
 @onready var health: Health = $Health
 var _base_offset: Vector2 = Vector2.ZERO
@@ -36,10 +58,33 @@ func _ready() -> void:
 	# Tag the hurtbox so the zombie's melee attack can detect and damage us.
 	$Hurtbox.add_to_group("player_hurtbox")
 	_base_offset = anim.offset
+	_setup_death_animations()
 	health.died.connect(_on_player_died)
+
+
+## Builds the death_<dir> SpriteFrames animations from the imported death
+## sheets (each a horizontal strip of 4 frames), sliced via AtlasTexture.
+## Non-looping so the sprite settles on the final frame. Idempotent.
+func _setup_death_animations() -> void:
+	var sf: SpriteFrames = anim.sprite_frames
+	for dir: String in DEATH_SHEETS:
+		var anim_name: String = "death_" + dir
+		if sf.has_animation(anim_name):
+			continue
+		var sheet: Texture2D = load(DEATH_SHEETS[dir])
+		sf.add_animation(anim_name)
+		for i: int in range(DEATH_FRAMES):
+			var atlas := AtlasTexture.new()
+			atlas.atlas = sheet
+			atlas.region = Rect2(i * DEATH_FRAME_SIZE, 0, DEATH_FRAME_SIZE, DEATH_FRAME_SIZE)
+			sf.add_frame(anim_name, atlas)
+		sf.set_animation_loop(anim_name, false)
+		sf.set_animation_speed(anim_name, DEATH_ANIM_SPEED)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if _dead:
+		return   # no movement/stamina/HUD while in the death state
 	move(delta)
 	_update_stamina(delta)
 	_sync_hud()
@@ -151,10 +196,29 @@ func take_damage(damage: int) -> void:
 
 
 func _on_player_died(_overkill: int) -> void:
-	print("Player died")
-	# Basic death handling: restart the current scene shortly after dying.
-	await get_tree().create_timer(1.0).timeout
-	get_tree().reload_current_scene()
+	if _dead:
+		return
+	_dead = true
+	_play_death_animation()
+	_disable_physics_and_collision()
+	player_died.emit()
+
+
+## Plays the death animation matching the player's last facing direction.
+## Death animations are non-looping, so the sprite settles on the final frame.
+func _play_death_animation() -> void:
+	var death_anim: String = "death_" + facing
+	if anim.sprite_frames.has_animation(death_anim):
+		anim.offset = _base_offset   # death frames line up with the idle/walk pose
+		anim.play(death_anim)
+
+
+## Freezes the body so the dead player can't move, be damaged, or block the world.
+func _disable_physics_and_collision() -> void:
+	velocity = Vector2.ZERO
+	$CollisionBody.set_deferred("disabled", true)
+	$Hurtbox.set_deferred("monitoring", false)
+	set_physics_process(false)
 
 
 ## Lazily finds the HUD (in the "hud" group) and caches the reference.

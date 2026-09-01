@@ -607,6 +607,18 @@ visible = false
 
 [node name="Monsters" type="Node2D" parent="." unique_id=2050271935]
 
+[node name="ZombieAxe2" parent="Monsters" unique_id=926407069 instance=ExtResource("10_gbx2i")]
+position = Vector2(1473, 669)
+max_health = 10
+
+[node name="ZombieAxe4" parent="Monsters" unique_id=1813535920 instance=ExtResource("10_gbx2i")]
+position = Vector2(1128, 785)
+max_health = 10
+
+[node name="ZombieAxe3" parent="Monsters" unique_id=422658782 instance=ExtResource("10_gbx2i")]
+position = Vector2(1276, 692)
+max_health = 10
+
 [node name="ZombieAxe" parent="Monsters" unique_id=1036071804 instance=ExtResource("10_gbx2i")]
 position = Vector2(441, 85)
 scale = Vector2(1, 1)
