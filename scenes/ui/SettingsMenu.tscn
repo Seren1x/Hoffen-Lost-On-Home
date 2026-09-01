@@ -15,13 +15,8 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="SettingsMenu" type="Control" unique_id=610970547]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="SettingsMenu" type="CanvasLayer" unique_id=610970547]
+layer = 3
 script = ExtResource("1_script")
 
 [node name="Background" type="ColorRect" parent="." unique_id=276670440]
