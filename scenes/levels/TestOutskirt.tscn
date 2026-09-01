@@ -609,14 +609,17 @@ visible = false
 
 [node name="ZombieAxe2" parent="Monsters" unique_id=926407069 instance=ExtResource("10_gbx2i")]
 position = Vector2(1473, 669)
+damage = 20
 max_health = 10
 
 [node name="ZombieAxe4" parent="Monsters" unique_id=1813535920 instance=ExtResource("10_gbx2i")]
 position = Vector2(1128, 785)
+damage = 20
 max_health = 10
 
 [node name="ZombieAxe3" parent="Monsters" unique_id=422658782 instance=ExtResource("10_gbx2i")]
 position = Vector2(1276, 692)
+damage = 20
 max_health = 10
 
 [node name="ZombieAxe" parent="Monsters" unique_id=1036071804 instance=ExtResource("10_gbx2i")]

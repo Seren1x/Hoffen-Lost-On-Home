@@ -60,6 +60,11 @@ func _ready() -> void:
 	_base_offset = anim.offset
 	_setup_death_animations()
 	health.died.connect(_on_player_died)
+	# Update the HUD reactively whenever health changes, so the bar reflects the
+	# exact value the instant it hits 0 — the per-frame _sync_hud() in _process is
+	# skipped once _dead is true, which previously left the bar showing the last
+	# pre-death value (full health) instead of empty.
+	health.health_changed.connect(_on_health_changed)
 
 
 ## Builds the death_<dir> SpriteFrames animations from the imported death
@@ -235,6 +240,13 @@ func _sync_hud() -> void:
 		return
 	hud.update_health(health.current_health, health.max_health)
 	hud.update_energy(stamina, max_stamina)
+
+
+## Reactive health-bar sync. Connected to Health.health_changed so the bar
+## updates the instant health changes — including the hit that drops it to 0.
+## (The _process-based _sync_hud() is skipped once _dead is true.)
+func _on_health_changed(_current: int, _maximum: int) -> void:
+	_sync_hud()
 
 # -------> End of Health & HUD <------- #
 
