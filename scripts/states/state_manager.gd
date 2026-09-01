@@ -14,7 +14,7 @@ const STATE_SCENES: Dictionary = {
 	"playing": preload("res://scenes/states/PlayingState.tscn"),
 	"paused": preload("res://scenes/ui/PauseMenu.tscn"),
 	"settings": preload("res://scenes/ui/SettingsMenu.tscn"),
-	# "game_over": preload("res://scenes/states/game_over_state.tscn"),
+	"game_over": preload("res://scenes/ui/GameOver.tscn"),
 	"demo_task": preload("res://scenes/demo/DemoTask.tscn")
 }
 
