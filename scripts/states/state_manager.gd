@@ -48,6 +48,12 @@ func push_state(state_name: String, data: Dictionary = {}) -> void:
 	var below := current_state()
 	if below:
 		below.process_mode = Node.PROCESS_MODE_DISABLED
+		# If the state below is itself an overlay (e.g. Settings pushed on top of
+		# Pause), hide it so the two UIs don't draw over each other. World states
+		# (PlayingState) stay visible behind overlays so the frozen game world is
+		# still shown behind the pause menu.
+		if not _is_world_state(below):
+			_set_state_visible(below, false)
 	_push_internal(state_name, data)
 
 
@@ -61,6 +67,8 @@ func pop_state() -> void:
 	var below := current_state()
 	if below:
 		below.process_mode = Node.PROCESS_MODE_INHERIT
+		if not _is_world_state(below):
+			_set_state_visible(below, true)
 
 
 func _push_internal(state_name: String, data: Dictionary) -> void:
@@ -80,3 +88,22 @@ func _pop_internal() -> void:
 	if top.has_method("state_exit"):           # new guard
 		top.state_exit()
 	top.queue_free()
+
+
+## A "world" state renders a live scene (the playing level) and should stay
+## visible behind overlay states. Overlay states (menus/pause/settings) return
+## false, so they are hidden while another overlay is stacked on top of them.
+func _is_world_state(node: Node) -> bool:
+	if node.has_method("is_world_state"):
+		return node.is_world_state()
+	return false
+
+
+## Toggles visibility of a state's root node. All state roots in this project
+## are CanvasItems (Control/Node2D) or CanvasLayers, both of which expose
+## `visible`.
+func _set_state_visible(node: Node, value: bool) -> void:
+	if node is CanvasLayer:
+		(node as CanvasLayer).visible = value
+	elif node is CanvasItem:
+		(node as CanvasItem).visible = value
