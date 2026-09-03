@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://dd45jdbh6skxa"]
 
-[ext_resource type="Script" uid="uid://dq16f0bcrkic2" path="res://scripts/systems/weapon.gd" id="1_46ivp"]
+[ext_resource type="Script" uid="uid://b35nrp4a7p5gy" path="res://scripts/systems/weapon.gd" id="1_46ivp"]
+[ext_resource type="Script" uid="uid://bn4p5ysqcacqi" path="res://scripts/systems/weapon_definition.gd" id="2_inlv3"]
 [ext_resource type="Texture2D" uid="uid://oknnikmc0hdw" path="res://assets/objects/Gun/AK47.png" id="2_wwy3r"]
+[ext_resource type="Resource" uid="uid://lxq8kgke5t4l" path="res://assets/objects/WeaponBaru/Pistol.tres" id="3_pistol"]
+[ext_resource type="Resource" uid="uid://lweqwxo0ii6e" path="res://assets/objects/WeaponBaru/AssaultRifle.tres" id="4_ar"]
+[ext_resource type="Resource" uid="uid://dghe11cso5sgq" path="res://assets/objects/WeaponBaru/Shotgun.tres" id="5_sg"]
+[ext_resource type="Resource" uid="uid://d1lhg3hmfmhmb" path="res://assets/objects/WeaponBaru/SniperRifle.tres" id="6_sniper"]
 
 [node name="Weapon" type="Node2D" unique_id=241826160]
 script = ExtResource("1_46ivp")
+weapon_defs = Array[ExtResource("2_inlv3")]([ExtResource("3_pistol"), ExtResource("4_ar"), ExtResource("5_sg"), ExtResource("6_sniper")])
 
 [node name="Texture" type="Sprite2D" parent="." unique_id=1847096734]
 position = Vector2(29, 6)
@@ -20,6 +26,13 @@ wait_time = 0.2
 
 [node name="ReloadCooldown" type="Timer" parent="." unique_id=2093476174]
 wait_time = 3.0
+
+[node name="ActionCooldown" type="Timer" parent="." unique_id=1701991052]
+one_shot = true
+
+[node name="Sfx" type="AudioStreamPlayer" parent="." unique_id=1226528463]
+
+[node name="ActionSfx" type="AudioStreamPlayer" parent="." unique_id=1049071103]
 
 [node name="Label" type="Label" parent="." unique_id=527175020]
 offset_right = 40.0

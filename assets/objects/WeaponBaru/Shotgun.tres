@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://dghe11cso5sgq"]
+
+[ext_resource type="Script" uid="uid://bn4p5ysqcacqi" path="res://scripts/systems/weapon_definition.gd" id="1_def"]
+[ext_resource type="AudioStream" uid="uid://ussdcvvot13g" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/Pump Reload Full Fast WAV.wav" id="1_n0ydv"]
+[ext_resource type="PackedScene" uid="uid://ckyw11sbf7ba4" path="res://scenes/props/Bullet.tscn" id="2_bullet"]
+[ext_resource type="AudioStream" uid="uid://bvgjxksjrndf0" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/Pump Reload Full WAV.wav" id="3_mu5ep"]
+[ext_resource type="Texture2D" uid="uid://chcm7cmjonf56" path="res://assets/objects/WeaponBaru/PNG/[design]Shotgun_V1.02.png" id="3_spr"]
+[ext_resource type="AudioStream" uid="uid://d1irrm4kmngbt" path="res://assets/audio/Snake's Authentic Gun Sounds/Full Sound/7.62x39/WAV/762x39 Single WAV.wav" id="4_shoot"]
+
+[resource]
+script = ExtResource("1_def")
+weapon_name = "Shotgun"
+display_name = "Shotgun"
+max_ammo = 6
+damage = 8
+fire_rate = 1.2
+reload_time = 3.0
+bullet_count = 6
+spread_degrees = 25.0
+bullet_max_range = 350.0
+bullet_scene = ExtResource("2_bullet")
+sprite_texture = ExtResource("3_spr")
+shoot_sfx = ExtResource("4_shoot")
+action_sfx = ExtResource("1_n0ydv")
+reload_sfx = ExtResource("3_mu5ep")
+action_delay = 0.9
