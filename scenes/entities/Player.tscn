@@ -252,4 +252,4 @@ position = Vector2(1, 7)
 shape = SubResource("RectangleShape2D_hurt")
 
 [node name="Weapon" parent="." unique_id=241826160 instance=ExtResource("4_sweqy")]
-position = Vector2(2, 6)
+position = Vector2(0, 0)

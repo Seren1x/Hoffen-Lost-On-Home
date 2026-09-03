@@ -104,9 +104,29 @@ func player_shoot() -> void:
 	_play_action_sfx(_current_def.action_sfx)
 
 
+## Max the weapon can swing away from the facing direction while the character
+## is moving but NOT shooting (degrees). When idle or shooting, it can aim freely.
+const MAX_AIM_SWING := 60.0
+
+## How far (px) the weapon shifts to the side based on the character's facing,
+## so the gun rests on the right when facing right and the left when facing left.
+const FACING_X_OFFSET := 18
+
+
 func rotate_weapon(delta: float) -> void:
 	var global_mouse_pos: Vector2 = get_global_mouse_position()
 	var target_angle: float = weapon_sprite.global_position.direction_to(global_mouse_pos).angle()
+
+	# Limit the aim to a cone around the facing direction while the character is
+	# moving but not shooting, so the gun doesn't spin 360° while running.
+	# When idle or shooting it can rotate freely to the cursor.
+	var parent: Node = get_parent()
+	if parent != null and "facing" in parent and "axis" in parent:
+		var is_moving: bool = (parent.get("axis") as Vector2) != Vector2.ZERO
+		var is_shooting: bool = Input.is_action_pressed("left_click")
+		if is_moving and not is_shooting:
+			target_angle = _clamp_to_facing(target_angle, parent.get("facing"))
+		_apply_facing_offset(parent.get("facing"))
 
 	# if position of mouse is on left screen, flip weapon sprite
 	if global_mouse_pos.x < global_position.x:
@@ -115,6 +135,40 @@ func rotate_weapon(delta: float) -> void:
 		weapon_sprite.flip_v = false
 
 	weapon_sprite.rotation = lerp_angle(weapon_sprite.rotation, target_angle, rotation_speed * delta)
+
+
+## Shifts the weapon horizontally to the character's handed side based on facing:
+## slightly right when facing right, slightly left when facing left.
+func _apply_facing_offset(facing: String) -> void:
+	var offset_x: float = 0.0
+	if facing == "right":
+		offset_x = FACING_X_OFFSET
+	elif facing == "left":
+		offset_x = -FACING_X_OFFSET
+	position.x = offset_x
+
+
+## Maps the character's facing string to an angle (0 = right, PI/2 = down, etc).
+func _facing_angle(facing: String) -> float:
+	match facing:
+		"right":
+			return 0.0
+		"down":
+			return PI / 2.0
+		"left":
+			return PI
+		"up":
+			return -PI / 2.0
+		_:
+			return 0.0
+
+
+## Clamps [param target] so it stays within MAX_AIM_SWING of the facing angle.
+func _clamp_to_facing(target: float, facing: String) -> float:
+	var center: float = _facing_angle(facing)
+	var diff: float = wrapf(target - center, -PI, PI)
+	diff = clampf(diff, -deg_to_rad(MAX_AIM_SWING), deg_to_rad(MAX_AIM_SWING))
+	return center + diff
 
 
 func weapon_reload() -> void:
@@ -146,7 +200,9 @@ func apply_definition() -> void:
 	weapon_sprite.scale = _current_def.sprite_scale
 	attack_cooldown.wait_time = _current_def.fire_rate
 	reload_cooldown.wait_time = _current_def.reload_time
-	action_cooldown.wait_time = _current_def.action_delay
+	# wait_time must stay > 0 (Godot errors on 0/negative), so clamp the action
+	# delay to a tiny positive value when a weapon has no action cycle.
+	action_cooldown.wait_time = maxf(_current_def.action_delay, 0.01)
 	action_cooldown.stop()
 
 

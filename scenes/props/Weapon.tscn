@@ -13,7 +13,7 @@ script = ExtResource("1_46ivp")
 weapon_defs = Array[ExtResource("2_inlv3")]([ExtResource("3_pistol"), ExtResource("4_ar"), ExtResource("5_sg"), ExtResource("6_sniper")])
 
 [node name="Texture" type="Sprite2D" parent="." unique_id=1847096734]
-position = Vector2(29, 6)
+position = Vector2(0, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("2_wwy3r")
 offset = Vector2(0, 2.485)

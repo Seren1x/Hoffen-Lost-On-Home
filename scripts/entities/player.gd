@@ -113,8 +113,17 @@ func move(delta: float) -> void:
 	# the player must wait for stamina to fully refill before running again).
 	is_running = wants_run and not _stamina_exhausted and stamina > 0.0 and axis != Vector2.ZERO
 
-	if axis != Vector2.ZERO:
+	# Hybrid aiming:
+	# - While moving and NOT shooting, the body faces the movement direction.
+	# - When stopped, or while shooting (even mid-movement), the body turns to
+	#   face the cursor so the weapon aim lines up with the body.
+	var is_aiming: bool = Input.is_action_pressed("left_click")
+	if is_aiming or axis == Vector2.ZERO:
+		_update_facing_from_cursor()
+	elif axis != Vector2.ZERO:
 		_update_facing(axis)
+
+	if axis != Vector2.ZERO:
 		apply_movement(ACCELERATION * axis * delta)
 	else:
 		apply_friction(FRICTION * delta)
@@ -143,6 +152,18 @@ func _update_facing(dir: Vector2) -> void:
 		facing = "left" if dir.x < 0 else "right"
 	else:
 		facing = "up" if dir.y < 0 else "down"
+
+
+## Sets the facing direction from the cursor position relative to the player,
+## so the body aims at the mouse (matching the weapon's cursor-tracking).
+func _update_facing_from_cursor() -> void:
+	var to_mouse: Vector2 = get_global_mouse_position() - global_position
+	if to_mouse.length() < 1.0:
+		return
+	if absf(to_mouse.x) > absf(to_mouse.y):
+		facing = "left" if to_mouse.x < 0 else "right"
+	else:
+		facing = "up" if to_mouse.y < 0 else "down"
 
 
 ## Picks the animation for the current state:
