@@ -15,10 +15,12 @@ const STATE_SCENES: Dictionary = {
 	"paused": preload("res://scenes/ui/PauseMenu.tscn"),
 	"settings": preload("res://scenes/ui/SettingsMenu.tscn"),
 	"game_over": preload("res://scenes/ui/GameOver.tscn"),
-	"demo_task": preload("res://scenes/demo/DemoTask.tscn")
+	"demo_task": preload("res://scenes/demo/DemoTask.tscn"),
+	"win_screen": preload("res://scenes/ui/DummyWinScreen.tscn")
 }
 
 var _stack: Array[Node] = []   # was: Array[GameState]
+var _is_transitioning: bool = false
 
 
 func _ready() -> void:
@@ -35,9 +37,22 @@ func current_state() -> Node:   # was: -> GameState
 ## a single new one. Use for hard transitions: MainMenu -> Playing,
 ## Playing -> GameOver.
 func change_state(state_name: String, data: Dictionary = {}) -> void:
+	if _is_transitioning:
+		return
+	_is_transitioning = true
+
+	# 1. Trigger the fade transition
+	FadeTransition.transition()
+	
+	# 2. Wait until the transition effect finishes obscuring the screen
+	await FadeTransition.on_transition_finished
+	
+	# 3. Clean up existing states and load the new state while obscured
 	while not _stack.is_empty():
 		_pop_internal()
 	_push_internal(state_name, data)
+
+	_is_transitioning = false
 
 
 ## Adds a new state on top of the stack WITHOUT removing what's below.
