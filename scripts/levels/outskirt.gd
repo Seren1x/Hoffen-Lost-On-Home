@@ -7,6 +7,7 @@ class_name OutskirtLevel
 @onready var _hud: HUD = $HUD
 @onready var _dialogue: DialogueBox = $DialogueBox   
 
+@onready var _player: CharacterBody2D = $YSortEntities/Player
 @onready var _destination_area: Area2D = $QuestRelated/DestinationMarker
 @onready var _weapon_pickup: Interactable = $QuestRelated/WeaponPickup/Interactable
 @onready var _gate_area: Area2D = $QuestRelated/Gate/Area2D            # proximity detection (steps 4 & 6)
@@ -18,6 +19,7 @@ class_name OutskirtLevel
 @onready var _walls_tile_layer: TileMapLayer = $TileMapLayers/Walls
 @onready var fade_transition: CanvasLayer = $FadeTransition
 
+const SPEAKER_NAME := "Rain"
 const ZOMBIE_SCENE: PackedScene = preload("res://scenes/entities/ZombieAxe.tscn")
 
 @onready var QUEST_MARKERS: Dictionary = {
@@ -38,6 +40,7 @@ func _ready() -> void:
 	_connect_task_signals()
 	_hide_all_markers()  
 	_progress.activate("move_to_point")   # first task in the chain
+	_player.player_died.connect(_on_player_died)
 
 
 func _define_tasks() -> void:
@@ -113,20 +116,20 @@ func _on_destination_reached(body: Node2D) -> void:
 	if not _progress.is_active("move_to_point"):
 		return   # already triggered — ignore repeat visits
 	_progress.advance("move_to_point", 0, 1)
-	_dialogue.show_monologue("This looks like the spot.")
+	_dialogue.show_dialogue(SPEAKER_NAME, "This looks like the spot.")
 	_destination_area.set_deferred("monitoring", false)
 
 
 func _on_weapon_picked_up(_interactor: Node2D) -> void:
 	_progress.advance("get_weapon", 0, 1)
-	_dialogue.show_monologue("Picked up a weapon. Better than nothing.")
+	_dialogue.show_dialogue(SPEAKER_NAME, "Picked up a weapon. Better than nothing.")
 
 
 func _on_mutant_died() -> void:
 	var was_active: bool = _progress.is_active("eliminate_mutants")
 	_progress.advance("eliminate_mutants", 0, 1)
 	if was_active and _progress.is_completed("eliminate_mutants"):
-		_dialogue.show_monologue("That's the last of them... for now.")
+		_dialogue.show_dialogue(SPEAKER_NAME, "That's the last of them... for now.")
 
 
 func _on_gate_area_entered(body: Node2D) -> void:
@@ -140,19 +143,19 @@ func _on_gate_area_entered(body: Node2D) -> void:
 	_progress.advance("return_to_gate", 0, 1)
 	
 	if was_finding_gate:
-		_dialogue.show_monologue("A locked iron gate. I need another way through.")
+		_dialogue.show_dialogue(SPEAKER_NAME, "A locked iron gate. I need another way through.")
 	elif was_returning:
-		_dialogue.show_monologue("Back at the gate. Still need to get it open.")
+		_dialogue.show_dialogue(SPEAKER_NAME, "Back at the gate. Still need to get it open.")
 
 
 func _on_generator_activated(_interactor: Node2D) -> void:
 	_progress.advance("activate_power", 0, 1)
-	_dialogue.show_monologue("Power's back on. Time to head back.")
+	_dialogue.show_dialogue(SPEAKER_NAME, "Power's back on. Time to head back.")
 
 
 func _on_pin_picked_up(_interactor: Node2D) -> void:
 	_progress.advance("find_pin", 0, 1)
-	_dialogue.show_monologue("Found a PIN. This should open the gate.")
+	_dialogue.show_dialogue(SPEAKER_NAME, "Found a PIN. This should open the gate.")
 	
 	# spawn zombies
 	_spawn_mutant(Vector2(2500, randf_range(1250, 1500)))
@@ -166,10 +169,10 @@ func _on_gate_open_attempted(_interactor: Node2D) -> void:
 	# Guard against the player pressing E on the gate before "open_gate" is
 	# actually the active task — give feedback instead of silently failing.
 	if not _progress.is_active("open_gate"):
-		_dialogue.show_monologue("It's still locked.")
+		_dialogue.show_dialogue(SPEAKER_NAME, "It's still locked.")
 		return
 	_progress.advance("open_gate", 0, 1)
-	_dialogue.show_monologue("Gate's open. Let's move.")
+	_dialogue.show_dialogue(SPEAKER_NAME, "Gate's open. Let's move.")
 	
 	# open the gate
 	_change_gate_tiles()
@@ -214,7 +217,7 @@ const NEXT_TASK: Dictionary = {
 	&"return_to_gate": &"find_pin",
 	&"find_pin": &"open_gate",
 	&"open_gate": &"end_level",   
-	&"end_level": &"",	# end of chain — nothing to activate next
+	&"end_level": &"", # end of chain — nothing to activate next
 }
 
 func _on_task_completed(task_id: StringName) -> void:
@@ -224,3 +227,37 @@ func _on_task_completed(task_id: StringName) -> void:
 	var next_id: StringName = NEXT_TASK.get(task_id, &"")
 	if next_id != &"":
 		_progress.activate(next_id)
+
+
+# ── Death / Game Over ──
+# The game-over overlay is handled differently depending on how this level is
+# hosted, so Restart and Quit behave correctly in both cases:
+#   * Through the StateManager's PlayingState (menu -> playing): push the
+#     GameOver state and let change_state() rebuild the playing stack.
+#   * Run directly as the current scene (e.g. pressing Play on this scene):
+#     instance the GameOver overlay as a child of THIS level, because there is
+#     no PlayingState above us for change_state() to replace.
+
+func _on_player_died() -> void:
+	# Give the death animation a moment to play before showing the overlay.
+	await get_tree().create_timer(2.0).timeout
+
+	var level: PackedScene = load(scene_file_path)
+	if _host_is_playing_state():
+		StateManager.push_state("game_over", {"level": level})
+	else:
+		var overlay: GameOver = (load("res://scenes/ui/GameOver.tscn") as PackedScene).instantiate()
+		add_child(overlay)
+		overlay.state_enter({"level": level, "standalone": true})
+
+
+## True when this level is hosted inside the StateManager's PlayingState
+## (i.e. it was launched through the main menu), False when it is being run
+## directly as the current scene.
+func _host_is_playing_state() -> bool:
+	var p: Node = get_parent()
+	while p != null:
+		if p.has_method("state_enter") and p.name == "PlayingState":
+			return true
+		p = p.get_parent()
+	return false

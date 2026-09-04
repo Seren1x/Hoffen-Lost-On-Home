@@ -628,6 +628,7 @@ position = Vector2(240, 84)
 collision_layer = 8
 
 [node name="Camera2D" type="Camera2D" parent="YSortEntities/Player" unique_id=167174838]
+zoom = Vector2(1.8, 1.8)
 limit_left = 0
 limit_top = 5
 limit_right = 4450
@@ -915,7 +916,7 @@ polygon = PackedVector2Array(3489, 1571, 3633, 1571, 3709, 1462, 3941, 1162, 396
 [node name="VehiclesBoundary_01" type="StaticBody2D" parent="LevelBounds" unique_id=1604352736]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelBounds/VehiclesBoundary_01" unique_id=704199642]
-polygon = PackedVector2Array(1386, 836, 1322, 733, 1352, 627, 1618, 655, 1689, 815)
+polygon = PackedVector2Array(1385, 824, 1331, 732, 1364, 633, 1406, 650, 1383, 747, 1439, 748, 1477, 689, 1542, 711, 1571, 750, 1678, 755, 1682, 816)
 
 [node name="VehiclesBoundary_02" type="StaticBody2D" parent="LevelBounds" unique_id=1201160911]
 

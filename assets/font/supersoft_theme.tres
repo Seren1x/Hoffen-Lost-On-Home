@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://dqsm0pd53dcl"]
+
+[ext_resource type="FontFile" uid="uid://b66o8sgo2if3y" path="res://assets/font/pixel-font-supersoft-assets/ttf/supersoft.ttf" id="1_font"]
+
+[resource]
+default_font = ExtResource("1_font")
+default_font_size = 40
