@@ -3,17 +3,18 @@
 [ext_resource type="Script" uid="uid://bn4p5ysqcacqi" path="res://scripts/systems/weapon_definition.gd" id="1_def"]
 [ext_resource type="PackedScene" uid="uid://ckyw11sbf7ba4" path="res://scenes/props/Bullet.tscn" id="2_bullet"]
 [ext_resource type="AudioStream" uid="uid://bptno47rcmtuq" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/Single Shot Reload Full WAV.wav" id="2_lrver"]
-[ext_resource type="Texture2D" uid="uid://dcvngkv774okx" path="res://assets/objects/WeaponBaru/PNG/GUN_01_[square_frame]_01_V1.00.png" id="3_spr"]
 [ext_resource type="AudioStream" uid="uid://c6cw0ijl114vh" path="res://assets/audio/Snake's Authentic Gun Sounds/Full Sound/5.56/WAV/556 Single WAV.wav" id="4_shoot"]
+[ext_resource type="Texture2D" uid="uid://cau4ao5o76y4i" path="res://assets/objects/WeaponBaru/Ranitayas Guns Pack (16+ pixelart guns)/Revolvers/1Revolver01.png" id="5_lrver"]
 
 [resource]
 script = ExtResource("1_def")
+max_ammo = 6
 fire_rate = 0.8
 reload_time = 2.4
 bullet_speed = 900.0
 bullet_max_range = 400.0
 bullet_scene = ExtResource("2_bullet")
-sprite_texture = ExtResource("3_spr")
-sprite_scale = Vector2(1.3, 1.3)
+sprite_texture = ExtResource("5_lrver")
+sprite_scale = Vector2(2, 2)
 shoot_sfx = ExtResource("4_shoot")
 reload_sfx = ExtResource("2_lrver")
