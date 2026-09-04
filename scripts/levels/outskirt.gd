@@ -184,6 +184,8 @@ func _on_level_ended(body: Node2D) -> void:
 	_progress.advance("end_level", 0, 1)
 	_dialogue.show_monologue("Level end")
 	
+	StateManager.change_state("win_screen")
+	
 
 
 # ── Task chain progression + HUD relay ──

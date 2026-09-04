@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dn5j4tg4b4wmo"]
+
+[ext_resource type="Texture2D" uid="uid://hbpbfh2oiyyh" path="res://assets/WhatsApp Image 2026-08-24 at 13.51.20.jpeg" id="1_qpo5m"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wr03b"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DummyWinScreen" type="Node2D" unique_id=1690828560]
+
+[node name="WhatsAppImage20260824At13_51_20" type="Sprite2D" parent="." unique_id=286577404]
+position = Vector2(941.5, 531.75)
+scale = Vector2(1.1992189, 1.0317707)
+texture = ExtResource("1_qpo5m")
+
+[node name="Label" type="Label" parent="WhatsAppImage20260824At13_51_20" unique_id=1577601137]
+offset_left = -421.99988
+offset_top = 334.0
+offset_right = -239.99988
+offset_bottom = 357.0
+scale = Vector2(2.5, 2.5)
+text = "aduhai ngantuk nyoo...."
+label_settings = SubResource("LabelSettings_wr03b")
