@@ -1,4 +1,5 @@
 extends Node2D
+class_name Weapon
 
 ## Player weapon system.
 ##
@@ -11,6 +12,11 @@ extends Node2D
 ## Switch weapons with the 1..4 keys (or call [method switch_weapon]).
 
 signal call_weapon_reload
+## Emitted when the equipped weapon changes (index + the definition), so the HUD
+## can refresh name/stats/texture.
+signal weapon_changed(index: int)
+## Emitted whenever current ammo changes, so the HUD can stay in sync.
+signal ammo_changed(current: int, maximum: int)
 
 # references
 @onready var weapon_sprite: Sprite2D = $Texture
@@ -36,6 +42,7 @@ var _current_def: WeaponDefinition = null
 
 
 func _ready() -> void:
+	add_to_group("weapon")
 	if weapon_defs.is_empty():
 		# Fallback default so the weapon still works even if no defs are assigned.
 		_current_def = WeaponDefinition.new()
@@ -43,6 +50,7 @@ func _ready() -> void:
 	else:
 		_current_def = weapon_defs[0]
 	apply_definition()
+	weapon_changed.emit(current_index)
 
 
 func _process(delta: float) -> void:
@@ -96,6 +104,7 @@ func player_shoot() -> void:
 	_play_sfx(_current_def.shoot_sfx)
 	attack_cooldown.start(_current_def.fire_rate)
 	current_ammo -= 1
+	ammo_changed.emit(current_ammo, _current_def.max_ammo)
 
 	# After the shot, the action cycles (pump/bolt/slide). This adds a delay
 	# before the next shot and plays the cycling sound.
@@ -104,29 +113,12 @@ func player_shoot() -> void:
 	_play_action_sfx(_current_def.action_sfx)
 
 
-## Max the weapon can swing away from the facing direction while the character
-## is moving but NOT shooting (degrees). When idle or shooting, it can aim freely.
-const MAX_AIM_SWING := 60.0
-
-## How far (px) the weapon shifts to the side based on the character's facing,
-## so the gun rests on the right when facing right and the left when facing left.
-const FACING_X_OFFSET := 18
-
-
 func rotate_weapon(delta: float) -> void:
 	var global_mouse_pos: Vector2 = get_global_mouse_position()
 	var target_angle: float = weapon_sprite.global_position.direction_to(global_mouse_pos).angle()
 
-	# Limit the aim to a cone around the facing direction while the character is
-	# moving but not shooting, so the gun doesn't spin 360° while running.
-	# When idle or shooting it can rotate freely to the cursor.
-	var parent: Node = get_parent()
-	if parent != null and "facing" in parent and "axis" in parent:
-		var is_moving: bool = (parent.get("axis") as Vector2) != Vector2.ZERO
-		var is_shooting: bool = Input.is_action_pressed("left_click")
-		if is_moving and not is_shooting:
-			target_angle = _clamp_to_facing(target_angle, parent.get("facing"))
-		_apply_facing_offset(parent.get("facing"))
+	# The weapon rotates freely to the cursor (kept as before), centered on the
+	# character. No facing-cone limit and no handed-side offset.
 
 	# if position of mouse is on left screen, flip weapon sprite
 	if global_mouse_pos.x < global_position.x:
@@ -137,50 +129,18 @@ func rotate_weapon(delta: float) -> void:
 	weapon_sprite.rotation = lerp_angle(weapon_sprite.rotation, target_angle, rotation_speed * delta)
 
 
-## Shifts the weapon horizontally to the character's handed side based on facing:
-## slightly right when facing right, slightly left when facing left.
-func _apply_facing_offset(facing: String) -> void:
-	var offset_x: float = 0.0
-	if facing == "right":
-		offset_x = FACING_X_OFFSET
-	elif facing == "left":
-		offset_x = -FACING_X_OFFSET
-	position.x = offset_x
-
-
-## Maps the character's facing string to an angle (0 = right, PI/2 = down, etc).
-func _facing_angle(facing: String) -> float:
-	match facing:
-		"right":
-			return 0.0
-		"down":
-			return PI / 2.0
-		"left":
-			return PI
-		"up":
-			return -PI / 2.0
-		_:
-			return 0.0
-
-
-## Clamps [param target] so it stays within MAX_AIM_SWING of the facing angle.
-func _clamp_to_facing(target: float, facing: String) -> float:
-	var center: float = _facing_angle(facing)
-	var diff: float = wrapf(target - center, -PI, PI)
-	diff = clampf(diff, -deg_to_rad(MAX_AIM_SWING), deg_to_rad(MAX_AIM_SWING))
-	return center + diff
-
-
 func weapon_reload() -> void:
 	reload_cooldown.start(_current_def.reload_time)
 	_play_sfx(_current_def.reload_sfx)
 	current_ammo = _current_def.max_ammo
 	call_weapon_reload.emit()
+	ammo_changed.emit(current_ammo, _current_def.max_ammo)
 
 
 ## Adds [param amount] ammo (clamped to the equipped weapon's max_ammo).
 func add_ammo(amount: int) -> void:
 	current_ammo = clampi(current_ammo + amount, 0, _current_def.max_ammo)
+	ammo_changed.emit(current_ammo, _current_def.max_ammo)
 
 
 ## Switch to the weapon at [param index] (clamped). Re-applies its sprite, ammo
@@ -191,6 +151,8 @@ func switch_weapon(index: int) -> void:
 	current_index = clampi(index, 0, weapon_defs.size() - 1)
 	_current_def = weapon_defs[current_index]
 	apply_definition()
+	weapon_changed.emit(current_index)
+	ammo_changed.emit(current_ammo, _current_def.max_ammo)
 
 
 func apply_definition() -> void:
@@ -204,6 +166,16 @@ func apply_definition() -> void:
 	# delay to a tiny positive value when a weapon has no action cycle.
 	action_cooldown.wait_time = maxf(_current_def.action_delay, 0.01)
 	action_cooldown.stop()
+
+
+## Returns the currently equipped weapon definition (for the HUD and other UI).
+func get_current_definition() -> WeaponDefinition:
+	return _current_def
+
+
+## Returns the total number of weapons in the loadout.
+func get_weapon_count() -> int:
+	return weapon_defs.size()
 
 
 func handle_switch_input() -> void:
