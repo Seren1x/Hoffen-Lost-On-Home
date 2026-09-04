@@ -29,14 +29,18 @@ func _physics_process(delta: float) -> void:
 			queue_free()
 
 ## Set the bullet's starting transform and travel direction. Optionally override
-## the damage/speed exported by the weapon firing it.
-func setup(trans: Transform2D, p_damage: int = -1, p_speed: float = -1.0) -> void:
+## the damage/speed/max_range exported by the weapon firing it.
+func setup(trans: Transform2D, p_damage: int = -1, p_speed: float = -1.0, p_max_range: float = -1.0) -> void:
 	transform = trans
 	dir = trans.x.normalized()
 	if p_damage >= 0:
 		damage = p_damage
 	if p_speed > 0.0:
 		speed = p_speed
+	if p_max_range > 0.0:
+		max_range = p_max_range
+	elif p_max_range == 0.0:
+		max_range = 0.0
 
 # The bullet damages an enemy (a CharacterBody2D in the "enemies" group) the
 # moment it touches it, then disappears.

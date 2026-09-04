@@ -97,8 +97,11 @@ func player_shoot() -> void:
 		if _current_def.bullet_count > 1:
 			var spread_rad: float = deg_to_rad(_current_def.spread_degrees)
 			var offset: float = randf_range(-spread_rad / 2.0, spread_rad / 2.0)
-			trans = trans.rotated(offset)
-		bullet.setup(trans, _current_def.damage, _current_def.bullet_speed)
+			# rotated_local keeps the muzzle position fixed and only tilts the
+			# pellet's direction, so the spread fans out from the barrel instead
+			# of pivoting around the world origin.
+			trans = trans.rotated_local(offset)
+		bullet.setup(trans, _current_def.damage, _current_def.bullet_speed, _current_def.bullet_max_range)
 		get_tree().root.add_child(bullet)
 
 	_play_sfx(_current_def.shoot_sfx)
@@ -160,6 +163,11 @@ func apply_definition() -> void:
 	if _current_def.sprite_texture:
 		weapon_sprite.texture = _current_def.sprite_texture
 	weapon_sprite.scale = _current_def.sprite_scale
+	# Per-weapon grip and muzzle: each gun's sprite has its own size, so its
+	# hand position (offset) and barrel tip (muzzle_offset) come from the
+	# definition instead of being shared across all weapons.
+	weapon_sprite.offset = _current_def.sprite_offset
+	bullet_spawn_pos.position = _current_def.muzzle_offset
 	attack_cooldown.wait_time = _current_def.fire_rate
 	reload_cooldown.wait_time = _current_def.reload_time
 	# wait_time must stay > 0 (Godot errors on 0/negative), so clamp the action

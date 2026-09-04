@@ -40,6 +40,15 @@ extends Resource
 @export var sprite_texture: Texture2D
 @export var sprite_scale: Vector2 = Vector2(1, 1)
 
+## Where the gun sprite sits in the player's hand, relative to the Weapon node
+## (which is at the player's center). Y-offset re-centers guns of different
+## heights. Per-weapon, so each gun can look correctly held.
+@export var sprite_offset: Vector2 = Vector2.ZERO
+
+## Where bullets spawn, relative to the gun sprite's pivot (the barrel tip).
+## Per-weapon, because each gun's barrel is at a different spot on its sprite.
+@export var muzzle_offset: Vector2 = Vector2(15, 0)
+
 ## Audio.
 @export var shoot_sfx: AudioStream
 ## Sound that plays after each shot while the action cycles (pump rack, bolt,

@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://ussdcvvot13g" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/Pump Reload Full Fast WAV.wav" id="1_n0ydv"]
 [ext_resource type="PackedScene" uid="uid://ckyw11sbf7ba4" path="res://scenes/props/Bullet.tscn" id="2_bullet"]
 [ext_resource type="AudioStream" uid="uid://bvgjxksjrndf0" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/Pump Reload Full WAV.wav" id="3_mu5ep"]
+[ext_resource type="AudioStream" uid="uid://cfhra2vlti0yx" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/Pump Reload Part 1 WAV.wav" id="3_uhnks"]
 [ext_resource type="AudioStream" uid="uid://d1irrm4kmngbt" path="res://assets/audio/Snake's Authentic Gun Sounds/Full Sound/7.62x39/WAV/762x39 Single WAV.wav" id="4_shoot"]
 [ext_resource type="Texture2D" uid="uid://cwgs6hasdvda3" path="res://assets/objects/WeaponBaru/Ranitayas Guns Pack (16+ pixelart guns)/Shotguns/4Shotgun04.png" id="6_n0ydv"]
 
@@ -12,7 +13,6 @@ script = ExtResource("1_def")
 weapon_name = "Shotgun"
 display_name = "Shotgun"
 max_ammo = 5
-damage = 8
 fire_rate = 1.2
 reload_time = 3.0
 bullet_count = 6
@@ -24,4 +24,5 @@ sprite_scale = Vector2(2, 2)
 shoot_sfx = ExtResource("4_shoot")
 action_sfx = ExtResource("1_n0ydv")
 reload_sfx = ExtResource("3_mu5ep")
+empty_sfx = ExtResource("3_uhnks")
 action_delay = 0.9

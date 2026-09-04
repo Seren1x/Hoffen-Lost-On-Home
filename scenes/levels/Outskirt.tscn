@@ -823,62 +823,50 @@ flip_h = true
 [node name="ZombieAxe2" parent="YSortEntities/Monsters" unique_id=926407069 instance=ExtResource("2_zombie")]
 position = Vector2(675, 748)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe" parent="YSortEntities/Monsters" unique_id=2014770505 instance=ExtResource("2_zombie")]
 position = Vector2(935, 732)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe3" parent="YSortEntities/Monsters" unique_id=1722860683 instance=ExtResource("2_zombie")]
 position = Vector2(152, 748)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe4" parent="YSortEntities/Monsters" unique_id=834867807 instance=ExtResource("2_zombie")]
 position = Vector2(1560, 110)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe5" parent="YSortEntities/Monsters" unique_id=1611669889 instance=ExtResource("2_zombie")]
 position = Vector2(2000, 174)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe6" parent="YSortEntities/Monsters" unique_id=108993203 instance=ExtResource("2_zombie")]
 position = Vector2(641, 1244)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe7" parent="YSortEntities/Monsters" unique_id=613295218 instance=ExtResource("2_zombie")]
 position = Vector2(1677, 1157)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe8" parent="YSortEntities/Monsters" unique_id=1936195640 instance=ExtResource("2_zombie")]
 position = Vector2(2719, 167)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe9" parent="YSortEntities/Monsters" unique_id=2044809441 instance=ExtResource("2_zombie")]
 position = Vector2(2873, 57)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe10" parent="YSortEntities/Monsters" unique_id=909950167 instance=ExtResource("2_zombie")]
 position = Vector2(3389, 750)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe11" parent="YSortEntities/Monsters" unique_id=1626871305 instance=ExtResource("2_zombie")]
 position = Vector2(1801, 1217)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="ZombieAxe12" parent="YSortEntities/Monsters" unique_id=383577706 instance=ExtResource("2_zombie")]
 position = Vector2(1642, 1316)
 scale = Vector2(1, 1)
-max_health = 10
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=853882475]
 

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bn4p5ysqcacqi" path="res://scripts/systems/weapon_definition.gd" id="1_def"]
 [ext_resource type="PackedScene" uid="uid://ckyw11sbf7ba4" path="res://scenes/props/Bullet.tscn" id="2_bullet"]
 [ext_resource type="AudioStream" uid="uid://nm6502utph3e" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/AR Reload Full WAV.wav" id="2_f4sie"]
+[ext_resource type="AudioStream" uid="uid://hvjumcxegrk" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/AR Reload Part 1 WAV.wav" id="2_flhad"]
 [ext_resource type="AudioStream" uid="uid://c6cw0ijl114vh" path="res://assets/audio/Snake's Authentic Gun Sounds/Full Sound/5.56/WAV/556 Single WAV.wav" id="4_shoot"]
 [ext_resource type="Texture2D" uid="uid://drwo7nol5qdp4" path="res://assets/objects/WeaponBaru/Ranitayas Guns Pack (16+ pixelart guns)/AssaultRifles/7Assoultrifle07.png" id="5_f4sie"]
 
@@ -11,13 +12,14 @@ script = ExtResource("1_def")
 weapon_name = "AssaultRifle"
 display_name = "Assault Rifle"
 max_ammo = 30
-damage = 12
+damage = 8
 fire_rate = 0.2
 reload_time = 2.8
 bullet_speed = 1100.0
-bullet_max_range = 600.0
+bullet_max_range = 720.0
 bullet_scene = ExtResource("2_bullet")
 sprite_texture = ExtResource("5_f4sie")
 sprite_scale = Vector2(2, 2)
 shoot_sfx = ExtResource("4_shoot")
 reload_sfx = ExtResource("2_f4sie")
+empty_sfx = ExtResource("2_flhad")

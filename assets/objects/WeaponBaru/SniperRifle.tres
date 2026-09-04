@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bn4p5ysqcacqi" path="res://scripts/systems/weapon_definition.gd" id="1_def"]
 [ext_resource type="AudioStream" uid="uid://csjusewuhqqyr" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/308 Bolt Cycle WAV.wav" id="1_fw8ia"]
 [ext_resource type="PackedScene" uid="uid://ckyw11sbf7ba4" path="res://scenes/props/Bullet.tscn" id="2_bullet"]
+[ext_resource type="AudioStream" uid="uid://b62j3pmd1tj53" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/Single Shot Reload Part 1 WAV.wav" id="3_0dikg"]
 [ext_resource type="AudioStream" uid="uid://dhrlnpj484q0n" path="res://assets/audio/Snake's Authentic Gun Sounds/Reloads, Cycling & More/WAV/Semi 22LR Reload Full WAV.wav" id="3_fw8ia"]
 [ext_resource type="AudioStream" uid="uid://cstfl55ijw7yc" path="res://assets/audio/Snake's Authentic Gun Sounds/Full Sound/7.62x54R/WAV/762x54r Single WAV.wav" id="4_shoot"]
 [ext_resource type="Texture2D" uid="uid://bqnqqhkms4qjx" path="res://assets/objects/WeaponBaru/Ranitayas Guns Pack (16+ pixelart guns)/SniperRifles/6SniperRifle06.png" id="6_fw8ia"]
@@ -16,11 +17,12 @@ damage = 45
 fire_rate = 2.4
 reload_time = 4.15
 bullet_speed = 1600.0
-bullet_max_range = 1200.0
+bullet_max_range = 2000.0
 bullet_scene = ExtResource("2_bullet")
 sprite_texture = ExtResource("6_fw8ia")
 sprite_scale = Vector2(2, 2)
 shoot_sfx = ExtResource("4_shoot")
 action_sfx = ExtResource("1_fw8ia")
 reload_sfx = ExtResource("3_fw8ia")
+empty_sfx = ExtResource("3_0dikg")
 action_delay = 0.96

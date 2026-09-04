@@ -14,7 +14,7 @@ extends CharacterBody2D
 
 signal died
 
-@export var max_health: int = 10
+@export var max_health: int = 100
 ## Color the sprite flashes when the enemy is hit.
 @export var flash_color: Color = Color.RED
 ## Seconds for the hit-flash to fade back to normal.
