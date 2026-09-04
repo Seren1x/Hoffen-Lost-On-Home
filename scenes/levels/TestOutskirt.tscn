@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://6fodee3l5mqw" path="res://scenes/entities/ZombieAxe.tscn" id="10_gbx2i"]
 [ext_resource type="PackedScene" uid="uid://cd4vodfck8dh8" path="res://scenes/entities/Enemy.tscn" id="11_4knum"]
 [ext_resource type="PackedScene" uid="uid://d3x1a7k2nan6h" path="res://scenes/ui/HUD.tscn" id="11_d6c80"]
+[ext_resource type="Script" uid="uid://00vsklbq85u1" path="res://scripts/ui/HUD.gd" id="12_dsihe"]
 [ext_resource type="Script" uid="uid://dq3p1bernvty3" path="res://scripts/systems/task_manager.gd" id="12_nrcpd"]
 [ext_resource type="PackedScene" uid="uid://dqbyat3kcn0h1" path="res://scenes/ui/DialogueBox.tscn" id="13_dialogue"]
 [ext_resource type="PackedScene" uid="uid://dfimobed18euq" path="res://scenes/ui/FogOverlay.tscn" id="14_fog"]
@@ -662,7 +663,9 @@ polygon = PackedVector2Array(3272, -12, 3259, 603, 3643, 603, 3643, -15)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelBounds/ForestBoundary_06" unique_id=924176723]
 polygon = PackedVector2Array(3489, 1571, 3633, 1571, 3709, 1462, 3941, 1162, 3965, 1049, 4023, 990, 4024, 865, 3739, 955, 3495, 1141)
 
-[node name="HUD" parent="." unique_id=1369203186 instance=ExtResource("11_d6c80")]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1369203186 instance=ExtResource("11_d6c80")]
+layer = 2
+script = ExtResource("12_dsihe")
 
 [node name="DialogueBox" parent="." unique_id=2214078 instance=ExtResource("13_dialogue")]
 visible = false

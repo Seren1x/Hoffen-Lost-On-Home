@@ -178,6 +178,34 @@ func get_weapon_count() -> int:
 	return weapon_defs.size()
 
 
+## Returns which cooldown is currently active for the HUD cooldown bar.
+## Returns a Dictionary:
+##   { "active": bool, "kind": String ("delay"|"reload"), "progress": float,
+##     "total": float, "remaining": float }
+## - "delay": the weapon's action cycle (e.g. shotgun pump / sniper bolt) running.
+## - "reload": the reload animation window.
+## progress goes 1.0 -> 0.0 as the timer drains (full at start, empty when done).
+func get_cooldown_state() -> Dictionary:
+	# Reload takes priority over the action delay (can't do both at once).
+	if reload_cooldown.time_left > 0.0:
+		return {
+			"active": true,
+			"kind": "reload",
+			"total": reload_cooldown.wait_time,
+			"remaining": reload_cooldown.time_left,
+			"progress": reload_cooldown.time_left / reload_cooldown.wait_time,
+		}
+	if action_cooldown.time_left > 0.0:
+		return {
+			"active": true,
+			"kind": "delay",
+			"total": action_cooldown.wait_time,
+			"remaining": action_cooldown.time_left,
+			"progress": action_cooldown.time_left / action_cooldown.wait_time,
+		}
+	return { "active": false, "kind": "", "total": 0.0, "remaining": 0.0, "progress": 0.0 }
+
+
 func handle_switch_input() -> void:
 	# Number keys 1..4 switch weapons.
 	for i in weapon_defs.size():
