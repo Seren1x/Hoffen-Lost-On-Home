@@ -13,8 +13,10 @@ class_name OutskirtLevel
 @onready var _generator: Interactable = $QuestRelated/Generator/Interactable
 @onready var _pin_pickup: Interactable = $QuestRelated/PinPickup/Interactable
 @onready var _gate_open: Interactable = $QuestRelated/Gate/Interactable  # the actual "open" action (step 8)
+@onready var _end_level: Area2D = $QuestRelated/End/Area2D
 
 @onready var _walls_tile_layer: TileMapLayer = $TileMapLayers/Walls
+@onready var fade_transition: CanvasLayer = $FadeTransition
 
 const ZOMBIE_SCENE: PackedScene = preload("res://scenes/entities/ZombieAxe.tscn")
 
@@ -26,6 +28,7 @@ const ZOMBIE_SCENE: PackedScene = preload("res://scenes/entities/ZombieAxe.tscn"
 	"return_to_gate": [$QuestRelated/Gate/Area2D/Marker],
 	"find_pin": [$QuestRelated/PinPickup/Marker],
 	"open_gate": [$QuestRelated/Gate/Interactable/Marker],
+	"end_level": [$QuestRelated/End/Marker]
 }
 
 func _ready() -> void:
@@ -46,6 +49,7 @@ func _define_tasks() -> void:
 	_register_task("return_to_gate", "Return to the iron gate", TaskObjective.Type.REACH, "iron_gate", 1, ["activate_power"])
 	_register_task("find_pin", "Find the keypad PIN", TaskObjective.Type.COLLECT, "pin", 1, ["return_to_gate"])
 	_register_task("open_gate", "Open the iron gate", TaskObjective.Type.CUSTOM, "iron_gate", 1, ["find_pin"])
+	_register_task("end_level", "Move to the destination..", TaskObjective.Type.REACH, "waypoint", 1, ["open_gate"])
 
 
 ## Small helper so the 8-task chain above isn't 80 lines of repeated boilerplate.
@@ -98,6 +102,7 @@ func _connect_triggers() -> void:
 	_generator.interacted.connect(_on_generator_activated)
 	_pin_pickup.interacted.connect(_on_pin_picked_up)
 	_gate_open.interacted.connect(_on_gate_open_attempted)
+	_end_level.body_entered.connect(_on_level_ended)
 
 
 # ── Trigger callbacks: advance the task AND show the matching dialogue line ──
@@ -148,6 +153,8 @@ func _on_generator_activated(_interactor: Node2D) -> void:
 func _on_pin_picked_up(_interactor: Node2D) -> void:
 	_progress.advance("find_pin", 0, 1)
 	_dialogue.show_monologue("Found a PIN. This should open the gate.")
+	
+	# spawn zombies
 	_spawn_mutant(Vector2(2500, randf_range(1250, 1500)))
 	_spawn_mutant(Vector2(2500, randf_range(1250, 1500)))
 	_spawn_mutant(Vector2(2750, randf_range(1250, 1500)))
@@ -166,6 +173,14 @@ func _on_gate_open_attempted(_interactor: Node2D) -> void:
 	
 	# open the gate
 	_change_gate_tiles()
+
+func _on_level_ended(body: Node2D) -> void:
+	if not body.is_in_group("player"):
+		return
+	
+	_progress.advance("end_level", 0, 1)
+	_dialogue.show_monologue("Level end")
+	
 
 
 # ── Task chain progression + HUD relay ──
@@ -198,7 +213,8 @@ const NEXT_TASK: Dictionary = {
 	&"activate_power": &"return_to_gate",
 	&"return_to_gate": &"find_pin",
 	&"find_pin": &"open_gate",
-	&"open_gate": &"",   # end of chain — nothing to activate next
+	&"open_gate": &"end_level",   
+	&"end_level": &"",	# end of chain — nothing to activate next
 }
 
 func _on_task_completed(task_id: StringName) -> void:

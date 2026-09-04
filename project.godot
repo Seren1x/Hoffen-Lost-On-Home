@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="Hoffen"
-run/main_scene="uid://bfliv1dbjsjkw"
+run/main_scene="uid://w64c8fqfsk6t"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
+FadeTransition="*uid://bfyhu7l6w31dv"
 StateManager="*uid://itm2nhtn6vcv"
 SettingsManager="*uid://csb3s8capkh4k"
 
