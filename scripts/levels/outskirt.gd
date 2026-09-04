@@ -17,6 +17,7 @@ class_name OutskirtLevel
 
 @onready var _walls_tile_layer: TileMapLayer = $TileMapLayers/Walls
 
+const SPEAKER_NAME := "Rain"
 const ZOMBIE_SCENE: PackedScene = preload("res://scenes/entities/ZombieAxe.tscn")
 
 @onready var QUEST_MARKERS: Dictionary = {
@@ -110,20 +111,20 @@ func _on_destination_reached(body: Node2D) -> void:
 	if not _progress.is_active("move_to_point"):
 		return   # already triggered — ignore repeat visits
 	_progress.advance("move_to_point", 0, 1)
-	_dialogue.show_monologue("This looks like the spot.")
+	_dialogue.show_dialogue(SPEAKER_NAME, "This looks like the spot.")
 	_destination_area.set_deferred("monitoring", false)
 
 
 func _on_weapon_picked_up(_interactor: Node2D) -> void:
 	_progress.advance("get_weapon", 0, 1)
-	_dialogue.show_monologue("Picked up a weapon. Better than nothing.")
+	_dialogue.show_dialogue(SPEAKER_NAME, "Picked up a weapon. Better than nothing.")
 
 
 func _on_mutant_died() -> void:
 	var was_active: bool = _progress.is_active("eliminate_mutants")
 	_progress.advance("eliminate_mutants", 0, 1)
 	if was_active and _progress.is_completed("eliminate_mutants"):
-		_dialogue.show_monologue("That's the last of them... for now.")
+		_dialogue.show_dialogue(SPEAKER_NAME, "That's the last of them... for now.")
 
 
 func _on_gate_area_entered(body: Node2D) -> void:
@@ -137,19 +138,19 @@ func _on_gate_area_entered(body: Node2D) -> void:
 	_progress.advance("return_to_gate", 0, 1)
 	
 	if was_finding_gate:
-		_dialogue.show_monologue("A locked iron gate. I need another way through.")
+		_dialogue.show_dialogue(SPEAKER_NAME, "A locked iron gate. I need another way through.")
 	elif was_returning:
-		_dialogue.show_monologue("Back at the gate. Still need to get it open.")
+		_dialogue.show_dialogue(SPEAKER_NAME, "Back at the gate. Still need to get it open.")
 
 
 func _on_generator_activated(_interactor: Node2D) -> void:
 	_progress.advance("activate_power", 0, 1)
-	_dialogue.show_monologue("Power's back on. Time to head back.")
+	_dialogue.show_dialogue(SPEAKER_NAME, "Power's back on. Time to head back.")
 
 
 func _on_pin_picked_up(_interactor: Node2D) -> void:
 	_progress.advance("find_pin", 0, 1)
-	_dialogue.show_monologue("Found a PIN. This should open the gate.")
+	_dialogue.show_dialogue(SPEAKER_NAME, "Found a PIN. This should open the gate.")
 	_spawn_mutant(Vector2(2500, randf_range(1250, 1500)))
 	_spawn_mutant(Vector2(2500, randf_range(1250, 1500)))
 	_spawn_mutant(Vector2(2750, randf_range(1250, 1500)))
@@ -161,10 +162,10 @@ func _on_gate_open_attempted(_interactor: Node2D) -> void:
 	# Guard against the player pressing E on the gate before "open_gate" is
 	# actually the active task — give feedback instead of silently failing.
 	if not _progress.is_active("open_gate"):
-		_dialogue.show_monologue("It's still locked.")
+		_dialogue.show_dialogue(SPEAKER_NAME, "It's still locked.")
 		return
 	_progress.advance("open_gate", 0, 1)
-	_dialogue.show_monologue("Gate's open. Let's move.")
+	_dialogue.show_dialogue(SPEAKER_NAME, "Gate's open. Let's move.")
 	
 	# open the gate
 	_change_gate_tiles()
