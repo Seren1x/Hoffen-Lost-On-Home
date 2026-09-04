@@ -18,5 +18,11 @@ func _on_animation_finished(anim_name):
 		color_rect.visible = false
 
 func transition():
+	# Guard: if this is called before _ready() has run (e.g. an autoload
+	# triggered the fade before the FadeTransition autoload finished starting
+	# up), defer until the node is ready instead of crashing on a Nil ColorRect.
+	if color_rect == null:
+		call_deferred("transition")
+		return
 	color_rect.visible = true
 	animation_player.play("fade_to_black")

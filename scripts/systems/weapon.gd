@@ -38,6 +38,11 @@ var current_state: State = State.IDLE
 var current_ammo: int = 0
 var current_index: int = 0
 
+## Whether the left mouse button is currently held down. Set from the actual
+## input event (not per-frame polling), so a fast click is never lost and
+## holding auto-fires reliably.
+var _firing_held: bool = false
+
 var _current_def: WeaponDefinition = null
 
 
@@ -53,6 +58,19 @@ func _ready() -> void:
 	weapon_changed.emit(current_index)
 
 
+func _input(event: InputEvent) -> void:
+	# Track the left mouse button as an event so quick clicks and holding both
+	# register reliably. _input runs for every node before the GUI consumes the
+	# event, so no overlay (e.g. the full-screen fade ColorRect) can swallow the
+	# click like it could with _unhandled_input.
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		_firing_held = event.pressed
+		if event.pressed:
+			# Fire immediately on the press edge; a mid-cooldown press is gated
+			# inside player_shoot().
+			player_shoot()
+
+
 func _process(delta: float) -> void:
 	$Label.text = "%s | %d/%d" % [_current_def.display_name, current_ammo, _current_def.max_ammo]
 
@@ -60,7 +78,7 @@ func _process(delta: float) -> void:
 	handle_switch_input()
 
 	if current_state != State.RELOADING:
-		if Input.is_action_pressed("left_click"):
+		if _firing_held:
 			current_state = State.SHOOTING
 			player_shoot()
 		elif Input.is_action_just_pressed("reload"):
@@ -173,7 +191,14 @@ func apply_definition() -> void:
 	# wait_time must stay > 0 (Godot errors on 0/negative), so clamp the action
 	# delay to a tiny positive value when a weapon has no action cycle.
 	action_cooldown.wait_time = maxf(_current_def.action_delay, 0.01)
+	# Fully reset every cooldown and the state on switch so the freshly equipped
+	# weapon is immediately ready to fire. Without this, switching mid-cooldown
+	# or mid-reload left the new weapon locked for the OLD weapon's remaining
+	# timer, causing a delay / unresponsiveness right after switching.
+	attack_cooldown.stop()
+	reload_cooldown.stop()
 	action_cooldown.stop()
+	current_state = State.IDLE
 
 
 ## Returns the currently equipped weapon definition (for the HUD and other UI).
