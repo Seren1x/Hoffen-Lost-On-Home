@@ -227,6 +227,8 @@ size = Vector2(34, 60)
 [node name="Player" type="CharacterBody2D" unique_id=2041947310]
 collision_layer = 4
 script = ExtResource("1_script")
+WALK_SPEED = 150.0
+RUN_SPEED = 240.0
 
 [node name="Body" type="AnimatedSprite2D" parent="." unique_id=1918051432]
 scale = Vector2(1.5, 1.5)
@@ -252,4 +254,3 @@ position = Vector2(1, 7)
 shape = SubResource("RectangleShape2D_hurt")
 
 [node name="Weapon" parent="." unique_id=241826160 instance=ExtResource("4_sweqy")]
-position = Vector2(0, 0)

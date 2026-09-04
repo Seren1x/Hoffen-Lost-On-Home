@@ -7,6 +7,7 @@ class_name OutskirtLevel
 @onready var _hud: HUD = $HUD
 @onready var _dialogue: DialogueBox = $DialogueBox   
 
+@onready var _player: CharacterBody2D = $YSortEntities/Player
 @onready var _destination_area: Area2D = $QuestRelated/DestinationMarker
 @onready var _weapon_pickup: Interactable = $QuestRelated/WeaponPickup/Interactable
 @onready var _gate_area: Area2D = $QuestRelated/Gate/Area2D            # proximity detection (steps 4 & 6)
@@ -35,6 +36,7 @@ func _ready() -> void:
 	_connect_task_signals()
 	_hide_all_markers()  
 	_progress.activate("move_to_point")   # first task in the chain
+	_player.player_died.connect(_on_player_died)
 
 
 func _define_tasks() -> void:
@@ -208,3 +210,37 @@ func _on_task_completed(task_id: StringName) -> void:
 	var next_id: StringName = NEXT_TASK.get(task_id, &"")
 	if next_id != &"":
 		_progress.activate(next_id)
+
+
+# ── Death / Game Over ──
+# The game-over overlay is handled differently depending on how this level is
+# hosted, so Restart and Quit behave correctly in both cases:
+#   * Through the StateManager's PlayingState (menu -> playing): push the
+#     GameOver state and let change_state() rebuild the playing stack.
+#   * Run directly as the current scene (e.g. pressing Play on this scene):
+#     instance the GameOver overlay as a child of THIS level, because there is
+#     no PlayingState above us for change_state() to replace.
+
+func _on_player_died() -> void:
+	# Give the death animation a moment to play before showing the overlay.
+	await get_tree().create_timer(2.0).timeout
+
+	var level: PackedScene = load(scene_file_path)
+	if _host_is_playing_state():
+		StateManager.push_state("game_over", {"level": level})
+	else:
+		var overlay: GameOver = (load("res://scenes/ui/GameOver.tscn") as PackedScene).instantiate()
+		add_child(overlay)
+		overlay.state_enter({"level": level, "standalone": true})
+
+
+## True when this level is hosted inside the StateManager's PlayingState
+## (i.e. it was launched through the main menu), False when it is being run
+## directly as the current scene.
+func _host_is_playing_state() -> bool:
+	var p: Node = get_parent()
+	while p != null:
+		if p.has_method("state_enter") and p.name == "PlayingState":
+			return true
+		p = p.get_parent()
+	return false

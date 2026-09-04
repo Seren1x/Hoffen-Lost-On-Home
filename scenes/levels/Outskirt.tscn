@@ -627,6 +627,7 @@ position = Vector2(240, 84)
 collision_layer = 8
 
 [node name="Camera2D" type="Camera2D" parent="YSortEntities/Player" unique_id=167174838]
+zoom = Vector2(1.8, 1.8)
 limit_left = 0
 limit_top = 5
 limit_right = 4450

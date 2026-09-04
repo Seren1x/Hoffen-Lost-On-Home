@@ -110,7 +110,7 @@ func show_task(title: String, objectives: Array[TaskObjective]) -> void:
 		var obj: TaskObjective = objectives[i]
 		var label := Label.new()
 		label.name = "Obj%d" % i
-		label.add_theme_font_size_override(&"font_size", 12)
+		label.add_theme_font_size_override(&"font_size", 32)
 		label.add_theme_color_override(&"font_color", Color(0.85, 0.85, 0.85, 1))
 		label.text = "  %s  %d/%d" % [obj.description, obj.current, obj.required]
 		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
