@@ -157,11 +157,16 @@ func _on_pin_picked_up(_interactor: Node2D) -> void:
 	_dialogue.show_dialogue(SPEAKER_NAME, "Found a PIN. This should open the gate.")
 	
 	# spawn zombies
-	_spawn_mutant(Vector2(2500, randf_range(1250, 1500)))
-	_spawn_mutant(Vector2(2500, randf_range(1250, 1500)))
+	# X = 2500 (Split into top and bottom lanes)
+	_spawn_mutant(Vector2(2500, randf_range(1250, 1360)))
+	_spawn_mutant(Vector2(2500, randf_range(1390, 1500)))
+
+	# X = 2750 (Single spawn in center)
 	_spawn_mutant(Vector2(2750, randf_range(1250, 1500)))
-	_spawn_mutant(Vector2(3050, randf_range(1250, 1500)))
-	_spawn_mutant(Vector2(3050, randf_range(1250, 1500)))
+
+	# X = 3050 (Split into top and bottom lanes)
+	_spawn_mutant(Vector2(3050, randf_range(1250, 1360)))
+	_spawn_mutant(Vector2(3050, randf_range(1390, 1500)))
 
 
 func _on_gate_open_attempted(_interactor: Node2D) -> void:
