@@ -1,23 +1,41 @@
 [gd_scene format=3 uid="uid://dm8q0m7f0y3hg"]
 
 [ext_resource type="Script" uid="uid://d4g5qbri6hj2y" path="res://scripts/ui/main_menu.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://dbh1pb3l08l7b" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Play_Not-Pressed.png" id="3_play_normal"]
-[ext_resource type="Texture2D" uid="uid://iu3a7yxp247q" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Play_Pressed.png" id="4_play_pressed"]
-[ext_resource type="Texture2D" uid="uid://dbvg1oaksw4sf" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Settings_Not-Pressed.png" id="5_settings_normal"]
-[ext_resource type="Texture2D" uid="uid://dahxoarq5xf2g" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Settings_Pressed.png" id="6_settings_pressed"]
-[ext_resource type="Texture2D" uid="uid://bhbe3513r280m" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Quit_Not-Pressed.png" id="7_quit_normal"]
-[ext_resource type="Texture2D" uid="uid://dcclse7uneph4" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Quit_Pressed.png" id="8_quit_pressed"]
+[ext_resource type="Texture2D" uid="uid://daxd8krxddxig" path="res://assets/ui/Custom/Menu/Start_Not-Pressed.png" id="2_2ysvc"]
+[ext_resource type="Shader" uid="uid://ibg7x06fygmw" path="res://shaders/panel_background.gdshader" id="2_e2per"]
+[ext_resource type="Texture2D" uid="uid://d07hpagts0ofd" path="res://assets/ui/free-city-backgrounds-pixel-art/city 3/6.png" id="3_e2per"]
+[ext_resource type="Texture2D" uid="uid://b02vil3txs8ih" path="res://assets/ui/Custom/Menu/Settings_Not-Pressed.png" id="3_xpiny"]
+[ext_resource type="Texture2D" uid="uid://bhn48ghlem085" path="res://assets/ui/Custom/Menu/Quit_Not-Pressed.png" id="4_bhu4a"]
+[ext_resource type="Texture2D" uid="uid://b33wenf1ubnge" path="res://assets/ui/Custom/Menu/Start_Pressed.png" id="6_ee60a"]
+[ext_resource type="Texture2D" uid="uid://gk0cykifuiut" path="res://assets/ui/Custom/Menu/Start_Hover.png" id="7_qjd48"]
+[ext_resource type="Texture2D" uid="uid://c4qvwls8urk05" path="res://assets/ui/Custom/Menu/Settings_Pressed.png" id="9_ff4wq"]
+[ext_resource type="Texture2D" uid="uid://11fsjijqi5pr" path="res://assets/ui/Custom/Menu/Settings_Hover.png" id="10_nqw28"]
+[ext_resource type="Texture2D" uid="uid://deprj48s10sx7" path="res://assets/ui/Custom/Menu/Quit_Pressed.png" id="12_7uy2f"]
+[ext_resource type="Texture2D" uid="uid://gv3gsnp33nx6" path="res://assets/ui/Custom/Menu/Quit_Hover.png" id="13_0oadh"]
+[ext_resource type="Script" uid="uid://cf0pqigraf7n3" path="res://scripts/ui/panel_background.gd" id="panel_bg"]
 
-[sub_resource type="StyleBoxFlat" id="panel_bg"]
-content_margin_left = 28.0
-content_margin_top = 22.0
-content_margin_right = 28.0
-content_margin_bottom = 22.0
-bg_color = Color(0.08, 0.08, 0.12, 0.9)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ee60a"]
+shader = ExtResource("2_e2per")
+shader_parameter/city_tex = ExtResource("3_e2per")
+shader_parameter/use_texture = true
+shader_parameter/panel_count = 4
+shader_parameter/panel_width = 0.16
+shader_parameter/panel_gap = 0.012
+shader_parameter/panel_heights = PackedFloat32Array(0.6, 0.9, 0.4, 0.6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+shader_parameter/panel_v_centers = PackedFloat32Array(0.5, 0.6, 0.5, 0.3, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5)
+shader_parameter/panel_phases = PackedFloat32Array(0, 3.1415927, 0, 3.1415927, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/h_offset = 0.1
+shader_parameter/tilt = -0.2
+shader_parameter/v_offset = 0.0
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/backdrop = Color(0, 0, 0, 1)
+shader_parameter/anim_enabled = true
+shader_parameter/anim_speed = 0.3
+shader_parameter/anim_amplitude = 0.04
+shader_parameter/anim_time = 0.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n7nr2"]
+texture_margin_left = 32.0
 
 [node name="MainMenu" type="Control" unique_id=384227682]
 layout_mode = 3
@@ -29,13 +47,23 @@ grow_vertical = 2
 script = ExtResource("1_script")
 
 [node name="Background" type="ColorRect" parent="." unique_id=490465165]
+material = SubResource("ShaderMaterial_ee60a")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.05, 0.05, 0.08, 1)
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("panel_bg")
+city_texture = ExtResource("3_e2per")
+panel_width = 0.16
+h_offset = 0.1
+tilt = -0.2
+panel_heights = [0.6, 0.9, 0.4, 0.6]
+panel_v_centers = [0.5, 0.6, 0.5, 0.3]
+anim_speed = 0.3
 
 [node name="Layout" type="VBoxContainer" parent="." unique_id=2058127996]
 layout_mode = 1
@@ -63,37 +91,46 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="ButtonPanel" type="PanelContainer" parent="Layout" unique_id=1795018225]
+custom_minimum_size = Vector2(440, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("panel_bg")
+size_flags_horizontal = 8
+size_flags_vertical = 6
+offset_transform_enabled = true
+offset_transform_position = Vector2(-160, 0)
+offset_transform_visual_only = false
+theme_override_styles/panel = SubResource("StyleBoxTexture_n7nr2")
 
 [node name="ButtonList" type="VBoxContainer" parent="Layout/ButtonPanel" unique_id=1505800234]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 24
 
 [node name="StartButton" type="TextureButton" parent="Layout/ButtonPanel/ButtonList" unique_id=353193114]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(152, 42)
+custom_minimum_size = Vector2(288, 64)
 layout_mode = 2
-texture_normal = ExtResource("3_play_normal")
-texture_pressed = ExtResource("4_play_pressed")
+size_flags_horizontal = 8
+texture_normal = ExtResource("2_2ysvc")
+texture_pressed = ExtResource("6_ee60a")
+texture_hover = ExtResource("7_qjd48")
 stretch_mode = 5
 
 [node name="SettingsButton" type="TextureButton" parent="Layout/ButtonPanel/ButtonList" unique_id=205751602]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(152, 42)
+custom_minimum_size = Vector2(288, 64)
 layout_mode = 2
-texture_normal = ExtResource("5_settings_normal")
-texture_pressed = ExtResource("6_settings_pressed")
+texture_normal = ExtResource("3_xpiny")
+texture_pressed = ExtResource("9_ff4wq")
+texture_hover = ExtResource("10_nqw28")
 stretch_mode = 5
 
 [node name="ExitButton" type="TextureButton" parent="Layout/ButtonPanel/ButtonList" unique_id=49076594]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(152, 42)
+custom_minimum_size = Vector2(288, 64)
 layout_mode = 2
-texture_normal = ExtResource("7_quit_normal")
-texture_pressed = ExtResource("8_quit_pressed")
+size_flags_horizontal = 0
+texture_normal = ExtResource("4_bhu4a")
+texture_pressed = ExtResource("12_7uy2f")
+texture_hover = ExtResource("13_0oadh")
 stretch_mode = 5
 
 [node name="BottomSpacer" type="Control" parent="Layout" unique_id=7445975]
