@@ -41,9 +41,15 @@ monitoring = false
 position = Vector2(-16, 4.5)
 shape = SubResource("RectangleShape2D_attack")
 
+<<<<<<< HEAD
 [node name="Health" type="Node" parent="." unique_id=1833117210]
+=======
+[node name="Health" type="Node" parent="." unique_id=646773691]
+>>>>>>> 8132855264439614afcab07680ff6d2d9921a997
 script = ExtResource("4_health")
+max_health = 100
 
+<<<<<<< HEAD
 [node name="Hurtbox" type="Area2D" parent="." unique_id=480994670]
 collision_layer = 0
 script = ExtResource("5_hurtbox")
@@ -52,4 +58,14 @@ script = ExtResource("5_hurtbox")
 shape = SubResource("RectangleShape2D_hurt")
 
 [node name="LootDropper" type="Node" parent="." unique_id=711652072]
+=======
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1487968114]
+collision_layer = 0
+script = ExtResource("5_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1384394736]
+shape = SubResource("RectangleShape2D_hurt")
+
+[node name="LootDropper" type="Node" parent="." unique_id=1452631320]
+>>>>>>> 8132855264439614afcab07680ff6d2d9921a997
 script = ExtResource("3_loot")

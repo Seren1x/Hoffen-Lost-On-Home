@@ -17,7 +17,6 @@ class_name OutskirtLevel
 @onready var _end_level: Area2D = $QuestRelated/End/Area2D
 
 @onready var _walls_tile_layer: TileMapLayer = $TileMapLayers/Walls
-@onready var fade_transition: CanvasLayer = $FadeTransition
 
 const SPEAKER_NAME := "Rain"
 const ZOMBIE_SCENE: PackedScene = preload("res://scenes/entities/ZombieAxe.tscn")
