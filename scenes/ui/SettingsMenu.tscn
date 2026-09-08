@@ -1,19 +1,27 @@
 [gd_scene format=3 uid="uid://bq3cy0p5q7y8k"]
 
 [ext_resource type="Script" uid="uid://detuhg4t8rqh4" path="res://scripts/ui/settings_menu.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://7hitl7ncgib7" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Blank_Not-Pressed.png" id="2_blank_normal"]
-[ext_resource type="Texture2D" uid="uid://0uwigv666dof" path="res://assets/ui/UI - PostApocalypse/Menu/Main Menu/Blank_Pressed.png" id="3_blank_pressed"]
+[ext_resource type="Texture2D" uid="uid://c2kj34srn6r3s" path="res://assets/ui/Custom/Menu/Settings.png" id="2_a3a3v"]
+[ext_resource type="Texture2D" uid="uid://cc1w5huesh7wv" path="res://assets/ui/Custom/Menu/Back_Not-Pressed.png" id="4_6y3mh"]
+[ext_resource type="Texture2D" uid="uid://dlh22ye04ue6n" path="res://assets/ui/Custom/Menu/Settings_Panel.png" id="4_settings_panel"]
+[ext_resource type="Texture2D" uid="uid://bv5p3wnvxcypl" path="res://assets/ui/Custom/Menu/Back_Pressed.png" id="5_jbqch"]
+[ext_resource type="Texture2D" uid="uid://d4hyphy5ibjjn" path="res://assets/ui/Custom/Menu/Toggle_ON_Normal.png" id="5_on_normal"]
+[ext_resource type="Texture2D" uid="uid://ctlyip4i4nqer" path="res://assets/ui/Custom/Menu/Toggle_ON_Hover.png" id="6_on_hover"]
+[ext_resource type="Texture2D" uid="uid://cd0pu12x6saca" path="res://assets/ui/Custom/Menu/Back_Hover.png" id="6_wxnu7"]
+[ext_resource type="Texture2D" uid="uid://cowqr3yx401ph" path="res://assets/ui/Custom/Menu/Toggle_OFF_Normal.png" id="7_off_normal"]
+[ext_resource type="Texture2D" uid="uid://blu2karosfuub" path="res://assets/ui/Custom/Menu/Toggle_OFF_Hover.png" id="8_off_hover"]
+[ext_resource type="Script" uid="uid://w1p58kc0n8dq" path="res://scripts/ui/toggle_switch.gd" id="9_toggle_switch"]
 
-[sub_resource type="StyleBoxFlat" id="panel_bg"]
-content_margin_left = 28.0
-content_margin_top = 22.0
-content_margin_right = 28.0
-content_margin_bottom = 22.0
-bg_color = Color(0.08, 0.08, 0.12, 0.9)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_settings_panel"]
+content_margin_left = 64.0
+content_margin_top = 64.0
+content_margin_right = 64.0
+content_margin_bottom = 64.0
+texture = ExtResource("4_settings_panel")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [node name="SettingsMenu" type="CanvasLayer" unique_id=610970547]
 layer = 3
@@ -25,7 +33,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.4117647)
+color = Color(0, 0, 0, 0.5568628)
 
 [node name="Layout" type="VBoxContainer" parent="." unique_id=739447471]
 anchors_preset = 15
@@ -39,12 +47,10 @@ alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="TitleLabel" type="Label" parent="Layout" unique_id=1697653163]
+[node name="SettingsLabel" type="TextureRect" parent="Layout" unique_id=1751921999]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.65, 0.2, 1)
-theme_override_font_sizes/font_size = 36
-text = "SETTINGS"
-horizontal_alignment = 1
+size_flags_horizontal = 4
+texture = ExtResource("2_a3a3v")
 
 [node name="MidSpacer" type="Control" parent="Layout" unique_id=1270070531]
 custom_minimum_size = Vector2(0, 40)
@@ -52,10 +58,11 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="SettingsPanel" type="PanelContainer" parent="Layout" unique_id=408514901]
+custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("panel_bg")
+theme_override_styles/panel = SubResource("StyleBoxTexture_settings_panel")
 
 [node name="SettingsList" type="VBoxContainer" parent="Layout/SettingsPanel" unique_id=12878453]
 layout_mode = 2
@@ -68,52 +75,52 @@ theme_override_constants/separation = 12
 [node name="VolumeLabel" type="Label" parent="Layout/SettingsPanel/SettingsList/VolumeRow" unique_id=1104442318]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_font_sizes/font_size = 18
-text = "Volume"
+theme_override_font_sizes/font_size = 40
+text = "Volume   "
 
 [node name="VolumeSlider" type="HSlider" parent="Layout/SettingsPanel/SettingsList/VolumeRow" unique_id=1443803028]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 max_value = 1.0
 step = 0.01
 value = 0.8
 
 [node name="FullscreenRow" type="HBoxContainer" parent="Layout/SettingsPanel/SettingsList" unique_id=870759959]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 12
 
 [node name="FullscreenLabel" type="Label" parent="Layout/SettingsPanel/SettingsList/FullscreenRow" unique_id=282005488]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 40
 text = "Fullscreen"
 
-[node name="FullscreenCheck" type="CheckButton" parent="Layout/SettingsPanel/SettingsList/FullscreenRow" unique_id=1685004678]
+[node name="FullscreenCheck" type="Control" parent="Layout/SettingsPanel/SettingsList/FullscreenRow" unique_id=1685004678]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+script = ExtResource("9_toggle_switch")
+texture_on = ExtResource("5_on_normal")
+texture_on_hover = ExtResource("6_on_hover")
+texture_off = ExtResource("7_off_normal")
+texture_off_hover = ExtResource("8_off_hover")
 
 [node name="BackButton" type="TextureButton" parent="Layout/SettingsPanel/SettingsList" unique_id=1709877068]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(152, 42)
 layout_mode = 2
-texture_normal = ExtResource("2_blank_normal")
-texture_pressed = ExtResource("3_blank_pressed")
+texture_normal = ExtResource("4_6y3mh")
+texture_pressed = ExtResource("5_jbqch")
+texture_hover = ExtResource("6_wxnu7")
 stretch_mode = 5
-
-[node name="BackLabel" type="Label" parent="Layout/SettingsPanel/SettingsList/BackButton" unique_id=1471497408]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 14
-text = "BACK"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="BottomSpacer" type="Control" parent="Layout" unique_id=1541515604]
 layout_mode = 2

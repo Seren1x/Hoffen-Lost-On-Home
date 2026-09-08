@@ -2,7 +2,7 @@ extends CanvasLayer
 class_name SettingsMenu
 
 @onready var _volume_slider: HSlider = %VolumeSlider
-@onready var _fullscreen_check: CheckButton = %FullscreenCheck
+@onready var _fullscreen_toggle: ToggleSwitch = %FullscreenCheck
 
 
 func _ready() -> void:
@@ -13,8 +13,8 @@ func _ready() -> void:
 	_volume_slider.max_value = 1.0
 	_volume_slider.value = SettingsManager.master_volume
 	_volume_slider.value_changed.connect(_on_volume_changed)
-	_fullscreen_check.button_pressed = SettingsManager.fullscreen
-	_fullscreen_check.toggled.connect(_on_fullscreen_toggled)
+	_fullscreen_toggle.value = SettingsManager.fullscreen
+	_fullscreen_toggle.toggled.connect(_on_fullscreen_toggled)
 
 
 func _on_back_pressed() -> void:
