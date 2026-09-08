@@ -60,3 +60,12 @@ extends Resource
 ## Seconds the action takes to cycle after a shot before the next shot can fire
 ## (e.g. the shotgun pump time). 0 = no extra delay.
 @export var action_delay: float = 0.0
+
+## Camera zoom factor applied while right-click is held. 0 = this weapon has no
+## scope (the camera stays at its default zoom and no laser is shown). For a
+## scoped weapon (e.g. the sniper rifle), holding right-click zooms the player's
+## camera to this factor and draws a red laser along the aim.
+@export var scope_zoom: float = 0.0
+
+## Length (pixels) of the red laser helper drawn along the barrel while scoped.
+@export var laser_length: float = 900.0

@@ -20,8 +20,14 @@ offset = Vector2(0, 2.485)
 [node name="BulletSpawnPoint" type="Node2D" parent="Texture" unique_id=163399812]
 position = Vector2(16, 0)
 
+[node name="Laser" type="Line2D" parent="Texture"]
+visible = false
+width = 2.0
+default_color = Color(1, 0.12, 0.1, 0.9)
+
 [node name="AttackCooldown" type="Timer" parent="." unique_id=1298327424]
 wait_time = 0.2
+one_shot = true
 
 [node name="ReloadCooldown" type="Timer" parent="." unique_id=2093476174]
 wait_time = 3.0
@@ -33,6 +39,14 @@ one_shot = true
 [node name="Sfx" type="AudioStreamPlayer" parent="." unique_id=1226528463]
 
 [node name="ActionSfx" type="AudioStreamPlayer" parent="." unique_id=1049071103]
+
+[node name="TopGuideLine" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(1, 1, 1, 0.18)
+
+[node name="BottomGuideLine" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(1, 1, 1, 0.18)
 
 [node name="Label" type="Label" parent="." unique_id=527175020]
 offset_right = 40.0
