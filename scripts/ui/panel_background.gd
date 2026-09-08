@@ -44,6 +44,38 @@ const MAX_PANELS := 16
 		v_offset = v
 		_update()
 
+## Fill for the empty space OUTSIDE the panels (left/right of the fragment).
+## If `backdrop_texture` is set, that image is used; otherwise this solid color.
+@export var backdrop_color: Color = Color(0.0, 0.0, 0.0, 1.0):
+	set(v):
+		backdrop_color = v
+		_update()
+
+## Optional image for the empty space OUTSIDE the panels. The panels simply
+## carve through it, so it is shaped by panel size, gap, tilt and bob.
+@export var backdrop_texture: Texture2D:
+	set(v):
+		backdrop_texture = v
+		_update()
+
+## Tint applied to the backdrop image (multiplied). White = original.
+@export var backdrop_tint: Color = Color.WHITE:
+	set(v):
+		backdrop_tint = v
+		_update()
+
+## Extend the city image past the outermost panels, following the tilt angle:
+## left of the leftmost panel and/or right of the rightmost panel. The gaps
+## BETWEEN panels stay backdrop-colored.
+@export var edge_fill_left: bool = false:
+	set(v):
+		edge_fill_left = v
+		_update()
+@export var edge_fill_right: bool = false:
+	set(v):
+		edge_fill_right = v
+		_update()
+
 ## Height of each panel (fraction of screen height). Index = panel number,
 ## starting at 0 (leftmost). Edit per panel.
 @export var panel_heights: Array = [1.0, 1.0, 1.0, 1.0]:
@@ -127,6 +159,12 @@ func _update() -> void:
 	_mat.set_shader_parameter("h_offset", h_offset)
 	_mat.set_shader_parameter("tilt", tilt)
 	_mat.set_shader_parameter("v_offset", v_offset)
+	_mat.set_shader_parameter("backdrop", backdrop_color)
+	_mat.set_shader_parameter("backdrop_tex", backdrop_texture)
+	_mat.set_shader_parameter("use_backdrop_tex", backdrop_texture != null)
+	_mat.set_shader_parameter("backdrop_tint", backdrop_tint)
+	_mat.set_shader_parameter("edge_fill_left", edge_fill_left)
+	_mat.set_shader_parameter("edge_fill_right", edge_fill_right)
 
 	# Per-panel arrays (padded to MAX_PANELS for the fixed-size shader array).
 	var h := PackedFloat32Array()

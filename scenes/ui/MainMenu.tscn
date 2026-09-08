@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://daxd8krxddxig" path="res://assets/ui/Custom/Menu/Start_Not-Pressed.png" id="2_2ysvc"]
 [ext_resource type="Shader" uid="uid://ibg7x06fygmw" path="res://shaders/panel_background.gdshader" id="2_e2per"]
 [ext_resource type="Texture2D" uid="uid://d07hpagts0ofd" path="res://assets/ui/free-city-backgrounds-pixel-art/city 3/6.png" id="3_e2per"]
+[ext_resource type="Texture2D" uid="uid://ccwgsf5dt4kx8" path="res://assets/ui/free-city-backgrounds-pixel-art/city 3/7.png" id="3_qjd48"]
 [ext_resource type="Texture2D" uid="uid://b02vil3txs8ih" path="res://assets/ui/Custom/Menu/Settings_Not-Pressed.png" id="3_xpiny"]
 [ext_resource type="Texture2D" uid="uid://bhn48ghlem085" path="res://assets/ui/Custom/Menu/Quit_Not-Pressed.png" id="4_bhu4a"]
 [ext_resource type="Texture2D" uid="uid://b33wenf1ubnge" path="res://assets/ui/Custom/Menu/Start_Pressed.png" id="6_ee60a"]
@@ -14,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://gv3gsnp33nx6" path="res://assets/ui/Custom/Menu/Quit_Hover.png" id="13_0oadh"]
 [ext_resource type="Script" uid="uid://cf0pqigraf7n3" path="res://scripts/ui/panel_background.gd" id="panel_bg"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ee60a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ff4wq"]
 shader = ExtResource("2_e2per")
 shader_parameter/city_tex = ExtResource("3_e2per")
 shader_parameter/use_texture = true
@@ -29,6 +30,11 @@ shader_parameter/tilt = -0.2
 shader_parameter/v_offset = 0.0
 shader_parameter/tint = Color(1, 1, 1, 1)
 shader_parameter/backdrop = Color(0, 0, 0, 1)
+shader_parameter/backdrop_tex = ExtResource("3_qjd48")
+shader_parameter/use_backdrop_tex = true
+shader_parameter/backdrop_tint = Color(0.1764706, 0.1764706, 0.1764706, 1)
+shader_parameter/edge_fill_left = true
+shader_parameter/edge_fill_right = true
 shader_parameter/anim_enabled = true
 shader_parameter/anim_speed = 0.3
 shader_parameter/anim_amplitude = 0.04
@@ -47,7 +53,7 @@ grow_vertical = 2
 script = ExtResource("1_script")
 
 [node name="Background" type="ColorRect" parent="." unique_id=490465165]
-material = SubResource("ShaderMaterial_ee60a")
+material = SubResource("ShaderMaterial_ff4wq")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,6 +67,10 @@ city_texture = ExtResource("3_e2per")
 panel_width = 0.16
 h_offset = 0.1
 tilt = -0.2
+backdrop_texture = ExtResource("3_qjd48")
+backdrop_tint = Color(0.1764706, 0.1764706, 0.1764706, 1)
+edge_fill_left = true
+edge_fill_right = true
 panel_heights = [0.6, 0.9, 0.4, 0.6]
 panel_v_centers = [0.5, 0.6, 0.5, 0.3]
 anim_speed = 0.3

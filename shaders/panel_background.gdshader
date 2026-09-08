@@ -24,6 +24,20 @@ uniform float v_offset : hint_range(-1.0, 1.0) = 0.0;
 uniform vec4 tint : source_color = vec4(1.0);
 uniform vec4 backdrop : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 
+// Optional image for the empty space OUTSIDE the panels. When set, it replaces
+// the flat `backdrop` color everywhere no panel covers. Because it fills the
+// whole screen, it is automatically shaped by the panel geometry (size, gap,
+// tilt, bob) -- the panels simply carve through it.
+uniform sampler2D backdrop_tex : filter_linear_mipmap, repeat_disable;
+uniform bool use_backdrop_tex = false;
+uniform vec4 backdrop_tint : source_color = vec4(1.0);
+
+// Extend the city image past the outermost panels: left of the leftmost panel
+// and/or right of the rightmost panel, following the panel tilt angle. The
+// gaps BETWEEN panels stay backdrop-colored.
+uniform bool edge_fill_left = false;
+uniform bool edge_fill_right = false;
+
 // Panel bobbing animation (whole band moves up/down, per-panel offsets kept).
 uniform bool anim_enabled = false;
 uniform float anim_speed : hint_range(0.0, 5.0) = 1.0;
@@ -32,6 +46,8 @@ uniform float anim_time = 0.0;
 
 void fragment() {
 	vec2 uv = UV;
+	// Default = flat backdrop color (black). Panels carve the city on top, and
+	// the backdrop image (if any) only appears OUTSIDE the outer panels.
 	vec3 col = backdrop.rgb;
 
 	// Horizontal shift of the whole panel set.
@@ -43,6 +59,18 @@ void fragment() {
 	float span = panel_width + panel_gap;
 	float total = float(panel_count) * span - panel_gap;
 	float start = 0.5 - total * 0.5;
+
+	// Edge fill: extend the image past the leftmost/rightmost panel, following
+	// the tilt. The panel set spans x_untilt in [start, start+total].
+	float right_edge = start + total;
+	if ((edge_fill_left && x_untilt < start) || (edge_fill_right && x_untilt > right_edge)) {
+		if (use_backdrop_tex) {
+			col = texture(backdrop_tex, uv).rgb * backdrop_tint.rgb;
+		} else {
+			col = backdrop.rgb;
+		}
+	}
+
 	float rel = x_untilt - start;
 	int idx = int(floor(rel / span));
 	float within = rel - float(idx) * span;
