@@ -16,7 +16,6 @@ size = Vector2(30, 37)
 size = Vector2(31.5, 54.5)
 
 [node name="ZombieAxe" type="CharacterBody2D" unique_id=926407069]
-scale = Vector2(2, 2)
 collision_layer = 2
 script = ExtResource("1_zombie")
 

@@ -219,7 +219,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr03b"]
-size = Vector2(34, 60)
+size = Vector2(30, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hurt"]
 size = Vector2(34, 60)
@@ -237,7 +237,6 @@ animation = &"walk_left"
 autoplay = "idle_down"
 
 [node name="CollisionBody" type="CollisionShape2D" parent="." unique_id=2063828633]
-position = Vector2(1, 7)
 shape = SubResource("RectangleShape2D_wr03b")
 
 [node name="Health" type="Node" parent="." unique_id=108322000]
