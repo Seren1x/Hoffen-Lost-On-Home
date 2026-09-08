@@ -55,6 +55,7 @@
 [ext_resource type="Texture2D" uid="uid://ei4a543fdw2m" path="res://assets/objects/Objects - PostApocalypse/Traffic-cone.png" id="47_unlf2"]
 [ext_resource type="Texture2D" uid="uid://dtubdawkabkcg" path="res://assets/objects/Objects - PostApocalypse/Windows/Window_10_gray.png" id="49_lw384"]
 [ext_resource type="Texture2D" uid="uid://mso1djs688yt" path="res://assets/objects/Objects - PostApocalypse/Windows/Window_21_open_Boarded-up.png" id="50_5n4xe"]
+[ext_resource type="PackedScene" uid="uid://dfimobed18euq" path="res://scenes/ui/FogOverlay.tscn" id="56_lw384"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3su5"]
 texture = ExtResource("1_cq50m")
@@ -1259,3 +1260,5 @@ script = ExtResource("11_x3xno")
 metadata/_custom_type_script = "uid://dq3p1bernvty3"
 
 [node name="DialogueBox" parent="." unique_id=1743582627 instance=ExtResource("11_8vjh4")]
+
+[node name="FogOverlay" parent="." unique_id=1237553080 instance=ExtResource("56_lw384")]
