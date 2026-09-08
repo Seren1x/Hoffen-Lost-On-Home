@@ -21,6 +21,14 @@ wait_time = 0.2
 [node name="ReloadCooldown" type="Timer" parent="." unique_id=2093476174]
 wait_time = 3.0
 
+[node name="TopGuideLine" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(1, 1, 1, 0.35)
+
+[node name="BottomGuideLine" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(1, 1, 1, 0.35)
+
 [node name="Label" type="Label" parent="." unique_id=527175020]
 offset_right = 40.0
 offset_bottom = 23.0
