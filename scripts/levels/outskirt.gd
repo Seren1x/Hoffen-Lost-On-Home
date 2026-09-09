@@ -188,7 +188,11 @@ func _on_level_ended(body: Node2D) -> void:
 	_progress.advance("end_level", 0, 1)
 	_dialogue.show_monologue("Level end")
 	
-	StateManager.change_state("win_screen")
+	# Outskirt is chapter 1, not the end of the game — hand off to Downtown
+	# through the same PlayingState the main menu used to start Outskirt.
+	# change_state() tears down this whole level (state_exit() -> queue_free)
+	# and boots a fresh PlayingState hosting Downtown instead.
+	StateManager.change_state("playing", {"level": preload("res://scenes/levels/Downtown.tscn")})
 	
 
 

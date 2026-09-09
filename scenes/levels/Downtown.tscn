@@ -880,7 +880,10 @@ size = Vector2(30, 30)
 size = Vector2(150, 150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5rlfo"]
-size = Vector2(200, 200)
+size = Vector2(180, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78vg2"]
+size = Vector2(75, 75)
 
 [node name="Downtown" type="Node2D" unique_id=527772720]
 script = ExtResource("1_63iek")
@@ -909,7 +912,7 @@ WALK_SPEED = 450.0
 zoom = Vector2(1.8, 1.8)
 limit_left = 0
 limit_top = 5
-limit_right = 4800
+limit_right = 5325
 limit_bottom = 1970
 
 [node name="Monsters" type="Node2D" parent="YSortEntities" unique_id=855875235]
@@ -981,14 +984,28 @@ shape = SubResource("RectangleShape2D_ro04h")
 position = Vector2(2047, 680)
 
 [node name="Area2D" type="Area2D" parent="QuestRelated/GateNoOne" unique_id=1766745551]
+position = Vector2(-8, -19)
 collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/GateNoOne/Area2D" unique_id=1410959780]
 shape = SubResource("RectangleShape2D_5rlfo")
 
 [node name="Marker" type="Sprite2D" parent="QuestRelated/GateNoOne/Area2D" unique_id=101976181]
-position = Vector2(-3, -3)
 scale = Vector2(5, 5)
+texture = ExtResource("10_n5lbe")
+
+[node name="Interactable" type="Area2D" parent="QuestRelated/GateNoOne" unique_id=891131403]
+position = Vector2(-7, 163)
+collision_mask = 9
+script = ExtResource("11_63iek")
+consume_on_interact = false
+metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/GateNoOne/Interactable" unique_id=2103656876]
+shape = SubResource("RectangleShape2D_78vg2")
+
+[node name="Marker" type="Sprite2D" parent="QuestRelated/GateNoOne/Interactable" unique_id=2068324309]
+scale = Vector2(2, 2)
 texture = ExtResource("10_n5lbe")
 
 [node name="WeaponPickup2" type="Node2D" parent="QuestRelated" unique_id=1538812818]
@@ -1065,6 +1082,20 @@ shape = SubResource("RectangleShape2D_5rlfo")
 [node name="Marker" type="Sprite2D" parent="QuestRelated/GateNoTwo/Area2D" unique_id=1990500554]
 position = Vector2(-3, -3)
 scale = Vector2(5, 5)
+texture = ExtResource("10_n5lbe")
+
+[node name="Interactable" type="Area2D" parent="QuestRelated/GateNoTwo" unique_id=782908772]
+position = Vector2(4, -154)
+collision_mask = 9
+script = ExtResource("11_63iek")
+consume_on_interact = false
+metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/GateNoTwo/Interactable" unique_id=695178817]
+shape = SubResource("RectangleShape2D_78vg2")
+
+[node name="Marker" type="Sprite2D" parent="QuestRelated/GateNoTwo/Interactable" unique_id=887318681]
+scale = Vector2(2, 2)
 texture = ExtResource("10_n5lbe")
 
 [node name="GasolinePickup" type="Node2D" parent="QuestRelated" unique_id=424951149]

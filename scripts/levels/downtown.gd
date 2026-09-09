@@ -13,9 +13,11 @@ class_name DowntownLevel
 @onready var _destination_area: Area2D = $QuestRelated/DestinationMarker
 
 @onready var _gate1_area: Area2D = $QuestRelated/GateNoOne/Area2D
+@onready var _gate1_open: Interactable = $QuestRelated/GateNoOne/Interactable
 @onready var _key_pickup: Interactable = $QuestRelated/KeyPickup/Interactable
 
 @onready var _gate2_area: Area2D = $QuestRelated/GateNoTwo/Area2D
+@onready var _gate2_open: Interactable = $QuestRelated/GateNoTwo/Interactable
 @onready var _fragment_pickups: Array[Interactable] = [
 	$QuestRelated/FragmentPickup/KeyPickup/Interactable,
 	$QuestRelated/FragmentPickup/KeyPickup2/Interactable,
@@ -34,7 +36,9 @@ const ZOMBIE_SCENE: PackedScene = preload("res://scenes/entities/ZombieAxe.tscn"
 	"move_to_point": [$QuestRelated/DestinationMarker/Marker],
 	"explore_gate1": [$QuestRelated/GateNoOne/Area2D/Marker],
 	"find_key": [$QuestRelated/KeyPickup/Marker],
+	"open_gate1": [$QuestRelated/GateNoOne/Interactable/Marker],
 	"explore_gate2": [$QuestRelated/GateNoTwo/Area2D/Marker],
+	"open_gate2": [$QuestRelated/GateNoTwo/Interactable/Marker],
 	"find_fragments": [
 		$QuestRelated/FragmentPickup/KeyPickup/Marker,
 		$QuestRelated/FragmentPickup/KeyPickup2/Marker,
@@ -118,7 +122,7 @@ func _change_gate2_tiles() -> void:
 
 func _hide_all_markers() -> void:
 	for markers: Array in QUEST_MARKERS.values():
-		for marker: Sprite2D in markers:
+		for marker in markers:
 			if is_instance_valid(marker):
 				marker.visible = false
 
@@ -126,8 +130,10 @@ func _hide_all_markers() -> void:
 func _connect_triggers() -> void:
 	_destination_area.body_entered.connect(_on_destination_reached)
 	_gate1_area.body_entered.connect(_on_gate1_area_entered)
+	_gate1_open.interacted.connect(_on_gate1_open_attempted)
 	_key_pickup.interacted.connect(_on_key_picked_up)
 	_gate2_area.body_entered.connect(_on_gate2_area_entered)
+	_gate2_open.interacted.connect(_on_gate2_open_attempted)
 	for fragment: Interactable in _fragment_pickups:
 		fragment.interacted.connect(_on_fragment_picked_up.bind(fragment))
 	_vehicle_area.body_entered.connect(_on_vehicle_area_entered)
@@ -181,6 +187,27 @@ func _on_gate2_area_entered(body: Node2D) -> void:
 	_dialogue.show_dialogue(SPEAKER_NAME, "Second gate. This one needs some kind of lever — looks broken apart.")
 
 
+## Guard against the player pressing E before "open_gate1" is the active
+## task — give feedback instead of silently failing. Same shape as
+## OutskirtLevel's single gate handler.
+func _on_gate1_open_attempted(_interactor: Node2D) -> void:
+	if not _progress.is_active("open_gate1"):
+		_dialogue.show_dialogue(SPEAKER_NAME, "It won't budge. Something's still stopping it.")
+		return
+	_progress.advance("open_gate1", 0, 1)
+	_dialogue.show_dialogue(SPEAKER_NAME, "Gate #1's open. Keep moving.")
+	_change_gate1_tiles()
+
+
+func _on_gate2_open_attempted(_interactor: Node2D) -> void:
+	if not _progress.is_active("open_gate2"):
+		_dialogue.show_dialogue(SPEAKER_NAME, "It won't budge. Something's still stopping it.")
+		return
+	_progress.advance("open_gate2", 0, 1)
+	_dialogue.show_dialogue(SPEAKER_NAME, "Gate #2's open. The car's close now.")
+	_change_gate2_tiles()
+
+
 func _on_fragment_picked_up(_interactor: Node2D, fragment: Interactable) -> void:
 	if not _progress.is_active("find_fragments"):
 		return
@@ -224,28 +251,9 @@ func _on_task_activated(task_id: StringName) -> void:
 	if not task:
 		return
 	_hud.show_task(task.title, task.objectives)
-	for marker: Sprite2D in QUEST_MARKERS.get(task_id, []):
+	for marker in QUEST_MARKERS.get(task_id, []):
 		if is_instance_valid(marker):
 			marker.visible = true
-
-	# "open_gateX" steps have no separate interact trigger in the scene —
-	# they resolve automatically once their prerequisite is done.
-	if task_id == &"open_gate1":
-		_auto_open_gate(1)
-	elif task_id == &"open_gate2":
-		_auto_open_gate(2)
-
-
-func _auto_open_gate(gate_number: int) -> void:
-	await get_tree().create_timer(1.0).timeout
-	if gate_number == 1:
-		_change_gate1_tiles()
-		_dialogue.show_dialogue(SPEAKER_NAME, "Gate #1's open. Keep moving.")
-		_progress.advance("open_gate1", 0, 1)
-	else:
-		_change_gate2_tiles()
-		_dialogue.show_dialogue(SPEAKER_NAME, "Gate #2's open. The car's close now.")
-		_progress.advance("open_gate2", 0, 1)
 
 
 func _on_objective_advanced(_task_id: StringName, index: int, current: int, required: int) -> void:
@@ -270,7 +278,7 @@ const NEXT_TASK: Dictionary = {
 
 func _on_task_completed(task_id: StringName) -> void:
 	_hud.hide_task()
-	for marker: Sprite2D in QUEST_MARKERS.get(task_id, []):
+	for marker in QUEST_MARKERS.get(task_id, []):
 		if is_instance_valid(marker):
 			marker.visible = false
 	var next_id: StringName = NEXT_TASK.get(task_id, &"")
