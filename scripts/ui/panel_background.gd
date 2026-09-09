@@ -130,7 +130,11 @@ func _ensure_material() -> void:
 	if _mat == null or _mat.shader != SHADER:
 		_mat = ShaderMaterial.new()
 		_mat.shader = SHADER
-	material = _mat
+	# Only reassign when it actually changes. Re-assigning `material` every
+	# frame (e.g. while dragging a slider) makes the editor re-process the node
+	# and can knock the Inspector row out from under the mouse.
+	if material != _mat:
+		material = _mat
 
 func _resize_arrays() -> void:
 	# Keep the per-panel arrays in sync with panel_count.
