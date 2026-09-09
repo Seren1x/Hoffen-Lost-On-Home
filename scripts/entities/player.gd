@@ -113,14 +113,9 @@ func move(delta: float) -> void:
 	# the player must wait for stamina to fully refill before running again).
 	is_running = wants_run and not _stamina_exhausted and stamina > 0.0 and axis != Vector2.ZERO
 
-	# Hybrid aiming:
-	# - While moving and NOT shooting, the body faces the movement direction.
-	# - When stopped, or while shooting (even mid-movement), the body turns to
-	#   face the cursor so the weapon aim lines up with the body.
-	var is_aiming: bool = Input.is_action_pressed("left_click")
-	if is_aiming or axis == Vector2.ZERO:
-		_update_facing_from_cursor()
-	elif axis != Vector2.ZERO:
+	# Face the movement direction while moving. When stationary, keep the last
+	# facing direction — the weapon's shooting arc is independent of the body.
+	if axis != Vector2.ZERO:
 		_update_facing(axis)
 
 	if axis != Vector2.ZERO:

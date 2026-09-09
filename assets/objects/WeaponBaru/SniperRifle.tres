@@ -26,3 +26,5 @@ action_sfx = ExtResource("1_fw8ia")
 reload_sfx = ExtResource("3_fw8ia")
 empty_sfx = ExtResource("3_0dikg")
 action_delay = 1.96
+scope_zoom = 3.2
+laser_length = 1200.0
