@@ -10,6 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://b45noywh2ymdn" path="res://assets/ui/Custom/Menu/Exit-Main-Menu_Not-Pressed.png" id="8_bujqp"]
 [ext_resource type="Texture2D" uid="uid://cmy4wmxd3qas" path="res://assets/ui/Custom/Menu/Exit-Main-Menu_Pressed.png" id="9_bjk0l"]
 [ext_resource type="Texture2D" uid="uid://cmbhu1gtufkuw" path="res://assets/ui/Custom/Menu/Exit-Main-Menu_Hover.png" id="10_y5d2p"]
+[ext_resource type="Texture2D" uid="uid://dh08acggf6i0n" path="res://assets/sprites/rain-full-body.png" id="11_rain"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_info"]
+bg_color = Color(0.05, 0.05, 0.08, 0.7)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0a0r"]
 
@@ -30,6 +38,31 @@ layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 expand_mode = 3
+
+[node name="RainPortrait" type="Control" parent="." unique_id=1999200011]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_top = -192.0
+offset_right = 464.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Body" type="TextureRect" parent="RainPortrait" unique_id=1999200012]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("11_rain")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="Layout" type="VBoxContainer" parent="." unique_id=1622344263]
 anchors_preset = 15
@@ -101,30 +134,97 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="StatsPanel" type="VBoxContainer" parent="." unique_id=1543403819]
+[node name="HealthPanel" type="PanelContainer" parent="." unique_id=1543403819]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -60.0
-offset_right = 200.0
-offset_bottom = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/separation = 4
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 120.0
+offset_right = 300.0
+offset_bottom = 170.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_info")
 
-[node name="HPLabel" type="Label" parent="StatsPanel" unique_id=495486654]
+[node name="HealthVBox" type="VBoxContainer" parent="HealthPanel" unique_id=1543403820]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="HealthLabel" type="Label" parent="HealthPanel/HealthVBox" unique_id=495486654]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.2, 0.2, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "HP: 100 / 100"
 
-[node name="EnergyLabel" type="Label" parent="StatsPanel" unique_id=275497657]
+[node name="EnergyPanel" type="PanelContainer" parent="." unique_id=1543403821]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 178.0
+offset_right = 300.0
+offset_bottom = 228.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_info")
+
+[node name="EnergyVBox" type="VBoxContainer" parent="EnergyPanel" unique_id=1543403822]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="EnergyLabel" type="Label" parent="EnergyPanel/EnergyVBox" unique_id=275497657]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.9, 0.1, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "Energy: 100 / 100"
+
+[node name="WeaponPanel" type="PanelContainer" parent="." unique_id=1543403823]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 236.0
+offset_right = 300.0
+offset_bottom = 286.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_info")
+
+[node name="WeaponVBox" type="VBoxContainer" parent="WeaponPanel" unique_id=1543403824]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="WeaponLabel" type="Label" parent="WeaponPanel/WeaponVBox" unique_id=1543403825]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Weapon"
+
+[node name="ObjectivePanel" type="PanelContainer" parent="." unique_id=1543403826]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 294.0
+offset_right = 460.0
+offset_bottom = 360.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_info")
+
+[node name="ObjectiveVBox" type="VBoxContainer" parent="ObjectivePanel" unique_id=1543403827]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ObjectiveTitle" type="Label" parent="ObjectivePanel/ObjectiveVBox" unique_id=1543403828]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 20
+text = "Objective"
+
+[node name="ObjectiveLabel" type="Label" parent="ObjectivePanel/ObjectiveVBox" unique_id=1543403829]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 16
+text = "..."

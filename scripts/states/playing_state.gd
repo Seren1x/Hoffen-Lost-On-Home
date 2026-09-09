@@ -32,10 +32,47 @@ func _unhandled_input(event: InputEvent) -> void:
 		StateManager.push_state("paused", _collect_pause_data())
 
 
-## TODO(you): Player has no Health component yet, so there's nothing real to
-## report. Returning {} is intentional — PauseMenu.state_enter() already
-## checks data.has("hp") and hides the stats panel when it's missing, so this
-## degrades gracefully. Once Player has a Health node, populate hp/max_hp
-## here (and drop "energy" entirely unless you actually build that system).
+## Gathers the live gameplay snapshot the PauseMenu shows instead of the HUD:
+## player health, stamina/energy, the equipped weapon, and the active task's
+## objective. All lookups are generic (via groups / node names), so this works
+## for any level. Missing pieces are simply omitted — PauseMenu degrades
+## gracefully and only shows panels for the data that's present.
 func _collect_pause_data() -> Dictionary:
-	return {}
+	var data := {}
+
+	var player := get_tree().get_first_node_in_group("player")
+	if player:
+		var health := player.get_node_or_null("Health")
+		if health:
+			data["hp"] = health.current_health
+			data["max_hp"] = health.max_health
+		if player.get("stamina") != null:
+			data["energy"] = player.stamina
+			data["max_energy"] = player.max_stamina
+
+	var weapon := get_tree().get_first_node_in_group("weapon")
+	if weapon:
+		var def = weapon.get_current_definition() if weapon.has_method("get_current_definition") else null
+		if def:
+			data["weapon_name"] = def.display_name
+			data["weapon_ammo"] = weapon.current_ammo
+			data["weapon_max_ammo"] = def.max_ammo
+
+	# Active task + objective (TaskManager is a direct child of every level).
+	if _level:
+		var tm := _level.get_node_or_null("TaskManager")
+		if tm and tm.has_method("active"):
+			var actives: Array = tm.active()
+			if not actives.is_empty():
+				var task = actives[0]
+				data["task_title"] = task.title
+				var objs: Array = []
+				for o in task.objectives:
+					objs.append({
+						"description": o.description,
+						"current": o.current,
+						"required": o.required,
+					})
+				data["task_objectives"] = objs
+
+	return data
