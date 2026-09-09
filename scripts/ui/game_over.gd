@@ -24,8 +24,8 @@ var _level_scene: PackedScene = null
 var _standalone: bool = false
 
 @onready var _root: Control = $Root
-@onready var _restart_button: Button = %RestartButton
-@onready var _quit_button: Button = %QuitButton
+@onready var _restart_button: TextureButton = %RestartButton
+@onready var _quit_button: TextureButton = %QuitButton
 
 
 func _ready() -> void:
