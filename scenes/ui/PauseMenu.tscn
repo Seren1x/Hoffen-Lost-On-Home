@@ -12,14 +12,14 @@
 [ext_resource type="Texture2D" uid="uid://cmbhu1gtufkuw" path="res://assets/ui/Custom/Menu/Exit-Main-Menu_Hover.png" id="10_y5d2p"]
 [ext_resource type="Texture2D" uid="uid://dh08acggf6i0n" path="res://assets/sprites/rain-full-body.png" id="11_rain"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0a0r"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_info"]
 bg_color = Color(0.05, 0.05, 0.08, 0.7)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0a0r"]
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=1675111820]
 layer = 2
@@ -44,11 +44,10 @@ layout_mode = 3
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 80.0
-offset_top = -192.0
+offset_left = -80.0
+offset_top = -350.0
 offset_right = 464.0
 offset_bottom = 192.0
-grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
@@ -137,7 +136,6 @@ size_flags_vertical = 3
 [node name="HealthPanel" type="PanelContainer" parent="." unique_id=1543403819]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 0
 offset_left = 24.0
 offset_top = 120.0
 offset_right = 300.0
@@ -159,7 +157,6 @@ text = "HP: 100 / 100"
 [node name="EnergyPanel" type="PanelContainer" parent="." unique_id=1543403821]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 0
 offset_left = 24.0
 offset_top = 178.0
 offset_right = 300.0
@@ -181,7 +178,6 @@ text = "Energy: 100 / 100"
 [node name="WeaponPanel" type="PanelContainer" parent="." unique_id=1543403823]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 0
 offset_left = 24.0
 offset_top = 236.0
 offset_right = 300.0
@@ -203,7 +199,6 @@ text = "Weapon"
 [node name="ObjectivePanel" type="PanelContainer" parent="." unique_id=1543403826]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 0
 offset_left = 24.0
 offset_top = 294.0
 offset_right = 460.0
