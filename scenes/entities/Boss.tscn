@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dtye2xubdfyi5"]
+
+[ext_resource type="Script" uid="uid://gbgrt17smvah" path="res://scripts/entities/boss.gd" id="1_y1lo8"]
+
+[node name="Boss" type="CharacterBody2D" unique_id=793877020]
+script = ExtResource("1_y1lo8")
