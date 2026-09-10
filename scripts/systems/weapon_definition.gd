@@ -12,6 +12,11 @@ extends Resource
 ## Ammo in the magazine.
 @export var max_ammo: int = 12
 
+## Spare rounds bundled with the weapon when it is found as a ground pickup
+## (the reserve pool the magazine reloads from). The HUD shows this as
+## "<mag>/<reserve>", e.g. a Pistol prop with pickup_reserve_ammo 12 reads 6/12.
+@export var pickup_reserve_ammo: int = 12
+
 ## Damage dealt per bullet (per pellet for shotguns).
 @export var damage: int = 10
 

@@ -13,6 +13,7 @@ script = ExtResource("1_def")
 weapon_name = "SniperRifle"
 display_name = "Sniper Rifle"
 max_ammo = 6
+pickup_reserve_ammo = 10
 damage = 45
 fire_rate = 2.0
 reload_time = 4.15
