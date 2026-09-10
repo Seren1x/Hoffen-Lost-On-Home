@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cksjrgnf55tdr"]
+
+[ext_resource type="PackedScene" uid="uid://dwrtdkp875uwk" path="res://scenes/entities/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/props/weapons/AssaultRifleProp.tscn" id="2_ar"]
+[ext_resource type="PackedScene" path="res://scenes/props/weapons/ShotgunProp.tscn" id="3_sg"]
+[ext_resource type="PackedScene" uid="uid://cd4x3kk06xab2" path="res://scenes/props/AmmoProp.tscn" id="4_ammo"]
+[ext_resource type="PackedScene" uid="uid://d3x1a7k2nan6h" path="res://scenes/ui/HUD.tscn" id="5_hud"]
+[ext_resource type="PackedScene" path="res://scenes/props/weapons/PistolProp.tscn" id="6_pistol"]
+
+[node name="WeaponPickupDemo" type="Node2D" unique_id=1730411983]
+
+[node name="Player" parent="." unique_id=1217939109 instance=ExtResource("1_player")]
+
+[node name="AssaultRifleProp" parent="." unique_id=1211812656 instance=ExtResource("2_ar")]
+position = Vector2(90, 90)
+
+[node name="StartingPistol" parent="." unique_id=721839826 instance=ExtResource("6_pistol")]
+position = Vector2(0, 90)
+
+[node name="AmmoProp" parent="." unique_id=940079311 instance=ExtResource("4_ammo")]
+position = Vector2(180, 90)
+
+[node name="ShotgunProp" parent="." unique_id=886840313 instance=ExtResource("3_sg")]
+position = Vector2(270, 90)
+
+[node name="HUD" parent="." unique_id=93287861 instance=ExtResource("5_hud")]
+
+[node name="AssaultRifleProp2" parent="." unique_id=507886212 instance=ExtResource("2_ar")]
+position = Vector2(360, 90)

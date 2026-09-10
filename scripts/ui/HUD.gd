@@ -88,7 +88,7 @@ func _on_weapon_changed(index: int) -> void:
 		_slot_icons[i].visible = tex != null
 
 
-func _on_ammo_changed(_current: int, _maximum: int) -> void:
+func _on_ammo_changed(_mag: int, _reserve: int) -> void:
 	pass
 
 

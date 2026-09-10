@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://d3yhm0xkq7d8c" path="res://scenes/props/DestroyableProp.tscn" id="15_2ok8o"]
 [ext_resource type="PackedScene" uid="uid://cd4x3kk06xab2" path="res://scenes/props/AmmoProp.tscn" id="15_ocyy2"]
 [ext_resource type="PackedScene" uid="uid://bhp0q06rk8c1a" path="res://scenes/props/HealthProp.tscn" id="17_dsihe"]
+[ext_resource type="PackedScene" path="res://scenes/props/weapons/AssaultRifleProp.tscn" id="18_dsihe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3su5"]
 texture = ExtResource("2_rcd8k")
@@ -680,3 +681,6 @@ position = Vector2(285, 203)
 
 [node name="HealthProp" parent="." unique_id=1456965867 instance=ExtResource("17_dsihe")]
 position = Vector2(299, 284)
+
+[node name="AssaultRifleProp" parent="." unique_id=491241877 instance=ExtResource("18_dsihe")]
+position = Vector2(588, 1146)

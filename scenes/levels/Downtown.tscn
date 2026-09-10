@@ -14,11 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://3kwymw8aci07" path="res://assets/objects/Objects - PostApocalypse/Vehicles/Overgrown/Car_6_Overgrown_Scrap/Dark-Green/Car_6_Overgrown_Dark-Green_Green_Scrap.png" id="8_cclor"]
 [ext_resource type="Texture2D" uid="uid://74sr57rrjevy" path="res://assets/objects/Objects - PostApocalypse/Vehicles/Overgrown/Car_7_Overgrown_Truck/Dark-Green/Car_7_Overgrown_Dark-Green_Orange_Truck.png" id="9_jucix"]
 [ext_resource type="Texture2D" uid="uid://di37q36c17fw8" path="res://assets/ui/Marker/Marker.png" id="10_n5lbe"]
-[ext_resource type="Script" uid="uid://bac7ljqqdxa3w" path="res://scripts/components/interactable.gd" id="11_63iek"]
+[ext_resource type="Script" uid="uid://fucut6mpdkr2" path="res://scripts/components/interactable.gd" id="11_63iek"]
 [ext_resource type="PackedScene" uid="uid://d3x1a7k2nan6h" path="res://scenes/ui/HUD.tscn" id="13_5rlfo"]
 [ext_resource type="Script" uid="uid://dq3p1bernvty3" path="res://scripts/systems/task_manager.gd" id="14_78vg2"]
 [ext_resource type="PackedScene" uid="uid://dqbyat3kcn0h1" path="res://scenes/ui/DialogueBox.tscn" id="15_me5nk"]
 [ext_resource type="PackedScene" uid="uid://dfimobed18euq" path="res://scenes/ui/FogOverlay.tscn" id="16_enhh4"]
+[ext_resource type="PackedScene" path="res://scenes/props/weapons/AssaultRifleProp.tscn" id="17_arprop"]
+[ext_resource type="PackedScene" path="res://scenes/props/weapons/PistolProp.tscn" id="18_pistolprop"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p6ych"]
 texture = ExtResource("1_1o2kd")
@@ -923,7 +925,7 @@ y_sort_enabled = true
 
 [node name="Player" parent="YSortEntities" unique_id=2041947310 instance=ExtResource("4_v3su5")]
 position = Vector2(184, 1744)
-collision_layer = 8
+collision_layer = 4
 WALK_SPEED = 450.0
 
 [node name="Camera2D" type="Camera2D" parent="YSortEntities/Player" unique_id=2012688863]
@@ -984,7 +986,7 @@ polygon = PackedVector2Array(2241, 457, 2219, 357, 2273, 265, 2191, 187, 2065, 3
 [node name="DestinationMarker" type="Area2D" parent="QuestRelated" unique_id=446780996]
 position = Vector2(1403, 1750)
 scale = Vector2(2, 2)
-collision_mask = 9
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/DestinationMarker" unique_id=642162001]
 shape = SubResource("RectangleShape2D_b1nue")
@@ -998,9 +1000,9 @@ position = Vector2(502, 519)
 scale = Vector2(2, 2)
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/KeyPickup" unique_id=1382659546]
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("11_63iek")
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/KeyPickup/Interactable" unique_id=948293488]
 shape = SubResource("RectangleShape2D_jwb4a")
@@ -1016,7 +1018,7 @@ scale = Vector2(6, 6)
 texture = ExtResource("10_n5lbe")
 
 [node name="Area2D" type="Area2D" parent="QuestRelated/Vehicle" unique_id=1846976824]
-collision_mask = 9
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/Vehicle/Area2D" unique_id=590439601]
 shape = SubResource("RectangleShape2D_ro04h")
@@ -1026,7 +1028,7 @@ position = Vector2(2047, 680)
 
 [node name="Area2D" type="Area2D" parent="QuestRelated/GateNoOne" unique_id=1766745551]
 position = Vector2(-8, -19)
-collision_mask = 9
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/GateNoOne/Area2D" unique_id=1410959780]
 shape = SubResource("RectangleShape2D_5rlfo")
@@ -1037,10 +1039,10 @@ texture = ExtResource("10_n5lbe")
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/GateNoOne" unique_id=891131403]
 position = Vector2(-7, 163)
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("11_63iek")
 consume_on_interact = false
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/GateNoOne/Interactable" unique_id=2103656876]
 shape = SubResource("RectangleShape2D_78vg2")
@@ -1049,20 +1051,8 @@ shape = SubResource("RectangleShape2D_78vg2")
 scale = Vector2(2, 2)
 texture = ExtResource("10_n5lbe")
 
-[node name="WeaponPickup2" type="Node2D" parent="QuestRelated" unique_id=1538812818]
+[node name="WeaponPickup2" parent="QuestRelated" instance=ExtResource("17_arprop")]
 position = Vector2(123, 354)
-scale = Vector2(2, 2)
-
-[node name="Interactable" type="Area2D" parent="QuestRelated/WeaponPickup2" unique_id=914025813]
-collision_mask = 9
-script = ExtResource("11_63iek")
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/WeaponPickup2/Interactable" unique_id=2128358644]
-shape = SubResource("RectangleShape2D_jwb4a")
-
-[node name="Marker" type="Sprite2D" parent="QuestRelated/WeaponPickup2" unique_id=885577605]
-texture = ExtResource("10_n5lbe")
 
 [node name="FragmentPickup" type="Node2D" parent="QuestRelated" unique_id=1239874268]
 
@@ -1071,9 +1061,9 @@ position = Vector2(2306, 363)
 scale = Vector2(2, 2)
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/FragmentPickup/KeyPickup" unique_id=1781734928]
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("11_63iek")
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/FragmentPickup/KeyPickup/Interactable" unique_id=13176574]
 shape = SubResource("RectangleShape2D_jwb4a")
@@ -1086,9 +1076,9 @@ position = Vector2(2040, 1449)
 scale = Vector2(2, 2)
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/FragmentPickup/KeyPickup2" unique_id=1271201453]
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("11_63iek")
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/FragmentPickup/KeyPickup2/Interactable" unique_id=504491831]
 shape = SubResource("RectangleShape2D_jwb4a")
@@ -1101,9 +1091,9 @@ position = Vector2(3844, 1753)
 scale = Vector2(2, 2)
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/FragmentPickup/KeyPickup3" unique_id=1825639608]
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("11_63iek")
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/FragmentPickup/KeyPickup3/Interactable" unique_id=1685659213]
 shape = SubResource("RectangleShape2D_jwb4a")
@@ -1115,7 +1105,7 @@ texture = ExtResource("10_n5lbe")
 position = Vector2(3479, 999)
 
 [node name="Area2D" type="Area2D" parent="QuestRelated/GateNoTwo" unique_id=549785314]
-collision_mask = 9
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/GateNoTwo/Area2D" unique_id=1245477642]
 shape = SubResource("RectangleShape2D_5rlfo")
@@ -1127,10 +1117,10 @@ texture = ExtResource("10_n5lbe")
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/GateNoTwo" unique_id=782908772]
 position = Vector2(4, -154)
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("11_63iek")
 consume_on_interact = false
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/GateNoTwo/Interactable" unique_id=695178817]
 shape = SubResource("RectangleShape2D_78vg2")
@@ -1144,9 +1134,9 @@ position = Vector2(5085, 360)
 scale = Vector2(2, 2)
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/GasolinePickup" unique_id=1740299417]
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("11_63iek")
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/GasolinePickup/Interactable" unique_id=296550712]
 shape = SubResource("RectangleShape2D_jwb4a")
@@ -1163,3 +1153,6 @@ metadata/_custom_type_script = "uid://dq3p1bernvty3"
 [node name="DialogueBox" parent="." unique_id=1743582627 instance=ExtResource("15_me5nk")]
 
 [node name="FogOverlay" parent="." unique_id=1237553080 instance=ExtResource("16_enhh4")]
+
+[node name="StartingPistol" parent="." instance=ExtResource("18_pistolprop")]
+position = Vector2(184, 1804)

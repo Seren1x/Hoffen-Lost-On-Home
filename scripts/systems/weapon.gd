@@ -4,10 +4,18 @@ class_name Weapon
 ## Player weapon system.
 ##
 ## Holds a list of [WeaponDefinition]s and fires the currently equipped one.
-## The core mechanic is unchanged (rotate to mouse, hold LMB to fire, R to
-## reload, ammo pickups via add_ammo), but per-weapon behaviour (ammo, damage,
-## fire rate, reload time, pellet spread, projectile, sprite and SFX) now comes
-## from the selected [WeaponDefinition] instead of hard-coded values.
+## Rotate to mouse, hold LMB to fire, R to reload, ammo pickups via add_ammo /
+## add_magazines, and ground pickups via add_weapon. Per-weapon behaviour
+## (damage, fire rate, reload time, pellet spread, projectile, sprite and SFX)
+## comes from the selected [WeaponDefinition].
+##
+## LIMITED AMMO MODEL: every weapon in the loadout tracks its own two pools:
+##   mag     — rounds currently loaded in the magazine (0..max_ammo)
+##   reserve — spare rounds the magazine reloads from
+## Reloading transfers rounds from reserve to mag, so ammo is finite: when both
+## pools run dry the weapon is out until an ammo prop (1 prop = 1 magazine) or
+## a duplicate weapon pickup is found. Switching weapons keeps each weapon's
+## own mag/reserve (no free refill on switch).
 ##
 ## Switch weapons with the 1..4 keys (or call [method switch_weapon]).
 
@@ -15,8 +23,9 @@ signal call_weapon_reload
 ## Emitted when the equipped weapon changes (index + the definition), so the HUD
 ## can refresh name/stats/texture.
 signal weapon_changed(index: int)
-## Emitted whenever current ammo changes, so the HUD can stay in sync.
-signal ammo_changed(current: int, maximum: int)
+## Emitted whenever the equipped weapon's ammo changes, so the HUD can stay in
+## sync. Reports (mag, reserve) of the currently equipped weapon.
+signal ammo_changed(mag: int, reserve: int)
 
 # references
 @onready var weapon_sprite: Sprite2D = $Texture
@@ -31,6 +40,8 @@ signal ammo_changed(current: int, maximum: int)
 @onready var laser: Line2D = $Texture/Laser
 
 ## The available weapon loadout. Populate in the editor or from a scene.
+## Starts EMPTY (the player is unarmed); weapons are granted by WeaponProp
+## pickups placed in the levels (e.g. the pistol dropped at spawn).
 @export var weapon_defs: Array[WeaponDefinition] = []
 
 @export var rotation_speed: float = 10.0
@@ -46,8 +57,11 @@ const GUIDE_LINE_START: float = 45.0
 enum State { IDLE, SHOOTING, RELOADING }
 
 var current_state: State = State.IDLE
-var current_ammo: int = 0
 var current_index: int = 0
+
+## Per-weapon ammo state, parallel to [member weapon_defs]: one
+## {"mag": int, "reserve": int} entry per weapon in the loadout.
+var _ammo_states: Array[Dictionary] = []
 
 ## Whether the left mouse button is currently held down. Set from the actual
 ## input event (not per-frame polling), so a fast click is never lost and
@@ -69,13 +83,25 @@ var _current_def: WeaponDefinition = null
 func _ready() -> void:
 	add_to_group("weapon")
 	if weapon_defs.is_empty():
-		# Fallback default so the weapon still works even if no defs are assigned.
-		_current_def = WeaponDefinition.new()
-		weapon_defs.append(_current_def)
+		# No weapons yet: the player is unarmed until a WeaponProp is picked up.
+		_current_def = null
+		_set_unarmed_visuals()
 	else:
 		_current_def = weapon_defs[0]
-	apply_definition()
+		apply_definition()
+	_init_ammo_states()
 	weapon_changed.emit(current_index)
+	ammo_changed.emit(get_mag(), get_reserve())
+
+
+## Hides the weapon visuals while the player has no gun. Reversed by
+## [method apply_definition] when the first weapon gets picked up.
+func _set_unarmed_visuals() -> void:
+	weapon_sprite.visible = false
+	top_guide_line.visible = false
+	bottom_guide_line.visible = false
+	$Label.visible = false
+	laser.visible = false
 
 
 func _input(event: InputEvent) -> void:
@@ -94,7 +120,10 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
-	$Label.text = "%s | %d/%d" % [_current_def.display_name, current_ammo, _current_def.max_ammo]
+	if _current_def == null:
+		return  # Unarmed: nothing to rotate, fire, reload or display.
+
+	$Label.text = "%s | %d/%d" % [_current_def.display_name, get_mag(), get_reserve()]
 
 	rotate_weapon(delta)
 	_update_guide_lines()
@@ -106,8 +135,11 @@ func _process(delta: float) -> void:
 			current_state = State.SHOOTING
 			player_shoot()
 		elif Input.is_action_just_pressed("reload"):
-			current_state = State.RELOADING
-			weapon_reload()
+			# Only enter the reload state when it can actually do something:
+			# the mag isn't full AND there is spare ammo to reload from.
+			if get_mag() < _current_def.max_ammo and get_reserve() > 0:
+				current_state = State.RELOADING
+				weapon_reload()
 		else:
 			current_state = State.IDLE
 	else:
@@ -117,7 +149,7 @@ func _process(delta: float) -> void:
 
 ## Fire the currently equipped weapon.
 func player_shoot() -> void:
-	if current_state == State.RELOADING:
+	if _current_def == null or current_state == State.RELOADING:
 		return
 
 	# Can't fire while the action is still cycling (e.g. shotgun pump).
@@ -127,7 +159,7 @@ func player_shoot() -> void:
 	if attack_cooldown.time_left > 0.0:
 		return
 
-	if current_ammo <= 0:
+	if get_mag() <= 0:
 		_play_sfx(_current_def.empty_sfx)
 		return
 
@@ -148,8 +180,8 @@ func player_shoot() -> void:
 
 	_play_sfx(_current_def.shoot_sfx)
 	attack_cooldown.start(_current_def.fire_rate)
-	current_ammo -= 1
-	ammo_changed.emit(current_ammo, _current_def.max_ammo)
+	_set_mag(get_mag() - 1)
+	ammo_changed.emit(get_mag(), get_reserve())
 
 	# After the shot, the action cycles (pump/bolt/slide). This adds a delay
 	# before the next shot and plays the cycling sound.
@@ -224,7 +256,24 @@ func _update_guide_lines() -> void:
 	])
 
 
+## Reloads the equipped weapon by transferring rounds from its reserve pool to
+## the magazine. Does nothing (dry click SFX) when the mag is full or the
+## reserve is empty — ammo props are the only way to gain more rounds.
 func weapon_reload() -> void:
+	if _current_def == null:
+		return  # Unarmed: nothing to reload.
+	var needed: int = _current_def.max_ammo - get_mag()
+	if needed <= 0:
+		return
+	var reserve: int = get_reserve()
+	if reserve <= 0:
+		_play_sfx(_current_def.empty_sfx)
+		return
+
+	var transfer: int = mini(needed, reserve)
+	_set_mag(get_mag() + transfer)
+	_set_reserve(reserve - transfer)
+
 	reload_cooldown.start(_current_def.reload_time)
 	# Clear any in-progress attack/action cooldowns so the weapon is guaranteed
 	# ready to fire the moment the reload completes. Without this, a reload
@@ -233,15 +282,65 @@ func weapon_reload() -> void:
 	attack_cooldown.stop()
 	action_cooldown.stop()
 	_play_sfx(_current_def.reload_sfx)
-	current_ammo = _current_def.max_ammo
 	call_weapon_reload.emit()
-	ammo_changed.emit(current_ammo, _current_def.max_ammo)
+	ammo_changed.emit(get_mag(), get_reserve())
 
 
-## Adds [param amount] ammo (clamped to the equipped weapon's max_ammo).
+## Adds [param amount] spare rounds to the equipped weapon's reserve pool.
 func add_ammo(amount: int) -> void:
-	current_ammo = clampi(current_ammo + amount, 0, _current_def.max_ammo)
-	ammo_changed.emit(current_ammo, _current_def.max_ammo)
+	_set_reserve(get_reserve() + amount)
+	ammo_changed.emit(get_mag(), get_reserve())
+
+
+## Adds [param count] full magazines of spare rounds to the equipped weapon
+## (1 magazine = the weapon's max_ammo). Used by ammo props: 1 prop = 1 magazine.
+func add_magazines(count: int) -> void:
+	if _current_def == null:
+		return  # Unarmed: no weapon to feed.
+	add_ammo(count * _current_def.max_ammo)
+
+
+## Adds [param amount] spare rounds to the reserve pool of the weapon matching
+## [param def] (must be owned). Used by duplicate weapon pickups so the bundled
+## rounds join THAT weapon's pool instead of the equipped one. Returns true when
+## the rounds were added.
+func add_reserve_to(def: WeaponDefinition, amount: int) -> bool:
+	var index: int = weapon_defs.find(def)
+	if index < 0:
+		return false
+	var state: Dictionary = _ammo_states[index]
+	state["reserve"] = maxi(int(state.get("reserve", 0)) + amount, 0)
+	if index == current_index:
+		ammo_changed.emit(get_mag(), get_reserve())
+	return true
+
+
+## Returns the reserve pool of the weapon matching [param def], or -1 if unowned.
+func get_reserve_of(def: WeaponDefinition) -> int:
+	var index: int = weapon_defs.find(def)
+	if index < 0:
+		return -1
+	return int(_ammo_states[index].get("reserve", 0))
+
+
+## Adds a weapon definition to the loadout (if not already owned) and equips it.
+## The new weapon starts with a full mag plus its bundled spare rounds, or
+## [param reserve_override] when >= 0. Returns true when the weapon was newly
+## added; false when it was already owned (callers usually convert that into
+## spare ammo instead).
+func add_weapon(def: WeaponDefinition, reserve_override: int = -1) -> bool:
+	if def == null or has_weapon(def):
+		return false
+	weapon_defs.append(def)
+	var reserve: int = reserve_override if reserve_override >= 0 else def.pickup_reserve_ammo
+	_ammo_states.append({ "mag": def.max_ammo, "reserve": reserve })
+	switch_weapon(weapon_defs.size() - 1)
+	return true
+
+
+## Returns true when [param def] is already part of the loadout.
+func has_weapon(def: WeaponDefinition) -> bool:
+	return def != null and weapon_defs.has(def)
 
 
 ## Switch to the weapon at [param index] (clamped). Re-applies its sprite, ammo
@@ -253,11 +352,15 @@ func switch_weapon(index: int) -> void:
 	_current_def = weapon_defs[current_index]
 	apply_definition()
 	weapon_changed.emit(current_index)
-	ammo_changed.emit(current_ammo, _current_def.max_ammo)
+	ammo_changed.emit(get_mag(), get_reserve())
 
 
 func apply_definition() -> void:
-	current_ammo = _current_def.max_ammo
+	# (Re-)equipping a gun restores the armed visuals hidden while unarmed.
+	weapon_sprite.visible = true
+	top_guide_line.visible = true
+	bottom_guide_line.visible = true
+	$Label.visible = true
 	if _current_def.sprite_texture:
 		weapon_sprite.texture = _current_def.sprite_texture
 	weapon_sprite.scale = _current_def.sprite_scale
@@ -284,6 +387,45 @@ func apply_definition() -> void:
 	laser.visible = false
 	if _camera != null:
 		_camera.zoom = _base_zoom
+
+
+# ── Per-weapon ammo state helpers ──
+
+## Fills [member _ammo_states] with a fresh {mag, reserve} entry per weapon def.
+## Starting weapons spawn loaded plus the def's bundled spare rounds.
+func _init_ammo_states() -> void:
+	_ammo_states.clear()
+	for def: WeaponDefinition in weapon_defs:
+		_ammo_states.append({ "mag": def.max_ammo, "reserve": def.pickup_reserve_ammo })
+
+
+## The ammo state of the currently equipped weapon ({} if out of range).
+func _get_state() -> Dictionary:
+	if current_index >= 0 and current_index < _ammo_states.size():
+		return _ammo_states[current_index]
+	return {}
+
+
+## Rounds currently loaded in the equipped weapon's magazine.
+func get_mag() -> int:
+	return int(_get_state().get("mag", 0))
+
+
+## Spare rounds available to reload the equipped weapon from.
+func get_reserve() -> int:
+	return int(_get_state().get("reserve", 0))
+
+
+func _set_mag(value: int) -> void:
+	var state: Dictionary = _get_state()
+	if not state.is_empty():
+		state["mag"] = maxi(value, 0)
+
+
+func _set_reserve(value: int) -> void:
+	var state: Dictionary = _get_state()
+	if not state.is_empty():
+		state["reserve"] = maxi(value, 0)
 
 
 ## Returns the currently equipped weapon definition (for the HUD and other UI).
