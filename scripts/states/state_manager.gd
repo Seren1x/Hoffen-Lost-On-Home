@@ -27,7 +27,7 @@ var _is_transitioning: bool = false
 func _ready() -> void:
 	# First state the game boots into. Change this if you want to skip
 	# straight to "playing" while testing.
-	change_state("playing")
+	change_state("main_menu")
 
 
 func current_state() -> Node:   # was: -> GameState

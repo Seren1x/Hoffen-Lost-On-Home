@@ -3,36 +3,37 @@
 [ext_resource type="Script" uid="uid://d4g5qbri6hj2y" path="res://scripts/ui/main_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://daxd8krxddxig" path="res://assets/ui/Custom/Menu/Start_Not-Pressed.png" id="2_2ysvc"]
 [ext_resource type="Shader" uid="uid://ibg7x06fygmw" path="res://shaders/panel_background.gdshader" id="2_e2per"]
-[ext_resource type="Texture2D" uid="uid://c2roefny0r08" path="res://assets/ui/Custom/outskirt.png" id="3_qjd48"]
+[ext_resource type="Texture2D" uid="uid://blkfoqief5cyh" path="res://assets/ui/free-city-backgrounds-pixel-art/city 1/6.png" id="3_ff4wq"]
 [ext_resource type="Texture2D" uid="uid://b02vil3txs8ih" path="res://assets/ui/Custom/Menu/Settings_Not-Pressed.png" id="3_xpiny"]
-[ext_resource type="Texture2D" uid="uid://cu4axme6phu0t" path="res://assets/ui/free-city-ruin-backgrounds-pixel-art/background 4/orig_big.png" id="4_7uy2f"]
 [ext_resource type="Texture2D" uid="uid://bhn48ghlem085" path="res://assets/ui/Custom/Menu/Quit_Not-Pressed.png" id="4_bhu4a"]
+[ext_resource type="Texture2D" uid="uid://bbadb7bcg0p0k" path="res://assets/ui/free-city-ruin-backgrounds-pixel-art/background 4/orig.png" id="4_nqw28"]
 [ext_resource type="Texture2D" uid="uid://b33wenf1ubnge" path="res://assets/ui/Custom/Menu/Start_Pressed.png" id="6_ee60a"]
 [ext_resource type="Texture2D" uid="uid://gk0cykifuiut" path="res://assets/ui/Custom/Menu/Start_Hover.png" id="7_qjd48"]
 [ext_resource type="Texture2D" uid="uid://c4qvwls8urk05" path="res://assets/ui/Custom/Menu/Settings_Pressed.png" id="9_ff4wq"]
 [ext_resource type="Texture2D" uid="uid://11fsjijqi5pr" path="res://assets/ui/Custom/Menu/Settings_Hover.png" id="10_nqw28"]
 [ext_resource type="Texture2D" uid="uid://deprj48s10sx7" path="res://assets/ui/Custom/Menu/Quit_Pressed.png" id="12_7uy2f"]
 [ext_resource type="Texture2D" uid="uid://gv3gsnp33nx6" path="res://assets/ui/Custom/Menu/Quit_Hover.png" id="13_0oadh"]
+[ext_resource type="Texture2D" uid="uid://6ksocg8xwsqp" path="res://assets/ui/Custom/Hoffen_logo.png" id="14_logo"]
 [ext_resource type="Script" uid="uid://cf0pqigraf7n3" path="res://scripts/ui/panel_background.gd" id="panel_bg"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qjd48"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ff4wq"]
 shader = ExtResource("2_e2per")
-shader_parameter/city_tex = ExtResource("4_7uy2f")
+shader_parameter/city_tex = ExtResource("4_nqw28")
 shader_parameter/use_texture = true
-shader_parameter/panel_count = 5
-shader_parameter/panel_width = 0.12
+shader_parameter/panel_count = 4
+shader_parameter/panel_width = 0.16
 shader_parameter/panel_gap = 0.012
-shader_parameter/panel_heights = PackedFloat32Array(0.5, 0.9, 0.6, 0.7, 0.4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-shader_parameter/panel_v_centers = PackedFloat32Array(0.5, 0.6, 0.6, 0.4, 0.7, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5)
+shader_parameter/panel_heights = PackedFloat32Array(0.5, 0.9, 0.6, 0.7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+shader_parameter/panel_v_centers = PackedFloat32Array(0.5, 0.6, 0.6, 0.4, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5)
 shader_parameter/panel_phases = PackedFloat32Array(0, 3.1415927, 0, 3.1415927, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-shader_parameter/h_offset = 0.12
+shader_parameter/h_offset = 0.1
 shader_parameter/tilt = -0.2
 shader_parameter/v_offset = 0.0
-shader_parameter/tint = Color(0.5022551, 0.5022551, 0.42768508, 1)
+shader_parameter/tint = Color(0.77254903, 0.8156863, 0.5764706, 1)
 shader_parameter/backdrop = Color(0, 0, 0, 1)
-shader_parameter/backdrop_tex = ExtResource("3_qjd48")
+shader_parameter/backdrop_tex = ExtResource("3_ff4wq")
 shader_parameter/use_backdrop_tex = true
-shader_parameter/backdrop_tint = Color(0.24831942, 0.24831942, 0.24831942, 1)
+shader_parameter/backdrop_tint = Color(0.82530004, 0.82530004, 0.82530004, 1)
 shader_parameter/edge_fill_left = true
 shader_parameter/edge_fill_right = true
 shader_parameter/anim_enabled = true
@@ -53,7 +54,7 @@ grow_vertical = 2
 script = ExtResource("1_script")
 
 [node name="Background" type="ColorRect" parent="." unique_id=490465165]
-material = SubResource("ShaderMaterial_qjd48")
+material = SubResource("ShaderMaterial_ff4wq")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,19 +63,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("panel_bg")
-city_texture = ExtResource("4_7uy2f")
-tint = Color(0.5022551, 0.5022551, 0.42768508, 1)
-panel_count = 5
-panel_width = 0.12
-h_offset = 0.12
+city_texture = ExtResource("4_nqw28")
+tint = Color(0.77254903, 0.8156863, 0.5764706, 1)
+panel_width = 0.16
+h_offset = 0.1
 tilt = -0.2
-backdrop_texture = ExtResource("3_qjd48")
-backdrop_tint = Color(0.24831942, 0.24831942, 0.24831942, 1)
+backdrop_texture = ExtResource("3_ff4wq")
+backdrop_tint = Color(0.82530004, 0.82530004, 0.82530004, 1)
 edge_fill_left = true
 edge_fill_right = true
-panel_heights = [0.5, 0.9, 0.6, 0.7, 0.4]
-panel_v_centers = [0.5, 0.6, 0.6, 0.4, 0.7]
-panel_phases = [0.0, 3.141592653589793, 0.0, 3.141592653589793, 0.0]
+panel_heights = [0.5, 0.9, 0.6, 0.7]
+panel_v_centers = [0.5, 0.6, 0.6, 0.4]
 anim_speed = 0.3
 
 [node name="Layout" type="VBoxContainer" parent="." unique_id=2058127996]
@@ -87,15 +86,16 @@ grow_vertical = 2
 alignment = 1
 
 [node name="TopSpacer" type="Control" parent="Layout" unique_id=1067461621]
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="TitleLabel" type="Label" parent="Layout" unique_id=1050883998]
+[node name="TextureRect" type="TextureRect" parent="Layout" unique_id=231292966]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.65, 0.2, 1)
-theme_override_font_sizes/font_size = 36
-text = "HOFFEN"
-horizontal_alignment = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_scale = Vector2(2.2, 2.2)
+texture = ExtResource("14_logo")
 
 [node name="MidSpacer" type="Control" parent="Layout" unique_id=1950444319]
 custom_minimum_size = Vector2(0, 40)

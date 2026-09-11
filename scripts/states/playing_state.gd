@@ -52,10 +52,10 @@ func _collect_pause_data() -> Dictionary:
 
 	var weapon := get_tree().get_first_node_in_group("weapon")
 	if weapon:
-		var def = weapon.get_current_definition() if weapon.has_method("get_current_definition") else null
+		var def: WeaponDefinition = weapon.get_current_definition() if weapon.has_method("get_current_definition") else null
 		if def:
 			data["weapon_name"] = def.display_name
-			data["weapon_ammo"] = weapon.current_ammo
+			data["weapon_ammo"] = weapon.get_mag() if weapon.has_method("get_mag") else 0
 			data["weapon_max_ammo"] = def.max_ammo
 
 	# Active task + objective (TaskManager is a direct child of every level).
