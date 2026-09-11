@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dqbyat3kcn0h1" path="res://scenes/ui/DialogueBox.tscn" id="11_8vjh4"]
 [ext_resource type="Texture2D" uid="uid://difd1vie1lgoe" path="res://assets/objects/Objects - PostApocalypse/Vehicles/Rust/Car_6_Rust_Scrap/Car_6_Rust_Yellow_Scrap.png" id="11_gjpuu"]
 [ext_resource type="Script" uid="uid://dq3p1bernvty3" path="res://scripts/systems/task_manager.gd" id="11_x3xno"]
-[ext_resource type="Script" uid="uid://bac7ljqqdxa3w" path="res://scripts/components/interactable.gd" id="12_8vjh4"]
+[ext_resource type="Script" uid="uid://fucut6mpdkr2" path="res://scripts/components/interactable.gd" id="12_8vjh4"]
 [ext_resource type="Texture2D" uid="uid://ddvshy8id17nt" path="res://assets/objects/Objects - PostApocalypse/Buildings/Door_6_Boarded-up_Metal.png" id="12_foduf"]
 [ext_resource type="Script" uid="uid://c84uln1wpyotv" path="res://scripts/levels/outskirt.gd" id="12_level_script"]
 [ext_resource type="Texture2D" uid="uid://d3ity5f44mejq" path="res://assets/objects/Objects - PostApocalypse/Vehicles/Rust/Car_1_Rust/Car_1_Rust_Orange.png" id="12_tibul"]
@@ -56,6 +56,7 @@
 [ext_resource type="Texture2D" uid="uid://dtubdawkabkcg" path="res://assets/objects/Objects - PostApocalypse/Windows/Window_10_gray.png" id="49_lw384"]
 [ext_resource type="Texture2D" uid="uid://mso1djs688yt" path="res://assets/objects/Objects - PostApocalypse/Windows/Window_21_open_Boarded-up.png" id="50_5n4xe"]
 [ext_resource type="PackedScene" uid="uid://dfimobed18euq" path="res://scenes/ui/FogOverlay.tscn" id="56_lw384"]
+[ext_resource type="PackedScene" path="res://scenes/props/weapons/PistolProp.tscn" id="57_5n4xe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3su5"]
 texture = ExtResource("1_cq50m")
@@ -651,7 +652,6 @@ y_sort_enabled = true
 
 [node name="Player" parent="YSortEntities" unique_id=2041947310 instance=ExtResource("1_1p0bk")]
 position = Vector2(240, 84)
-collision_layer = 8
 
 [node name="Camera2D" type="Camera2D" parent="YSortEntities/Player" unique_id=167174838]
 zoom = Vector2(1.8, 1.8)
@@ -1156,7 +1156,7 @@ polygon = PackedVector2Array(289, 1111, 334, 1108, 336, 1274, 294, 1274)
 
 [node name="DestinationMarker" type="Area2D" parent="QuestRelated" unique_id=832223635]
 position = Vector2(357, 203)
-collision_mask = 9
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/DestinationMarker" unique_id=793803488]
 shape = SubResource("RectangleShape2D_wr03b")
@@ -1169,9 +1169,9 @@ texture = ExtResource("26_pkeuy")
 position = Vector2(360, 382)
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/WeaponPickup" unique_id=1051935576]
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("12_8vjh4")
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/WeaponPickup/Interactable" unique_id=1898335023]
 shape = SubResource("RectangleShape2D_foc1e")
@@ -1183,9 +1183,9 @@ texture = ExtResource("26_pkeuy")
 position = Vector2(3000, 200)
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/Generator" unique_id=474846051]
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("12_8vjh4")
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/Generator/Interactable" unique_id=1677467404]
 position = Vector2(47, -34)
@@ -1200,9 +1200,9 @@ texture = ExtResource("26_pkeuy")
 position = Vector2(1625, 1000)
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/PinPickup" unique_id=1437221024]
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("12_8vjh4")
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/PinPickup/Interactable" unique_id=1286321304]
 shape = SubResource("RectangleShape2D_lm8io")
@@ -1216,9 +1216,9 @@ texture = ExtResource("26_pkeuy")
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/Gate" unique_id=2146509482]
 position = Vector2(4000, 550)
-collision_mask = 9
+collision_mask = 5
 script = ExtResource("12_8vjh4")
-metadata/_custom_type_script = "uid://bac7ljqqdxa3w"
+metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/Gate/Interactable" unique_id=1854579762]
 shape = SubResource("RectangleShape2D_647tg")
@@ -1230,7 +1230,7 @@ texture = ExtResource("26_pkeuy")
 
 [node name="Area2D" type="Area2D" parent="QuestRelated/Gate" unique_id=57275456]
 position = Vector2(3700, 750)
-collision_mask = 9
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/Gate/Area2D" unique_id=1242064941]
 shape = SubResource("RectangleShape2D_dusk4")
@@ -1248,7 +1248,7 @@ scale = Vector2(6, 6)
 texture = ExtResource("26_pkeuy")
 
 [node name="Area2D" type="Area2D" parent="QuestRelated/End" unique_id=642583284]
-collision_mask = 9
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/End/Area2D" unique_id=1714715147]
 shape = SubResource("RectangleShape2D_2lr7d")
@@ -1262,3 +1262,6 @@ metadata/_custom_type_script = "uid://dq3p1bernvty3"
 [node name="DialogueBox" parent="." unique_id=1743582627 instance=ExtResource("11_8vjh4")]
 
 [node name="FogOverlay" parent="." unique_id=1237553080 instance=ExtResource("56_lw384")]
+
+[node name="PistolProp" parent="." unique_id=45258679 instance=ExtResource("57_5n4xe")]
+position = Vector2(360, 383)

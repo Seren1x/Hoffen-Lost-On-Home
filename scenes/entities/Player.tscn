@@ -237,6 +237,7 @@ animation = &"walk_left"
 autoplay = "idle_down"
 
 [node name="CollisionBody" type="CollisionShape2D" parent="." unique_id=2063828633]
+position = Vector2(-2, -1)
 shape = SubResource("RectangleShape2D_wr03b")
 
 [node name="Health" type="Node" parent="." unique_id=108322000]
@@ -244,6 +245,7 @@ script = ExtResource("42_health")
 max_health = 100
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=1624601077]
+visible = false
 collision_mask = 0
 script = ExtResource("43_hurtbox")
 health = NodePath("Health")

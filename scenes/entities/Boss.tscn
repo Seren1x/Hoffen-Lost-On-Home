@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://dtye2xubdfyi5"]
+
+[ext_resource type="Script" uid="uid://gbgrt17smvah" path="res://scripts/entities/boss.gd" id="1_y1lo8"]
+[ext_resource type="SpriteFrames" uid="uid://b5mtosrcto3xf" path="res://assets/sprites/Boss/boss_idle_sprites.tres" id="5_sprite_frames"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_boss_collision"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(24, 24)
+
+[node name="Boss" type="CharacterBody2D" unique_id=793877020]
+position = Vector2(142, 77)
+collision_layer = 2
+script = ExtResource("1_y1lo8")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=881874378]
+sprite_frames = ExtResource("5_sprite_frames")
+animation = &"idle_down"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1834981131]
+shape = SubResource("RectangleShape2D_boss_collision")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=935389562]
+
+[node name="Health" type="Node" parent="." unique_id=1378010297]
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1070413135]
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1880820013]
+shape = SubResource("RectangleShape2D_hurtbox")
+
+[node name="LootDropper" type="Node" parent="." unique_id=2072342494]
+
+[node name="Waypoints" type="Node2D" parent="." unique_id=533615733]
+position = Vector2(-9, -12)
+
+[node name="Waypoint1" type="Marker2D" parent="Waypoints" unique_id=877213695]
+position = Vector2(705, 140)
+
+[node name="Waypoint2" type="Marker2D" parent="Waypoints" unique_id=403068688]
+position = Vector2(685, 341)
+
+[node name="Waypoint3" type="Marker2D" parent="Waypoints" unique_id=207249324]
+position = Vector2(128, 361)
+
+[node name="Waypoint4" type="Marker2D" parent="Waypoints" unique_id=1005336446]
+position = Vector2(106, 155)

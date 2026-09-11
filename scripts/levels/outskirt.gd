@@ -72,9 +72,9 @@ func _register_task(id: String, title: String, obj_type: TaskObjective.Type, tar
 
 
 func _connect_enemies() -> void:
-	for zombie: ZombieAxe in get_tree().get_nodes_in_group("enemies"):
-		if not zombie.died.is_connected(_on_mutant_died):
-			zombie.died.connect(_on_mutant_died)
+	for node in get_tree().get_nodes_in_group("enemies"):
+		if node is ZombieAxe and not node.died.is_connected(_on_mutant_died):
+			node.died.connect(_on_mutant_died)
 
 func _spawn_mutant(at_position: Vector2) -> void:
 	var zombie: ZombieAxe = ZOMBIE_SCENE.instantiate()
@@ -188,7 +188,11 @@ func _on_level_ended(body: Node2D) -> void:
 	_progress.advance("end_level", 0, 1)
 	_dialogue.show_monologue("Level end")
 	
-	StateManager.change_state("win_screen")
+	# Outskirt is chapter 1, not the end of the game — hand off to Downtown
+	# through the same PlayingState the main menu used to start Outskirt.
+	# change_state() tears down this whole level (state_exit() -> queue_free)
+	# and boots a fresh PlayingState hosting Downtown instead.
+	StateManager.change_state("playing", {"level": preload("res://scenes/levels/Downtown.tscn")})
 	
 
 

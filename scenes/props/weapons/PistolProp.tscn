@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/props/weapon_prop.gd" id="1_wp"]
+[ext_resource type="Script" uid="uid://fucut6mpdkr2" path="res://scripts/components/interactable.gd" id="2_int"]
+[ext_resource type="Resource" uid="uid://lxq8kgke5t4l" path="res://assets/objects/WeaponBaru/Pistol.tres" id="3_def"]
+[ext_resource type="Texture2D" uid="uid://cau4ao5o76y4i" path="res://assets/objects/WeaponBaru/Ranitayas Guns Pack (16+ pixelart guns)/Revolvers/1Revolver01.png" id="4_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_range"]
+radius = 24.0
+
+[node name="PistolProp" type="Node2D"]
+script = ExtResource("1_wp")
+weapon_def = ExtResource("3_def")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("4_tex")
+
+[node name="Interactable" type="Area2D" parent="."]
+collision_mask = 5
+script = ExtResource("2_int")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("CircleShape2D_range")

@@ -54,3 +54,4 @@ shape = SubResource("RectangleShape2D_hurt")
 
 [node name="LootDropper" type="Node" parent="." unique_id=1452631320]
 script = ExtResource("3_loot")
+drop_chance = 1.0
