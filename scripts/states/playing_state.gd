@@ -6,8 +6,8 @@ class_name PlayingState
 
 ## Default level to load. Pass {"level": some_packed_scene} to change_state()
 ## if you ever need to start on a different level (e.g. for a level-select).
-#@export var default_level: PackedScene = preload("res://scenes/levels/Outskirt.tscn")
-@export var default_level: PackedScene = preload("res://scenes/levels/final_map.tscn")
+@export var default_level: PackedScene = preload("res://scenes/levels/Outskirt.tscn")
+
 
 var _level: Node = null
 

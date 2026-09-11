@@ -30,7 +30,7 @@ var saved_weapon_data: Dictionary = {}
 func _ready() -> void:
 	# First state the game boots into. Change this if you want to skip
 	# straight to "playing" while testing.
-	change_state("end_screen")
+	change_state("main_menu")
 
 
 func current_state() -> Node:   # was: -> GameState
