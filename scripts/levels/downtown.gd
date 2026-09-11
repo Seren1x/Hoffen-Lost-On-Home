@@ -162,6 +162,8 @@ func _on_gate1_area_entered(body: Node2D) -> void:
 
 
 func _on_key_picked_up(_interactor: Node2D) -> void:
+	#if not _progress.is_active("explore_gate1"):
+		#return
 	_progress.advance("find_key", 0, 1)
 	_dialogue.show_dialogue(SPEAKER_NAME, "Got the key. Now I just have to survive long enough to use it.")
 	_spawn_horde(5, _gate1_area.global_position, 120.0)
