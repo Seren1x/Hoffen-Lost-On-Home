@@ -10,7 +10,7 @@ extends Area2D
 var _hit_this_swing: Array[Node] = []
 
 func _ready() -> void:
-	monitoring = false
+	set_deferred("monitoring", false)
 	body_entered.connect(_on_body_entered)
 	area_entered.connect(_on_area_entered)
 
@@ -18,7 +18,7 @@ func _ready() -> void:
 ## enemy already overlapping at the moment the swing begins.
 func activate() -> void:
 	_hit_this_swing.clear()
-	monitoring = true
+	set_deferred("monitoring", true)
 	for body: Node2D in get_overlapping_bodies():
 		_apply_damage(body)
 	for area: Area2D in get_overlapping_areas():
@@ -26,7 +26,7 @@ func activate() -> void:
 
 ## Called when the swing ends. Disables detection.
 func deactivate() -> void:
-	monitoring = false
+	set_deferred("monitoring", false)
 	_hit_this_swing.clear()
 
 func _on_body_entered(body: Node2D) -> void:

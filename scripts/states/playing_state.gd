@@ -14,6 +14,16 @@ func state_enter(data: Dictionary = {}) -> void:
 	var level_scene: PackedScene = data.get("level", default_level)
 	_level = level_scene.instantiate()
 	add_child(_level)
+	# Restore weapon data carried over from a previous level.
+	if not StateManager.saved_weapon_data.is_empty():
+		call_deferred("_restore_weapons_from_save")
+
+
+func _restore_weapons_from_save() -> void:
+	var weapon := _level.get_tree().get_first_node_in_group("weapon") as Weapon
+	if weapon and weapon.has_method("restore_save_data"):
+		weapon.restore_save_data(StateManager.saved_weapon_data)
+		StateManager.saved_weapon_data = {}
 
 
 ## The playing level is a "world" state: it must stay visible behind overlay
@@ -23,6 +33,10 @@ func is_world_state() -> bool:
 
 func state_exit() -> void:
 	if _level:
+		# Save weapon data before destroying the level so it survives the transition.
+		var weapon := _level.get_tree().get_first_node_in_group("weapon") as Weapon
+		if weapon and weapon.has_method("get_save_data"):
+			StateManager.saved_weapon_data = weapon.get_save_data()
 		_level.queue_free()
 		_level = null
 
@@ -55,7 +69,7 @@ func _collect_pause_data() -> Dictionary:
 		var def = weapon.get_current_definition() if weapon.has_method("get_current_definition") else null
 		if def:
 			data["weapon_name"] = def.display_name
-			data["weapon_ammo"] = weapon.current_ammo
+			data["weapon_ammo"] = weapon.get_mag() if weapon.has_method("get_mag") else 0
 			data["weapon_max_ammo"] = def.max_ammo
 
 	# Active task + objective (TaskManager is a direct child of every level).

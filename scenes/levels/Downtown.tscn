@@ -19,8 +19,7 @@
 [ext_resource type="Script" uid="uid://dq3p1bernvty3" path="res://scripts/systems/task_manager.gd" id="14_78vg2"]
 [ext_resource type="PackedScene" uid="uid://dqbyat3kcn0h1" path="res://scenes/ui/DialogueBox.tscn" id="15_me5nk"]
 [ext_resource type="PackedScene" uid="uid://dfimobed18euq" path="res://scenes/ui/FogOverlay.tscn" id="16_enhh4"]
-[ext_resource type="PackedScene" path="res://scenes/props/weapons/AssaultRifleProp.tscn" id="17_arprop"]
-[ext_resource type="PackedScene" path="res://scenes/props/weapons/PistolProp.tscn" id="18_pistolprop"]
+[ext_resource type="PackedScene" path="res://scenes/props/weapons/ShotgunProp.tscn" id="20_cclor"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p6ych"]
 texture = ExtResource("1_1o2kd")
@@ -925,7 +924,6 @@ y_sort_enabled = true
 
 [node name="Player" parent="YSortEntities" unique_id=2041947310 instance=ExtResource("4_v3su5")]
 position = Vector2(184, 1744)
-collision_layer = 4
 WALK_SPEED = 450.0
 
 [node name="Camera2D" type="Camera2D" parent="YSortEntities/Player" unique_id=2012688863]
@@ -1051,9 +1049,6 @@ shape = SubResource("RectangleShape2D_78vg2")
 scale = Vector2(2, 2)
 texture = ExtResource("10_n5lbe")
 
-[node name="WeaponPickup2" parent="QuestRelated" instance=ExtResource("17_arprop")]
-position = Vector2(123, 354)
-
 [node name="FragmentPickup" type="Node2D" parent="QuestRelated" unique_id=1239874268]
 
 [node name="KeyPickup" type="Node2D" parent="QuestRelated/FragmentPickup" unique_id=1471722446]
@@ -1154,5 +1149,5 @@ metadata/_custom_type_script = "uid://dq3p1bernvty3"
 
 [node name="FogOverlay" parent="." unique_id=1237553080 instance=ExtResource("16_enhh4")]
 
-[node name="StartingPistol" parent="." instance=ExtResource("18_pistolprop")]
-position = Vector2(184, 1804)
+[node name="ShotgunProp" parent="." unique_id=1464557714 instance=ExtResource("20_cclor")]
+position = Vector2(123, 339)

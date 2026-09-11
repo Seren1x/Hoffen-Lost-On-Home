@@ -23,11 +23,14 @@ const STATE_SCENES: Dictionary = {
 var _stack: Array[Node] = []   # was: Array[GameState]
 var _is_transitioning: bool = false
 
+## Persistent weapon data carried across level transitions.
+var saved_weapon_data: Dictionary = {}
+
 
 func _ready() -> void:
 	# First state the game boots into. Change this if you want to skip
 	# straight to "playing" while testing.
-	change_state("playing")
+	change_state("main_menu")
 
 
 func current_state() -> Node:   # was: -> GameState

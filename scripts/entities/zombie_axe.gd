@@ -68,7 +68,7 @@ func _ready_enemy() -> void:
 	sprite.play("zombie_axe_down_idle")
 	attack_timer.timeout.connect(_reset_attack)
 	sprite.animation_finished.connect(_on_anim_finished)
-	attack_area.monitoring = false
+	set_deferred("attack_area.monitoring", false)
 	attack_area.area_entered.connect(_on_attack_area_entered)
 	_position_attack_area()
 
@@ -168,7 +168,7 @@ func _reset_attack() -> void:
 ## overlapping it when the swing starts.
 func _activate_attack_area() -> void:
 	_position_attack_area()
-	attack_area.monitoring = true
+	set_deferred("attack_area.monitoring", true)
 	for area: Area2D in attack_area.get_overlapping_areas():
 		_hit_player(area)
 
@@ -192,7 +192,7 @@ func _on_anim_finished() -> void:
 	elif sprite.animation.ends_with("_attack"):
 		sprite.speed_scale = 1.0
 		_current_attack = "first"
-		attack_area.monitoring = false
+		set_deferred("attack_area.monitoring", false)
 		_play_idle()
 
 ## Base Enemy has already set dead=true and emitted died. Add loot + death anim.
