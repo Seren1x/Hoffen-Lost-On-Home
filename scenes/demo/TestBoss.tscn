@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://daucx3vtp6see"]
+
+[ext_resource type="PackedScene" uid="uid://dtye2xubdfyi5" path="res://scenes/entities/Boss.tscn" id="1_kkjum"]
+[ext_resource type="PackedScene" uid="uid://dwrtdkp875uwk" path="res://scenes/entities/Player.tscn" id="2_76fhx"]
+
+[node name="Node2D" type="Node2D" unique_id=1067109274]
+
+[node name="Boss" parent="." unique_id=793877020 instance=ExtResource("1_kkjum")]
+position = Vector2(459, 205)
+scale = Vector2(2, 2)
+
+[node name="Player" parent="." unique_id=2041947310 instance=ExtResource("2_76fhx")]
+position = Vector2(78, 94)

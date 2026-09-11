@@ -22,9 +22,9 @@ var _traveled: float = 0.0
 
 
 func _ready() -> void:
-	# TODO: join a group (e.g. "enemy_bullets") if other systems should be able
-	# to detect this projectile, and connect body_entered / area_entered.
-	pass
+	add_to_group("enemy_bullets")
+	body_entered.connect(_on_body_entered)
+	area_entered.connect(_on_area_entered)
 
 
 ## No bullet sprite uploaded yet - draw a simple placeholder circle so this
@@ -34,27 +34,45 @@ func _draw() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	# TODO: move along `dir` at `speed`, and queue_free() once `max_range` is
-	# exceeded (see bullet.gd for the exact pattern).
-	pass
+	position += dir * speed * delta
+	if max_range > 0.0:
+		_traveled += speed * delta
+		if _traveled >= max_range:
+			queue_free()
 
 
 ## Set the bullet's starting transform and travel direction. Optionally override
 ## the damage/speed/max_range exported above. Match bullet.gd's signature so
 ## both projectile types are interchangeable.
 func setup(trans: Transform2D, p_damage: int = -1, p_speed: float = -1.0, p_max_range: float = -1.0) -> void:
-	# TODO: apply trans, derive `dir` from trans.x.normalized(), and override
-	# damage/speed/max_range when the caller passed non-default values.
-	pass
+	transform = trans
+	dir = trans.x.normalized()
+	if p_damage >= 0:
+		damage = p_damage
+	if p_speed > 0.0:
+		speed = p_speed
+	if p_max_range > 0.0:
+		max_range = p_max_range
 
 
-## TODO: when the player's CharacterBody2D (group "player") enters, call its
-## take_damage(damage) and queue_free() - see player.gd's take_damage().
+## When the player (group "player") enters, damage them and disappear.
+var _damaged: bool = false
+
 func _on_body_entered(body: Node2D) -> void:
-	pass
+	if _damaged: return
+	if body.is_in_group("player") and body.has_method("take_damage"):
+		_damaged = true
+		body.take_damage(damage)
+		queue_free()
 
 
-## TODO: same idea, but via the player's Hurtbox (group "player_hurtbox" - see
+## Same idea, but via the player's Hurtbox (group "player_hurtbox" - see
 ## player.gd's _ready()) in case that's what actually overlaps first.
 func _on_area_entered(area: Area2D) -> void:
-	pass
+	if _damaged: return
+	if area.is_in_group("player_hurtbox"):
+		_damaged = true
+		var player := area.get_parent()
+		if player != null and player.has_method("take_damage"):
+			player.take_damage(damage)
+		queue_free()

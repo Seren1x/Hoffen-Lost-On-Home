@@ -16,7 +16,8 @@ const STATE_SCENES: Dictionary = {
 	"settings": preload("res://scenes/ui/SettingsMenu.tscn"),
 	"game_over": preload("res://scenes/ui/GameOver.tscn"),
 	"demo_task": preload("res://scenes/demo/DemoTask.tscn"),
-	"win_screen": preload("res://scenes/ui/DummyWinScreen.tscn")
+	"win_screen": preload("res://scenes/ui/DummyWinScreen.tscn"),
+	"test_boss": preload("res://scenes/demo/TestBoss.tscn")
 }
 
 var _stack: Array[Node] = []   # was: Array[GameState]
@@ -26,7 +27,7 @@ var _is_transitioning: bool = false
 func _ready() -> void:
 	# First state the game boots into. Change this if you want to skip
 	# straight to "playing" while testing.
-	change_state("main_menu")
+	change_state("playing")
 
 
 func current_state() -> Node:   # was: -> GameState
