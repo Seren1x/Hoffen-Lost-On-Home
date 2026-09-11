@@ -14,6 +14,7 @@ weapon_name = "Shotgun"
 display_name = "Shotgun"
 max_ammo = 5
 pickup_reserve_ammo = 10
+damage = 15
 fire_rate = 1.2
 reload_time = 3.0
 bullet_count = 6
