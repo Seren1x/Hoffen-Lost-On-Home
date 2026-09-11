@@ -27,7 +27,6 @@
 [ext_resource type="PackedScene" uid="uid://dqbyat3kcn0h1" path="res://scenes/ui/DialogueBox.tscn" id="15_me5nk"]
 [ext_resource type="PackedScene" uid="uid://dfimobed18euq" path="res://scenes/ui/FogOverlay.tscn" id="16_enhh4"]
 [ext_resource type="PackedScene" path="res://scenes/props/weapons/AssaultRifleProp.tscn" id="17_arprop"]
-[ext_resource type="PackedScene" path="res://scenes/props/weapons/PistolProp.tscn" id="18_pistolprop"]
 [ext_resource type="Texture2D" uid="uid://cf2018m5ylm7x" path="res://assets/objects/Objects - PostApocalypse/2-Tires_Grass_Green.png" id="21_jmqfo"]
 [ext_resource type="Texture2D" uid="uid://dp113ywnn6ndm" path="res://assets/objects/Objects - PostApocalypse/Tire_2_Grass_Green.png" id="22_v85i1"]
 [ext_resource type="Texture2D" uid="uid://8r5prgyhestq" path="res://assets/objects/Objects - PostApocalypse/Street-Light_4_Side_Overgrown_Green.png" id="23_dl26r"]
@@ -1545,6 +1544,3 @@ metadata/_custom_type_script = "uid://dq3p1bernvty3"
 [node name="DialogueBox" parent="." unique_id=1743582627 instance=ExtResource("15_me5nk")]
 
 [node name="FogOverlay" parent="." unique_id=1237553080 instance=ExtResource("16_enhh4")]
-
-[node name="StartingPistol" parent="." unique_id=1631592332 instance=ExtResource("18_pistolprop")]
-position = Vector2(184, 1804)
