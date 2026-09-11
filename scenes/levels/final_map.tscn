@@ -129,6 +129,7 @@
 [ext_resource type="Texture2D" uid="uid://8wt8desn83cd" path="res://assets/objects/Objects - PostApocalypse/Nature/Dark-Green/Grass_2_Dark-Green.png" id="122_6l8w1"]
 [ext_resource type="Texture2D" uid="uid://c6ip2bit2tv21" path="res://assets/objects/Objects - PostApocalypse/Street-Light_6_Down_Overgrown_Dark-Green.png" id="122_suj2u"]
 [ext_resource type="Texture2D" uid="uid://bojeranqej152" path="res://assets/objects/Objects - PostApocalypse/Nature/Flowers_Mashrooms_Other-nature-stuff/Mushrooms_2_Red.png" id="123_qqsjv"]
+[ext_resource type="PackedScene" uid="uid://dtye2xubdfyi5" path="res://scenes/entities/Boss.tscn" id="130_y8ok1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_el6qu"]
 texture = ExtResource("1_usvpb")
@@ -6021,3 +6022,7 @@ texture = ExtResource("18_5ss0q")
 position = Vector2(1880.0923, -574.7663)
 scale = Vector2(5.027797, 5.273616)
 texture = ExtResource("18_5ss0q")
+
+[node name="Boss" parent="." unique_id=793877020 instance=ExtResource("130_y8ok1")]
+position = Vector2(3080.9924, 254.43355)
+scale = Vector2(2, 2)

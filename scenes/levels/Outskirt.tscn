@@ -57,6 +57,7 @@
 [ext_resource type="Texture2D" uid="uid://mso1djs688yt" path="res://assets/objects/Objects - PostApocalypse/Windows/Window_21_open_Boarded-up.png" id="50_5n4xe"]
 [ext_resource type="PackedScene" uid="uid://dfimobed18euq" path="res://scenes/ui/FogOverlay.tscn" id="56_lw384"]
 [ext_resource type="PackedScene" path="res://scenes/props/weapons/PistolProp.tscn" id="57_5n4xe"]
+[ext_resource type="PackedScene" path="res://scenes/props/weapons/AssaultRifleProp.tscn" id="58_1uo0k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3su5"]
 texture = ExtResource("1_cq50m")
@@ -619,7 +620,7 @@ size = Vector2(50, 50)
 size = Vector2(30, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_df06i"]
-size = Vector2(175, 175)
+size = Vector2(220, 220)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lm8io"]
 size = Vector2(25, 25)
@@ -1180,7 +1181,7 @@ shape = SubResource("RectangleShape2D_foc1e")
 texture = ExtResource("26_pkeuy")
 
 [node name="Generator" type="Node2D" parent="QuestRelated" unique_id=492441061]
-position = Vector2(3000, 200)
+position = Vector2(3049, 167)
 
 [node name="Interactable" type="Area2D" parent="QuestRelated/Generator" unique_id=474846051]
 collision_mask = 5
@@ -1188,12 +1189,10 @@ script = ExtResource("12_8vjh4")
 metadata/_custom_type_script = "uid://fucut6mpdkr2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuestRelated/Generator/Interactable" unique_id=1677467404]
-position = Vector2(47, -34)
 shape = SubResource("RectangleShape2D_df06i")
 
 [node name="Marker" type="Sprite2D" parent="QuestRelated/Generator" unique_id=1257507899]
-position = Vector2(50, -35)
-scale = Vector2(6, 6)
+scale = Vector2(5, 5)
 texture = ExtResource("26_pkeuy")
 
 [node name="PinPickup" type="Node2D" parent="QuestRelated" unique_id=711446376]
@@ -1265,3 +1264,6 @@ metadata/_custom_type_script = "uid://dq3p1bernvty3"
 
 [node name="PistolProp" parent="." unique_id=45258679 instance=ExtResource("57_5n4xe")]
 position = Vector2(360, 383)
+
+[node name="AssaultRifleProp" parent="." unique_id=312511926 instance=ExtResource("58_1uo0k")]
+position = Vector2(2725, 49)

@@ -35,7 +35,9 @@ var _consumed: bool = false
 
 
 func _ready() -> void:
-	monitoring = true
+	collision_layer = 1
+	set_deferred("monitoring", true)
+	input_pickable = true
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	area_entered.connect(_on_area_entered)
@@ -51,14 +53,9 @@ func _physics_process(_delta: float) -> void:
 	if Engine.get_physics_frames() % POLL_INTERVAL_FRAMES != 0:
 		return
 	var found: Array[Node2D] = _query_overlap()
-	var kept: Array[Node2D] = []
-	for node: Node2D in _nearby:
-		if found.has(node):
-			kept.append(node)
 	for node: Node2D in found:
 		if not _nearby.has(node):
-			kept.append(node)
-	_nearby = kept
+			_nearby.append(node)
 
 
 ## Returns every node in [member target_group] whose shapes overlap this area's
@@ -78,7 +75,7 @@ func _query_overlap() -> Array[Node2D]:
 		query.collision_mask = collision_mask
 		query.collide_with_bodies = true
 		query.collide_with_areas = false
-		for hit: Dictionary in space.intersect_shape(query, 4):
+		for hit: Dictionary in space.intersect_shape(query, 64):
 			var collider: Node = hit.get("collider")
 			if collider is Node2D and (collider as Node2D).is_in_group(target_group) and not result.has(collider):
 				result.append(collider)

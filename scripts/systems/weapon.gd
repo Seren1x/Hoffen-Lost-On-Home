@@ -436,6 +436,32 @@ func _set_reserve(value: int) -> void:
 		state["reserve"] = maxi(value, 0)
 
 
+## Returns a serializable snapshot of the weapon loadout for
+## persisting across level transitions.
+func get_save_data() -> Dictionary:
+	return {
+		"weapon_defs": weapon_defs,
+		"ammo_states": _ammo_states,
+		"current_index": current_index,
+	}
+
+## Restores weapon loadout from data saved by [method get_save_data].
+func restore_save_data(data: Dictionary) -> void:
+	if data.is_empty():
+		return
+	weapon_defs = data.get("weapon_defs", [])
+	_ammo_states = data.get("ammo_states", [])
+	current_index = data.get("current_index", 0)
+	if weapon_defs.is_empty():
+		_current_def = null
+		_set_unarmed_visuals()
+	else:
+		_current_def = weapon_defs[clampi(current_index, 0, weapon_defs.size() - 1)]
+		apply_definition()
+	weapon_changed.emit(current_index)
+	ammo_changed.emit(get_mag(), get_reserve())
+
+
 ## Returns the currently equipped weapon definition (for the HUD and other UI).
 func get_current_definition() -> WeaponDefinition:
 	return _current_def

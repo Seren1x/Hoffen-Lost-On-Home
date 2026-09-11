@@ -8,6 +8,7 @@
 radius = 24.0
 
 [node name="AmmoProp" type="Node2D" unique_id=108534833]
+scale = Vector2(0.7, 0.7)
 script = ExtResource("1_ap")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1615134386]
@@ -19,5 +20,4 @@ collision_mask = 5
 script = ExtResource("2_int")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=156075539]
-scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_range")

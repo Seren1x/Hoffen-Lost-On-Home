@@ -31,7 +31,7 @@ const AMMO_PICKUP: PackedScene = preload("res://scenes/props/AmmoProp.tscn")
 
 
 func _ready() -> void:
-	monitoring = true
+	set_deferred("monitoring", true)
 	body_entered.connect(_on_body_entered)
 	area_entered.connect(_on_area_entered)
 

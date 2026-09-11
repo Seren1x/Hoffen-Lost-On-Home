@@ -14,6 +14,16 @@ func state_enter(data: Dictionary = {}) -> void:
 	var level_scene: PackedScene = data.get("level", default_level)
 	_level = level_scene.instantiate()
 	add_child(_level)
+	# Restore weapon data carried over from a previous level.
+	if not StateManager.saved_weapon_data.is_empty():
+		call_deferred("_restore_weapons_from_save")
+
+
+func _restore_weapons_from_save() -> void:
+	var weapon := _level.get_tree().get_first_node_in_group("weapon") as Weapon
+	if weapon and weapon.has_method("restore_save_data"):
+		weapon.restore_save_data(StateManager.saved_weapon_data)
+		StateManager.saved_weapon_data = {}
 
 
 ## The playing level is a "world" state: it must stay visible behind overlay
@@ -23,6 +33,10 @@ func is_world_state() -> bool:
 
 func state_exit() -> void:
 	if _level:
+		# Save weapon data before destroying the level so it survives the transition.
+		var weapon := _level.get_tree().get_first_node_in_group("weapon") as Weapon
+		if weapon and weapon.has_method("get_save_data"):
+			StateManager.saved_weapon_data = weapon.get_save_data()
 		_level.queue_free()
 		_level = null
 

@@ -10,7 +10,7 @@ size = Vector2(32, 32)
 size = Vector2(24, 24)
 
 [node name="Boss" type="CharacterBody2D" unique_id=793877020]
-position = Vector2(142, 77)
+position = Vector2(106, 59)
 collision_layer = 2
 script = ExtResource("1_y1lo8")
 
@@ -38,13 +38,13 @@ shape = SubResource("RectangleShape2D_hurtbox")
 position = Vector2(-9, -12)
 
 [node name="Waypoint1" type="Marker2D" parent="Waypoints" unique_id=877213695]
-position = Vector2(705, 140)
+position = Vector2(141, -48)
 
 [node name="Waypoint2" type="Marker2D" parent="Waypoints" unique_id=403068688]
-position = Vector2(685, 341)
+position = Vector2(148, 119)
 
 [node name="Waypoint3" type="Marker2D" parent="Waypoints" unique_id=207249324]
-position = Vector2(128, 361)
+position = Vector2(-97, 123)
 
 [node name="Waypoint4" type="Marker2D" parent="Waypoints" unique_id=1005336446]
-position = Vector2(106, 155)
+position = Vector2(-97, -47)
