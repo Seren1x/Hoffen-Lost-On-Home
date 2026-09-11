@@ -117,13 +117,24 @@ func _input(event: InputEvent) -> void:
 			player_shoot()
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		_scoping_held = event.pressed
+	# U key to unequip/re-equip weapon while keeping it in the slot.
+	if event is InputEventKey and event.pressed and event.keycode == KEY_Q:
+		if _current_def != null:
+			unequip_weapon()
+		elif not weapon_defs.is_empty():
+			# When unarmed, pressing U re-equips the last equipped weapon.
+			_current_def = weapon_defs[current_index]
+			apply_definition()
+			weapon_changed.emit(current_index)
+			ammo_changed.emit(get_mag(), get_reserve())
 
 
 func _process(delta: float) -> void:
-	if _current_def == null:
-		return  # Unarmed: nothing to rotate, fire, reload or display.
+	$Label.text = "%s | %d/%d" % [_current_def.display_name, get_mag(), get_reserve()] if _current_def != null else ""
 
-	$Label.text = "%s | %d/%d" % [_current_def.display_name, get_mag(), get_reserve()]
+	if _current_def == null:
+		handle_switch_input()  # Still allow re-equipping with number keys
+		return  # Unarmed: nothing to rotate, fire, reload or display.
 
 	rotate_weapon(delta)
 	_update_guide_lines()
@@ -363,6 +374,16 @@ func switch_weapon(index: int) -> void:
 	ammo_changed.emit(get_mag(), get_reserve())
 
 
+## Unequip the current weapon — set _current_def to null so the player
+## can use melee, but keep the weapon in the loadout slot so it can
+## be re-equipped later by pressing U or its number key.
+func unequip_weapon() -> void:
+	_current_def = null
+	_set_unarmed_visuals()
+	weapon_changed.emit(current_index)
+	ammo_changed.emit(get_mag(), get_reserve())
+
+
 func apply_definition() -> void:
 	# (Re-)equipping a gun restores the armed visuals hidden while unarmed.
 	weapon_sprite.visible = true
@@ -508,10 +529,17 @@ func get_cooldown_state() -> Dictionary:
 
 
 func handle_switch_input() -> void:
-	# Number keys 1..4 switch weapons.
+	# Number keys 1..4 switch/re-equip weapons.
 	for i in weapon_defs.size():
-		if Input.is_physical_key_pressed(KEY_1 + i) and i != current_index:
-			switch_weapon(i)
+		if Input.is_physical_key_pressed(KEY_1 + i):
+			if _current_def == null:
+				# When unequipped, pressing a number key re-equips that weapon.
+				_current_def = weapon_defs[i]
+				apply_definition()
+				weapon_changed.emit(i)
+				ammo_changed.emit(get_mag(), get_reserve())
+			elif i != current_index:
+				switch_weapon(i)
 			return
 
 

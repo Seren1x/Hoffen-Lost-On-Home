@@ -14,6 +14,19 @@ const DEATH_FRAME_SIZE := 64
 const DEATH_FRAMES := 4
 const DEATH_ANIM_SPEED := 6.0
 
+## Melee slash sprite sheets: 512x128, sliced into 4 frames of 128x128.
+const MELEE_SHEETS: Dictionary = {
+	"down": "res://assets/objects/melee/melee down.png",
+	"left": "res://assets/objects/melee/melee left.png",
+	"right": "res://assets/objects/melee/melee right.png",
+	"up": "res://assets/objects/melee/melee up.png",
+}
+const MELEE_FRAME_SIZE := 128
+const MELEE_FRAMES := 4
+const MELEE_ANIM_SPEED := 8.0
+const MELEE_DAMAGE: int = 15
+const MELEE_RANGE: float = 40.0
+
 @export var WALK_SPEED: float = 200.0
 @export var RUN_SPEED: float = 320.0
 @export var ACCELERATION: float = 1500.0
@@ -51,6 +64,10 @@ signal player_died
 @onready var health: Health = $Health
 var _base_offset: Vector2 = Vector2.ZERO
 var _hud: HUD = null
+var _weapon: Weapon = null
+
+## Melee attack state.
+var _melee_attacking: bool = false
 
 func _ready() -> void:
 	# The Interactable component looks for the "player" group by default.
@@ -59,7 +76,11 @@ func _ready() -> void:
 	$Hurtbox.add_to_group("player_hurtbox")
 	_base_offset = anim.offset
 	_setup_death_animations()
+	_setup_melee_animations()
+	_weapon = get_node_or_null("Weapon") as Weapon
 	health.died.connect(_on_player_died)
+	# Connect animation_finished to handle returning to idle/walk after melee.
+	anim.animation_finished.connect(_on_melee_anim_finished)
 	# Update the HUD reactively whenever health changes, so the bar reflects the
 	# exact value the instant it hits 0 — the per-frame _sync_hud() in _process is
 	# skipped once _dead is true, which previously left the bar showing the last
@@ -86,13 +107,62 @@ func _setup_death_animations() -> void:
 		sf.set_animation_loop(anim_name, false)
 		sf.set_animation_speed(anim_name, DEATH_ANIM_SPEED)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
+## Adds melee_<dir> animations to the AnimatedSprite2D's SpriteFrames.
+## Each sprite sheet (512x128) is sliced into 4 frames of 128x128 using AtlasTexture.
+func _setup_melee_animations() -> void:
+	var sf: SpriteFrames = anim.sprite_frames
+	for dir: String in MELEE_SHEETS:
+		var anim_name: String = "melee_" + dir
+		if sf.has_animation(anim_name):
+			continue
+		var sheet: Texture2D = load(MELEE_SHEETS[dir])
+		if sheet == null:
+			continue
+		sf.add_animation(anim_name)
+		for i: int in range(MELEE_FRAMES):
+			var atlas := AtlasTexture.new()
+			atlas.atlas = sheet
+			atlas.region = Rect2(i * MELEE_FRAME_SIZE, 0, MELEE_FRAME_SIZE, MELEE_FRAME_SIZE)
+			sf.add_frame(anim_name, atlas)
+		sf.set_animation_loop(anim_name, false)
+		sf.set_animation_speed(anim_name, MELEE_ANIM_SPEED)
+
+
+## Triggers a melee slash attack when the player is unarmed.
+func _try_melee_attack() -> void:
+	if _melee_attacking:
+		return
+	if not _is_unarmed():
+		return
+	_melee_attacking = true
+	# Play the slash animation on the AnimatedSprite2D.
+	var anim_name: String = "melee_" + facing
+	if anim.sprite_frames.has_animation(anim_name):
+		anim.play(anim_name)
+	# Damage enemies in range.
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	var player_pos: Vector2 = global_position
+	for enemy in enemies:
+		if enemy.has_method("take_damage"):
+			var dist: float = enemy.global_position.distance_to(player_pos)
+			if dist <= MELEE_RANGE:
+				enemy.take_damage(MELEE_DAMAGE)
+
+
 func _process(delta: float) -> void:
 	if _dead:
 		return   # no movement/stamina/HUD while in the death state
 	move(delta)
 	_update_stamina(delta)
 	_sync_hud()
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if _is_unarmed():
+			_try_melee_attack()
+
 
 # -------> Movement System <------- #
 
@@ -166,6 +236,8 @@ func _update_facing_from_cursor() -> void:
 ## - moving up/down: run_<facing> (no walk sheets exist for up/down)
 ## - moving left/right: walk_<facing>, or run_<facing> when Shift is held.
 func _update_animation() -> void:
+	if _melee_attacking:
+		return   # show melee animation until it finishes
 	var anim_name: String
 	if axis == Vector2.ZERO:
 		anim_name = "idle_" + facing
@@ -177,6 +249,31 @@ func _update_animation() -> void:
 		anim.play(anim_name)
 	# Apply the per-direction run offset only during run animations; otherwise restore the base offset.
 	anim.offset = _run_offset() if anim_name.begins_with("run_") else _base_offset
+
+
+## Returns true when the player has no weapon equipped.
+func _is_unarmed() -> bool:
+	if _weapon == null:
+		return true
+	var def: WeaponDefinition = _weapon.get_current_definition() if _weapon.has_method("get_current_definition") else null
+	return def == null
+
+
+## Called when the melee animation finishes — return to idle or walk.
+func _on_melee_anim_finished() -> void:
+	if not _melee_attacking:
+		return
+	_melee_attacking = false
+	var anim_name: String
+	if axis == Vector2.ZERO:
+		anim_name = "idle_" + facing
+	elif facing == "up" or facing == "down":
+		anim_name = "run_" + facing
+	else:
+		anim_name = ("run_" if is_running else "walk_") + facing
+	if anim.animation != anim_name:
+		anim.play(anim_name)
+	anim.offset = _base_offset
 
 
 ## Returns the manual offset configured for the current facing direction.

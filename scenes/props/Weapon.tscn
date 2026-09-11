@@ -1,13 +1,10 @@
 [gd_scene format=3 uid="uid://dd45jdbh6skxa"]
 
 [ext_resource type="Script" uid="uid://b35nrp4a7p5gy" path="res://scripts/systems/weapon.gd" id="1_46ivp"]
-[ext_resource type="Script" uid="uid://bn4p5ysqcacqi" path="res://scripts/systems/weapon_definition.gd" id="2_inlv3"]
 [ext_resource type="Texture2D" uid="uid://oknnikmc0hdw" path="res://assets/objects/Gun/AK47.png" id="2_wwy3r"]
-[ext_resource type="Resource" uid="uid://lxq8kgke5t4l" path="res://assets/objects/WeaponBaru/Pistol.tres" id="3_pistol"]
 
 [node name="Weapon" type="Node2D" unique_id=241826160]
 script = ExtResource("1_46ivp")
-weapon_defs = Array[ExtResource("2_inlv3")]([])
 
 [node name="Texture" type="Sprite2D" parent="." unique_id=1847096734]
 scale = Vector2(2, 2)
@@ -17,7 +14,7 @@ offset = Vector2(0, 2.485)
 [node name="BulletSpawnPoint" type="Node2D" parent="Texture" unique_id=163399812]
 position = Vector2(16, 0)
 
-[node name="Laser" type="Line2D" parent="Texture"]
+[node name="Laser" type="Line2D" parent="Texture" unique_id=271273852]
 visible = false
 width = 2.0
 default_color = Color(1, 0.12, 0.1, 0.9)
@@ -37,11 +34,11 @@ one_shot = true
 
 [node name="ActionSfx" type="AudioStreamPlayer" parent="." unique_id=1049071103]
 
-[node name="TopGuideLine" type="Line2D" parent="."]
+[node name="TopGuideLine" type="Line2D" parent="." unique_id=1573109144]
 width = 2.0
 default_color = Color(1, 1, 1, 0.18)
 
-[node name="BottomGuideLine" type="Line2D" parent="."]
+[node name="BottomGuideLine" type="Line2D" parent="." unique_id=619712007]
 width = 2.0
 default_color = Color(1, 1, 1, 0.18)
 
