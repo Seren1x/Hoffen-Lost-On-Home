@@ -225,6 +225,7 @@ size = Vector2(30, 50)
 size = Vector2(34, 60)
 
 [node name="Player" type="CharacterBody2D" unique_id=2041947310]
+z_index = 1
 collision_layer = 4
 script = ExtResource("1_script")
 WALK_SPEED = 150.0

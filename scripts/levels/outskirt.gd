@@ -98,13 +98,20 @@ func _hide_all_markers() -> void:
 ## Wires every physical trigger in the level to its matching task step.
 ## This is the part that has no reusable pattern to copy — build once here.
 func _connect_triggers() -> void:
-	_destination_area.body_entered.connect(_on_destination_reached)
-	_weapon_pickup.interacted.connect(_on_weapon_picked_up)
-	_gate_area.body_entered.connect(_on_gate_area_entered)
-	_generator.interacted.connect(_on_generator_activated)
-	_pin_pickup.interacted.connect(_on_pin_picked_up)
-	_gate_open.interacted.connect(_on_gate_open_attempted)
-	_end_level.body_entered.connect(_on_level_ended)
+	if _destination_area:
+		_destination_area.body_entered.connect(_on_destination_reached)
+	if _weapon_pickup:
+		_weapon_pickup.interacted.connect(_on_weapon_picked_up)
+	if _gate_area:
+		_gate_area.body_entered.connect(_on_gate_area_entered)
+	if _generator:
+		_generator.interacted.connect(_on_generator_activated)
+	if _pin_pickup:
+		_pin_pickup.interacted.connect(_on_pin_picked_up)
+	if _gate_open:
+		_gate_open.interacted.connect(_on_gate_open_attempted)
+	if _end_level:
+		_end_level.body_entered.connect(_on_level_ended)
 
 
 # ── Trigger callbacks: advance the task AND show the matching dialogue line ──
