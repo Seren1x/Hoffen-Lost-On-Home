@@ -8,7 +8,10 @@ extends Enemy
 
 @export var speed: float = 20.0
 @export var chase_range: float = 400.0
-@export var attack_range: float = 60.0
+## Must be within the axe hitbox's reach (offset ~16 px + shape half-width ~15 px
+## + the player hurtbox's half-width ~17 px ≈ 48 px). At 60 the zombie stopped
+## too far away and every swing whiffed, so the player never took damage.
+@export var attack_range: float = 40.0
 @export var damage: int = 10
 @export var attack_cooldown: float = 1.5
 ## Playback speed for the attack animation (lower = slower, more visible swing).
@@ -54,6 +57,9 @@ const ATTACK_ANIM_SPEED: float = 1.5
 var facing: String = "down"
 var _can_attack: bool = true
 var _current_attack: String = "first"
+## True once the current swing has damaged the player, so one swing deals
+## damage at most once.
+var _hit_this_swing: bool = false
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var attack_timer: Timer = $AttackCooldown
@@ -68,9 +74,16 @@ func _ready_enemy() -> void:
 	sprite.play("zombie_axe_down_idle")
 	attack_timer.timeout.connect(_reset_attack)
 	sprite.animation_finished.connect(_on_anim_finished)
-	set_deferred("attack_area.monitoring", false)
+	# Keep the melee hitbox live for the whole lifetime; damage is gated by the
+	# swing state in _hit_player(), so it can't hit while idle or chasing.
+	attack_area.monitoring = true
 	attack_area.area_entered.connect(_on_attack_area_entered)
 	_position_attack_area()
+
+
+## True while an attack swing animation is playing.
+func _is_attacking() -> bool:
+	return String(sprite.animation).ends_with("_attack")
 
 func _physics_process(_delta: float) -> void:
 	if dead:
@@ -90,6 +103,8 @@ func _physics_process(_delta: float) -> void:
 		# In attack range: stop and attack when ready, otherwise hold position.
 		velocity = Vector2.ZERO
 		if _can_attack:
+			# Face the player before swinging, so the hitbox points at them.
+			_update_facing(to_player.normalized())
 			_attack()
 		elif not sprite.animation.ends_with("_attack"):
 			# Let an in-progress attack animation finish; only idle once it's done.
@@ -100,6 +115,10 @@ func _physics_process(_delta: float) -> void:
 		_update_facing(to_player.normalized())
 		_play_walk()
 	move_and_slide()
+	# While a swing is live, damage any player hurtbox the hitbox overlaps.
+	if not _hit_this_swing and _is_attacking():
+		for area: Area2D in attack_area.get_overlapping_areas():
+			_hit_player(area)
 
 func _update_facing(dir: Vector2) -> void:
 	if absf(dir.x) > absf(dir.y):
@@ -150,6 +169,7 @@ func _play_walk() -> void:
 
 func _attack() -> void:
 	_can_attack = false
+	_hit_this_swing = false
 	attack_timer.start(attack_cooldown)
 	# Alternate first/second attacks for variety.
 	var n: String = "first" if randi() % 2 == 0 else "second"
@@ -164,13 +184,12 @@ func _attack() -> void:
 func _reset_attack() -> void:
 	_can_attack = true
 
-## Turns on the melee hitbox and immediately damages any player hurtbox already
-## overlapping it when the swing starts.
+## Repositions the melee hitbox for the swing. The hitbox stays live
+## (monitoring is always on) and damage is gated by the swing state, so a player
+## already overlapping when the swing starts is caught by the per-frame overlap
+## check in [_physics_process] instead of relying only on the entered signal.
 func _activate_attack_area() -> void:
 	_position_attack_area()
-	set_deferred("attack_area.monitoring", true)
-	for area: Area2D in attack_area.get_overlapping_areas():
-		_hit_player(area)
 
 ## Called when the player's hurtbox enters the attack area mid-swing.
 func _on_attack_area_entered(area: Area2D) -> void:
@@ -178,13 +197,18 @@ func _on_attack_area_entered(area: Area2D) -> void:
 
 ## Damages the player if the overlapping area is the player's hurtbox.
 func _hit_player(area: Area2D) -> void:
-	if dead:
+	if dead or _hit_this_swing:
+		return
+	# Only damage during an active swing — the hitbox is always live so it can
+	# catch an already-overlapping player the instant the swing starts.
+	if not _is_attacking():
 		return
 	if not area.is_in_group("player_hurtbox"):
 		return
 	var player: Node2D = area.get_parent()
 	if player != null and player.has_method("take_damage"):
 		player.take_damage(damage)
+		_hit_this_swing = true
 
 func _on_anim_finished() -> void:
 	if dead:
@@ -192,7 +216,6 @@ func _on_anim_finished() -> void:
 	elif sprite.animation.ends_with("_attack"):
 		sprite.speed_scale = 1.0
 		_current_attack = "first"
-		set_deferred("attack_area.monitoring", false)
 		_play_idle()
 
 ## Base Enemy has already set dead=true and emitted died. Add loot + death anim.
