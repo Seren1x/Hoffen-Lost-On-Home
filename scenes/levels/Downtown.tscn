@@ -1543,4 +1543,4 @@ metadata/_custom_type_script = "uid://dq3p1bernvty3"
 [node name="FogOverlay" parent="." unique_id=1237553080 instance=ExtResource("16_enhh4")]
 
 [node name="ShotgunProp" parent="." unique_id=1464557714 instance=ExtResource("20_cclor")]
-position = Vector2(123, 339)
+position = Vector2(658, 1752)

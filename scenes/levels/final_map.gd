@@ -157,7 +157,7 @@ func _on_level_ended(body: Node2D) -> void:
 
 	# Final Map is the last chapter — this is where the whole trilogy ends,
 	# so change_state() hands off to the win screen instead of another level.
-	StateManager.change_state("win_screen")
+	StateManager.change_state("end_screen")
 
 
 # ── Task chain progression + HUD relay ──

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://csn68kvvl1fm2"]
 
-[ext_resource type="Script" path="res://scenes/levels/final_map.gd" id="1_kg810"]
+[ext_resource type="Script" uid="uid://b03vxc1ee1lr4" path="res://scenes/levels/final_map.gd" id="1_kg810"]
 [ext_resource type="Texture2D" uid="uid://csd0c7ajrpc88" path="res://assets/tiles/Tiles - PostApocalypse/Background_Green_TileSet.png" id="1_usvpb"]
 [ext_resource type="Texture2D" uid="uid://cnuw2cody3k2c" path="res://assets/objects/Objects - PostApocalypse/Nature/Green/Tree_1_Spruce_Green.png" id="2_05u4c"]
 [ext_resource type="Texture2D" uid="uid://kh2bjyjcrq6i" path="res://assets/tiles/Tiles - PostApocalypse/Background_Bleak-Yellow_TileSet.png" id="2_jwim5"]
@@ -1743,6 +1743,7 @@ WALK_SPEED = 180.0
 RUN_SPEED = 270.0
 
 [node name="Camera2D" type="Camera2D" parent="YSortEntities/Player" unique_id=1033574546]
+zoom = Vector2(1.5, 1.5)
 limit_enabled = false
 limit_left = 0
 limit_top = 5
@@ -6050,6 +6051,7 @@ texture = ExtResource("18_5ss0q")
 [node name="Boss" parent="YSortEntities/Monster" unique_id=793877020 instance=ExtResource("130_y8ok1")]
 position = Vector2(3106.6667, 233.66667)
 scale = Vector2(2, 2)
+collision_layer = 2
 
 [node name="ZombieAxe" parent="YSortEntities/Monster" unique_id=926407069 instance=ExtResource("133_ffyy0")]
 position = Vector2(1082, 358)
@@ -6076,17 +6078,14 @@ position = Vector2(1679, 321)
 scale = Vector2(0.5, 0.5)
 
 [node name="HUD" parent="." unique_id=950845318 instance=ExtResource("132_qqsjv")]
-visible = false
 
 [node name="TaskManager" type="Node" parent="." unique_id=180721814]
 script = ExtResource("133_u2sjf")
 metadata/_custom_type_script = "uid://dq3p1bernvty3"
 
 [node name="DialogueBox" parent="." unique_id=1743582627 instance=ExtResource("134_gwro8")]
-visible = false
 
 [node name="FogOverlay" parent="." unique_id=1237553080 instance=ExtResource("135_kg810")]
-visible = false
 
 [node name="SniperRifleProp" parent="." unique_id=1321330400 instance=ExtResource("136_u2sjf")]
 position = Vector2(2031, 934)
@@ -6098,7 +6097,7 @@ texture = ExtResource("138_ffyy0")
 [node name="QuestRelated" type="Node2D" parent="." unique_id=722536083]
 
 [node name="DestinationMarker" type="Area2D" parent="QuestRelated" unique_id=1466316970]
-position = Vector2(7660, 1164)
+position = Vector2(12491, -1105)
 scale = Vector2(3, 3)
 collision_mask = 5
 
@@ -6110,7 +6109,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("138_ffyy0")
 
 [node name="DestinationMarker2" type="Area2D" parent="QuestRelated" unique_id=764320971]
-position = Vector2(3687.0005, 982)
+position = Vector2(1424.0002, 976)
 scale = Vector2(3, 3)
 collision_mask = 5
 

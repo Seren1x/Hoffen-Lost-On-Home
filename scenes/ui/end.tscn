@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://lm22jdc0felp"]
+
+[ext_resource type="FontFile" uid="uid://b66o8sgo2if3y" path="res://assets/font/pixel-font-supersoft-assets/ttf/supersoft.ttf" id="1_teurp"]
+[ext_resource type="Script" uid="uid://c6m3jjcemb0rc" path="res://scripts/ui/end_screen.gd" id="2_end_screen"]
+[ext_resource type="VideoStream" uid="uid://cnvmpaqs0mapx" path="res://assets/credit.ogv" id="3_08ayw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wr03b"]
+font = ExtResource("1_teurp")
+font_size = 80
+
+[node name="ColorRect" type="ColorRect" unique_id=852845350]
+offset_right = 1919.0
+offset_bottom = 1076.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("2_end_screen")
+
+[node name="Label" type="Label" parent="." unique_id=1728837450]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 433.0
+offset_right = 1565.0
+offset_bottom = 556.0
+text = "THANKS FOR PLAYING
+BY SERENIX, ZIVA, people who premade assets we used."
+label_settings = SubResource("LabelSettings_wr03b")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1200380825]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34497133
+anchor_top = 0.59758365
+anchor_right = 0.6284523
+anchor_bottom = 0.93959105
+stream = ExtResource("3_08ayw")
+metadata/_edit_use_anchors_ = true

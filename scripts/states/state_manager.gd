@@ -17,7 +17,8 @@ const STATE_SCENES: Dictionary = {
 	"game_over": preload("res://scenes/ui/GameOver.tscn"),
 	"demo_task": preload("res://scenes/demo/DemoTask.tscn"),
 	"win_screen": preload("res://scenes/ui/DummyWinScreen.tscn"),
-	"test_boss": preload("res://scenes/demo/TestBoss.tscn")
+	"test_boss": preload("res://scenes/demo/TestBoss.tscn"),
+	"end_screen": preload("res://scenes/ui/end.tscn")
 }
 
 var _stack: Array[Node] = []   # was: Array[GameState]

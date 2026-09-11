@@ -43,7 +43,7 @@ var _target_position: Vector2 = Vector2.ZERO
 
 func _ready_enemy() -> void:
 	flash_sprite = sprite
-	max_health = 400
+	max_health = 1000
 	_build_idle_animations()
 	_gather_waypoints()
 	if not waypoint_positions.is_empty():
