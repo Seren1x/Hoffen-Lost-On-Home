@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("1_def")
 max_ammo = 6
-damage = 100
+damage = 20
 fire_rate = 0.8
 reload_time = 2.4
 bullet_speed = 900.0

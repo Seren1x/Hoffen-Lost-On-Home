@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://cequ7pwb06nw"]
+[gd_scene format=4 uid="uid://3kvcghqcnvea"]
 
 [ext_resource type="Script" uid="uid://ddtkgu8x17p" path="res://scripts/levels/test_outskirt.gd" id="1_tm0kr"]
 [ext_resource type="Texture2D" uid="uid://bnd1oytl2axsb" path="res://assets/tiles/Tiles - PostApocalypse/Background_Dark-Green_TileSet.png" id="2_rcd8k"]
