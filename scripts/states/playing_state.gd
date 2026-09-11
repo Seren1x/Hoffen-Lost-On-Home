@@ -57,6 +57,27 @@ func _collect_pause_data() -> Dictionary:
 			data["weapon_name"] = def.display_name
 			data["weapon_ammo"] = weapon.get_mag() if weapon.has_method("get_mag") else 0
 			data["weapon_max_ammo"] = def.max_ammo
+		# Full loadout + per-weapon stats (from the WeaponDefinition .tres files)
+		# so the pause menu can list every owned weapon and show details.
+		if weapon.has_method("get_weapon_count"):
+			var list: Array = []
+			for wdef: WeaponDefinition in weapon.weapon_defs:
+				list.append({
+					"name": wdef.display_name,
+					"texture": wdef.sprite_texture,
+					"damage": wdef.damage,
+					"max_ammo": wdef.max_ammo,
+					"mag": weapon.get_mag_of(wdef) if weapon.has_method("get_mag_of") else 0,
+					"reserve": weapon.get_reserve_of(wdef) if weapon.has_method("get_reserve_of") else 0,
+					"fire_rate": wdef.fire_rate,
+					"reload_time": wdef.reload_time,
+					"action_delay": wdef.action_delay,
+					"bullet_count": wdef.bullet_count,
+					"spread": wdef.spread_degrees,
+					"range": wdef.bullet_max_range,
+				})
+			data["weapons"] = list
+			data["weapon_index"] = weapon.current_index
 
 	# Active task + objective (TaskManager is a direct child of every level).
 	if _level:

@@ -323,6 +323,14 @@ func get_reserve_of(def: WeaponDefinition) -> int:
 	return int(_ammo_states[index].get("reserve", 0))
 
 
+## Returns the magazine count of the weapon matching [param def], or -1 if unowned.
+func get_mag_of(def: WeaponDefinition) -> int:
+	var index: int = weapon_defs.find(def)
+	if index < 0:
+		return -1
+	return int(_ammo_states[index].get("mag", 0))
+
+
 ## Adds a weapon definition to the loadout (if not already owned) and equips it.
 ## The new weapon starts with a full mag plus its bundled spare rounds, or
 ## [param reserve_override] when >= 0. Returns true when the weapon was newly

@@ -11,6 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://cmy4wmxd3qas" path="res://assets/ui/Custom/Menu/Exit-Main-Menu_Pressed.png" id="9_bjk0l"]
 [ext_resource type="Texture2D" uid="uid://cmbhu1gtufkuw" path="res://assets/ui/Custom/Menu/Exit-Main-Menu_Hover.png" id="10_y5d2p"]
 [ext_resource type="Texture2D" uid="uid://dh08acggf6i0n" path="res://assets/sprites/rain-full-body.png" id="11_rain"]
+[ext_resource type="Texture2D" uid="uid://dpso58nh6136n" path="res://assets/ui/Custom/HP/HP.png" id="12_hp_fill"]
+[ext_resource type="Texture2D" uid="uid://c1m8td4qes8sg" path="res://assets/ui/Custom/HP/HP-Bar.png" id="13_hp_bg"]
+[ext_resource type="Texture2D" uid="uid://dkj2oem7hrlvb" path="res://assets/ui/Custom/HP/HP-Logo.png" id="14_hp_logo"]
+[ext_resource type="Texture2D" uid="uid://cxbkkq3ts6bm5" path="res://assets/ui/Custom/Energy/Energy.png" id="15_energy_fill"]
+[ext_resource type="Texture2D" uid="uid://bcvfki6i5susg" path="res://assets/ui/Custom/Energy/Energy-Bar.png" id="16_energy_bg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0a0r"]
 
@@ -44,10 +49,10 @@ layout_mode = 3
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -350.0
-offset_right = 464.0
-offset_bottom = 192.0
+offset_left = -304.0
+offset_top = -237.0
+offset_right = 240.0
+offset_bottom = 305.0
 grow_vertical = 2
 mouse_filter = 2
 
@@ -56,8 +61,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 122.0
+offset_top = -253.0
+offset_right = 122.0
+offset_bottom = -253.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.5, 1.5)
 mouse_filter = 2
 texture = ExtResource("11_rain")
 expand_mode = 1
@@ -133,76 +143,16 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HealthPanel" type="PanelContainer" parent="." unique_id=1543403819]
-unique_name_in_owner = true
-visible = false
-offset_left = 24.0
-offset_top = 120.0
-offset_right = 300.0
-offset_bottom = 170.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_info")
-
-[node name="HealthVBox" type="VBoxContainer" parent="HealthPanel" unique_id=1543403820]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="HealthLabel" type="Label" parent="HealthPanel/HealthVBox" unique_id=495486654]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.2, 0.2, 1)
-theme_override_font_sizes/font_size = 20
-text = "HP: 100 / 100"
-
-[node name="EnergyPanel" type="PanelContainer" parent="." unique_id=1543403821]
-unique_name_in_owner = true
-visible = false
-offset_left = 24.0
-offset_top = 178.0
-offset_right = 300.0
-offset_bottom = 228.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_info")
-
-[node name="EnergyVBox" type="VBoxContainer" parent="EnergyPanel" unique_id=1543403822]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="EnergyLabel" type="Label" parent="EnergyPanel/EnergyVBox" unique_id=275497657]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.9, 0.1, 1)
-theme_override_font_sizes/font_size = 20
-text = "Energy: 100 / 100"
-
-[node name="WeaponPanel" type="PanelContainer" parent="." unique_id=1543403823]
-unique_name_in_owner = true
-visible = false
-offset_left = 24.0
-offset_top = 236.0
-offset_right = 300.0
-offset_bottom = 286.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_info")
-
-[node name="WeaponVBox" type="VBoxContainer" parent="WeaponPanel" unique_id=1543403824]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="WeaponLabel" type="Label" parent="WeaponPanel/WeaponVBox" unique_id=1543403825]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.85, 1, 1)
-theme_override_font_sizes/font_size = 20
-text = "Weapon"
-
 [node name="ObjectivePanel" type="PanelContainer" parent="." unique_id=1543403826]
 unique_name_in_owner = true
-visible = false
-offset_left = 24.0
-offset_top = 294.0
-offset_right = 460.0
-offset_bottom = 360.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -460.0
+offset_top = 24.0
+offset_right = -100.0
+offset_bottom = 120.0
+grow_horizontal = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_info")
 
@@ -214,12 +164,87 @@ theme_override_constants/separation = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 48
 text = "Objective"
 
 [node name="ObjectiveLabel" type="Label" parent="ObjectivePanel/ObjectiveVBox" unique_id=1543403829]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 36
 text = "..."
+
+[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=1543403819]
+unique_name_in_owner = true
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 144.0
+offset_top = 332.00006
+offset_right = 224.0
+offset_bottom = 344.00006
+grow_vertical = 2
+scale = Vector2(3, 3)
+mouse_filter = 2
+step = 0.0
+value = 100.0
+texture_under = ExtResource("13_hp_bg")
+texture_over = ExtResource("14_hp_logo")
+texture_progress = ExtResource("12_hp_fill")
+texture_progress_offset = Vector2(7, 3)
+
+[node name="EnergyBar" type="TextureProgressBar" parent="." unique_id=1543403821]
+unique_name_in_owner = true
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 143.0
+offset_top = 379.0
+offset_right = 218.0
+offset_bottom = 392.0
+grow_vertical = 2
+scale = Vector2(3, 3)
+mouse_filter = 2
+step = 0.0
+value = 100.0
+texture_over = ExtResource("16_energy_bg")
+texture_progress = ExtResource("15_energy_fill")
+texture_progress_offset = Vector2(6, 5)
+
+[node name="WeaponPanel" type="PanelContainer" parent="." unique_id=1543403823]
+unique_name_in_owner = true
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 470.0
+offset_bottom = 252.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_info")
+
+[node name="WeaponVBox" type="VBoxContainer" parent="WeaponPanel" unique_id=1543403824]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="WeaponTitle" type="Label" parent="WeaponPanel/WeaponVBox" unique_id=1543403830]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "WEAPONS"
+
+[node name="WeaponList" type="HBoxContainer" parent="WeaponPanel/WeaponVBox" unique_id=1543403831]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="WeaponLabel" type="Label" parent="WeaponPanel/WeaponVBox" unique_id=1543403825]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "..."
+
+[node name="WeaponInfo" type="GridContainer" parent="WeaponPanel/WeaponVBox" unique_id=1543403833]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 2
+columns = 2
