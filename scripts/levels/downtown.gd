@@ -1,8 +1,9 @@
 extends Node2D
 class_name DowntownLevel
-## Level script for Downtown. Defines the 12-step story task chain and wires
-## dialogue to task completion, area approach, and item pickup.
+## Level script for Downtown (chapter 2). Defines the 12-step story task chain
+## and wires dialogue to task completion, area approach, and item pickup.
 ## Mirrors OutskirtLevel's architecture (TaskManager/TaskData/TaskObjective + HUD + DialogueBox).
+## On completion, hands off to Final Map (chapter 3) — see _on_vehicle_area_entered().
 
 @onready var _progress: TaskManager = $TaskManager
 @onready var _hud: HUD = $HUD
@@ -231,7 +232,13 @@ func _on_vehicle_area_entered(body: Node2D) -> void:
 	elif _progress.is_active("escape_vehicle"):
 		_progress.advance("escape_vehicle", 0, 1)
 		_dialogue.show_monologue("Level end")
-		StateManager.change_state("win_screen")
+
+		# Downtown is chapter 2, not the end of the game — hand off to
+		# Final Map through the same PlayingState the main menu used to
+		# start Downtown. change_state() tears down this whole level
+		# (state_exit() -> queue_free) and boots a fresh PlayingState
+		# hosting Final Map instead.
+		StateManager.change_state("playing", {"level": preload("res://scenes/levels/final_map.tscn")})
 
 
 func _on_gasoline_picked_up(_interactor: Node2D) -> void:

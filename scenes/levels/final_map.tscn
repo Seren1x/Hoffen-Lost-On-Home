@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://csn68kvvl1fm2"]
 
-[ext_resource type="Script" uid="uid://dosx68b00pc1l" path="res://scenes/levels/final_map.gd" id="1_kg810"]
+[ext_resource type="Script" path="res://scenes/levels/final_map.gd" id="1_kg810"]
 [ext_resource type="Texture2D" uid="uid://csd0c7ajrpc88" path="res://assets/tiles/Tiles - PostApocalypse/Background_Green_TileSet.png" id="1_usvpb"]
 [ext_resource type="Texture2D" uid="uid://cnuw2cody3k2c" path="res://assets/objects/Objects - PostApocalypse/Nature/Green/Tree_1_Spruce_Green.png" id="2_05u4c"]
 [ext_resource type="Texture2D" uid="uid://kh2bjyjcrq6i" path="res://assets/tiles/Tiles - PostApocalypse/Background_Bleak-Yellow_TileSet.png" id="2_jwim5"]

@@ -26,7 +26,7 @@
 [ext_resource type="Script" uid="uid://dq3p1bernvty3" path="res://scripts/systems/task_manager.gd" id="14_78vg2"]
 [ext_resource type="PackedScene" uid="uid://dqbyat3kcn0h1" path="res://scenes/ui/DialogueBox.tscn" id="15_me5nk"]
 [ext_resource type="PackedScene" uid="uid://dfimobed18euq" path="res://scenes/ui/FogOverlay.tscn" id="16_enhh4"]
-[ext_resource type="PackedScene" path="res://scenes/props/weapons/AssaultRifleProp.tscn" id="17_arprop"]
+[ext_resource type="PackedScene" path="res://scenes/props/weapons/ShotgunProp.tscn" id="20_cclor"]
 [ext_resource type="Texture2D" uid="uid://cf2018m5ylm7x" path="res://assets/objects/Objects - PostApocalypse/2-Tires_Grass_Green.png" id="21_jmqfo"]
 [ext_resource type="Texture2D" uid="uid://dp113ywnn6ndm" path="res://assets/objects/Objects - PostApocalypse/Tire_2_Grass_Green.png" id="22_v85i1"]
 [ext_resource type="Texture2D" uid="uid://8r5prgyhestq" path="res://assets/objects/Objects - PostApocalypse/Street-Light_4_Side_Overgrown_Green.png" id="23_dl26r"]
@@ -58,7 +58,6 @@
 [ext_resource type="Texture2D" uid="uid://1ha7pb0g74k4" path="res://assets/objects/Objects - PostApocalypse/Buildings/HVAC_Overgrown_Dark-Green.png" id="49_wfst8"]
 [ext_resource type="Texture2D" uid="uid://b4726adyyoldc" path="res://assets/objects/Objects - PostApocalypse/Buildings/Door_4_Metal.png" id="50_fq6sg"]
 [ext_resource type="Texture2D" uid="uid://csavhftkq6y0b" path="res://assets/objects/Objects - PostApocalypse/Vehicles/Normal/Car_1/Car_1_Blue.png" id="51_1j364"]
-[ext_resource type="PackedScene" path="res://scenes/props/weapons/ShotgunProp.tscn" id="20_cclor"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p6ych"]
 texture = ExtResource("1_1o2kd")
