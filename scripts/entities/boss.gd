@@ -1,34 +1,14 @@
 class_name Boss
 extends Enemy
 
-## Boss enemy template.
-##
-## Built on the shared Enemy base (see enemy.gd) the same way zombie_axe.gd is -
-## Health / Hurtbox / hit-flash / death signal are already wired for you.
-## Fill in the TODOs below to get:
-##
-##   MOVE (go to a random waypoint) -> TELEGRAPH (aim + warn) -> SHOOT (aimed
-##   burst) -> COOLDOWN -> back to MOVE ...
-##
-## Design constraints to keep in mind while filling these in:
-## - Randomness belongs in WHICH waypoint is picked next, not in the movement
-##   itself - movement should be a smooth, deliberate steer toward a fixed point.
-## - The boss should only ever fire during SHOOT, never while moving, so
-##   approaching it during MOVE/COOLDOWN is always safe.
-## - TELEGRAPH must be long enough that an alert player can react and move.
-## - Projectiles should NOT home; aim once (at fire time) and travel straight,
-##   with a little random spread, so a moving player can dodge.
-
 enum State { MOVE, TELEGRAPH, SHOOT, COOLDOWN }
 
 @export_group("Movement")
-@export var move_speed: float = 90.0
+@export var move_speed: float = 120.0
 @export var acceleration: float = 500.0
-## How close (px) counts as "arrived" at a waypoint.
 @export var arrive_distance: float = 10.0
 
 @export_group("Attack")
-## Seconds the boss winds up before firing - the player's warning window.
 @export var telegraph_time: float = 0.6
 @export var shots_per_burst: int = 3
 @export var shot_interval: float = 0.18
@@ -36,13 +16,10 @@ enum State { MOVE, TELEGRAPH, SHOOT, COOLDOWN }
 @export var projectile_scene: PackedScene = preload("res://scenes/props/BossBullet.tscn")
 @export var projectile_speed: float = 260.0
 @export var projectile_damage: int = 8
-## Random angle (deg) added per shot so a burst is a loose fan, not a laser.
 @export var aim_spread_degrees: float = 8.0
 
 @export_group("Sprite")
 @export var idle_sheet: Texture2D = preload("res://assets/sprites/Boss/16x32 Idle-Sheet.png")
-## Uploaded sheet is 128x160 = 4 frames x 5 rows of 32x32.
-## Rows top -> bottom: down, down-side, side, up-side, up.
 const FRAME_SIZE: int = 32
 const FRAME_COUNT: int = 4
 const ROW_DOWN: int = 0
@@ -51,143 +28,174 @@ const ROW_SIDE: int = 2
 const ROW_UP_SIDE: int = 3
 const ROW_UP: int = 4
 
+const IDLE_ANIM_NAMES: Array[String] = ["idle_down", "idle_down_side", "idle_side", "idle_up_side", "idle_up"]
+const ATTACK_ANIM_NAMES: Array[String] = ["attack_down", "attack_down_side", "attack_side", "attack_up_side", "attack_up"]
+
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var muzzle: Marker2D = $Muzzle
 @onready var waypoints_root: Node2D = get_node_or_null("Waypoints")
 
 var state: State = State.MOVE
-var waypoints: Array[Marker2D] = []
-var _last_waypoint: Marker2D = null
+var waypoint_positions: Array[Vector2] = []
+var _last_waypoint_position: Vector2 = Vector2.ZERO
 var _facing_dir: Vector2 = Vector2.DOWN
+var _target_position: Vector2 = Vector2.ZERO
 
-
-# ------------------------------------------------------------------ #
-# Setup
-# ------------------------------------------------------------------ #
-
-## Enemy._ready() calls this hook before wiring Health/Hurtbox (see enemy.gd),
-## same as zombie_axe.gd's _ready_enemy().
 func _ready_enemy() -> void:
 	flash_sprite = sprite
-	# TODO: build the idle AnimatedSprite2D animations from idle_sheet.
-	# Slice FRAME_COUNT x FRAME_SIZE regions per row into looping animations,
-	# same technique as player.gd's _setup_death_animations() (AtlasTexture
-	# slicing at runtime, no manual .tres needed).
-	# _build_idle_animations()
-
-	# TODO: collect Marker2D children under `waypoints_root` into `waypoints`.
-	# _gather_waypoints()
-
-	# TODO: kick off the state machine loop (see _run_state_machine below).
-	pass
-
+	max_health = 400
+	_build_idle_animations()
+	_gather_waypoints()
+	if not waypoint_positions.is_empty():
+		_target_position = waypoint_positions[0]
+	_run_state_machine()
 
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
-	# TODO: drive movement here when state == State.MOVE (steer velocity
-	# toward the current target with move_toward + move_and_slide, like
-	# zombie_axe.gd's chase logic), and decelerate to a stop otherwise.
-	# Update `_facing_dir` and call your facing/animation function as you move.
-	pass
+	if state == State.MOVE:
+		var to_target := _target_position - global_position
+		if to_target.length() > arrive_distance:
+			velocity = to_target.normalized() * move_speed
+			_play_facing_animation(to_target.normalized())
+		else:
+			velocity = Vector2.ZERO
+		move_and_slide()
+	else:
+		var decel := acceleration * delta
+		if velocity.length() > decel:
+			velocity -= velocity.normalized() * decel
+		else:
+			velocity = Vector2.ZERO
+		if state == State.TELEGRAPH or state == State.SHOOT:
+			var player := _get_player()
+			if player != null:
+				_play_facing_animation((player.global_position - global_position).normalized())
+		move_and_slide()
 
-
-# ------------------------------------------------------------------ #
-# Finite State Machine
-# ------------------------------------------------------------------ #
-
-## TODO: the main loop. Something like:
-##   while not dead:
-##       await _state_move()
-##       if dead: return
-##       await _state_telegraph()
-##       if dead: return
-##       await _state_shoot()
-##       if dead: return
-##       await _state_cooldown()
-## Using `await` + `get_tree().create_timer(x).timeout` (or a custom signal for
-## "arrived at waypoint") lets each state pause the coroutine without you
-## needing a separate Timer node + signal callback per state.
 func _run_state_machine() -> void:
-	pass
+	while not dead:
+		await _state_move()
+		if dead: return
+		await _state_telegraph()
+		if dead: return
+		await _state_shoot()
+		if dead: return
+		await _state_cooldown()
 
-
-## MOVE: pick a random next waypoint (TODO: bias against repeating the last one
-## when there's more than one - this is where the "randomness" lives per the
-## brief, NOT in the movement itself) and wait until arrived.
 func _state_move() -> void:
 	state = State.MOVE
-	# TODO
+	_target_position = _pick_next_point()
+	while not dead:
+		if global_position.distance_to(_target_position) < arrive_distance:
+			break
+		await get_tree().process_frame
 
-
-## TELEGRAPH: stop, face + aim at the player, and give a clear visual tell
-## (flash / pulse / wind-up animation) before firing.
 func _state_telegraph() -> void:
 	state = State.TELEGRAPH
-	# TODO
+	velocity = Vector2.ZERO
+	var player := _get_player()
+	if player != null:
+		_play_facing_animation((player.global_position - global_position).normalized())
+	await get_tree().create_timer(telegraph_time).timeout
 
-
-## SHOOT: fire `shots_per_burst` projectiles, `shot_interval` apart, each aimed
-## at the player's position at the moment of firing (see _fire_projectile).
 func _state_shoot() -> void:
 	state = State.SHOOT
-	# TODO
+	velocity = Vector2.ZERO
+	for i in shots_per_burst:
+		if dead: return
+		_fire_projectile()
+		if i < shots_per_burst - 1:
+			await get_tree().create_timer(shot_interval).timeout
 
-
-## COOLDOWN: brief pause before the next MOVE - another safe window for the
-## player to close the distance.
 func _state_cooldown() -> void:
 	state = State.COOLDOWN
-	# TODO
+	await get_tree().create_timer(cooldown_time).timeout
 
-
-# ------------------------------------------------------------------ #
-# Helpers
-# ------------------------------------------------------------------ #
-
-## TODO: return a random Marker2D global_position from `waypoints`, avoiding
-## `_last_waypoint` when there's more than one option. Remember to update
-## `_last_waypoint`.
 func _pick_next_point() -> Vector2:
-	return global_position
-
+	if waypoint_positions.is_empty():
+		return global_position
+	var candidates: Array[Vector2] = []
+	for wp in waypoint_positions:
+		if wp != _last_waypoint_position:
+			candidates.append(wp)
+	if candidates.is_empty():
+		candidates = waypoint_positions
+	var chosen: Vector2 = candidates.pick_random()
+	_last_waypoint_position = chosen
+	return chosen
 
 func _get_player() -> Node2D:
 	return get_tree().get_first_node_in_group("player")
 
-
-## TODO: instantiate `projectile_scene`, aim it at the player's current
-## position (+ random spread within `aim_spread_degrees`), and call its
-## setup(trans, damage, speed) - see bullet.gd / weapon.gd for the
-## setup(Transform2D, damage, speed, max_range) convention this project uses.
 func _fire_projectile() -> void:
-	pass
+	var player := _get_player()
+	if player == null:
+		return
+	var to_player := player.global_position - muzzle.global_position
+	if to_player.length() < 1.0:
+		return
+	var base_angle := to_player.angle()
+	var spread_rad := deg_to_rad(aim_spread_degrees)
+	var offset := randf_range(-spread_rad, spread_rad)
+	var final_angle := base_angle + offset
+	var cos_a := cos(final_angle)
+	var sin_a := sin(final_angle)
+	var trans := Transform2D()
+	trans.x = Vector2(cos_a, sin_a)
+	trans.y = Vector2(-sin_a, cos_a)
+	trans.origin = muzzle.global_position
+	var bullet := projectile_scene.instantiate() as Area2D
+	if bullet == null:
+		return
+	bullet.setup(trans, projectile_damage, projectile_speed)
+	get_tree().root.add_child(bullet)
 
-
-## TODO: slice `idle_sheet` into 5 looping animations (one per ROW_* constant)
-## using AtlasTexture regions, same idea as player.gd's _setup_death_animations().
 func _build_idle_animations() -> void:
-	pass
+	# SpriteFrames now loaded from boss_idle_sprites.tres resource
+	sprite.visible = true
+	sprite.play("idle_down")
 
-
-## TODO: pick the closest of the 5 rows for a direction vector and set
-## sprite.flip_h for leftward angles - same idea as zombie_axe.gd's
-## side/side_left mirroring, just with 5 tiers instead of 4.
-## Tip: split by angle-from-horizontal into 5 even 45-degree bands
-## (side / diagonal / vertical / diagonal / side) rather than comparing
-## raw angle ranges directly - it's easy to mix up "pure down" vs "diagonal"
-## if you only threshold the raw angle.
 func _play_facing_animation(dir: Vector2) -> void:
-	pass
-
+	var d := dir.normalized()
+	var angle := d.angle()
+	var a := fmod(angle + TAU, TAU)
+	var row: int
+	if a < PI / 8.0 or a >= 15.0 * PI / 8.0:
+		row = ROW_SIDE
+	elif a < 3.0 * PI / 8.0:
+		row = ROW_DOWN_SIDE
+	elif a < 5.0 * PI / 8.0:
+		row = ROW_DOWN
+	elif a < 7.0 * PI / 8.0:
+		row = ROW_DOWN_SIDE
+	elif a < 9.0 * PI / 8.0:
+		row = ROW_SIDE
+	elif a < 11.0 * PI / 8.0:
+		row = ROW_UP_SIDE
+	elif a < 13.0 * PI / 8.0:
+		row = ROW_UP
+	else:
+		row = ROW_UP_SIDE
+	sprite.flip_h = d.x < -0.1
+	var anim_names: Array[String] = IDLE_ANIM_NAMES if state != State.SHOOT else ATTACK_ANIM_NAMES
+	var anim_name: String = anim_names[row]
+	if sprite.animation != anim_name:
+		sprite.play(anim_name)
+	_facing_dir = d
 
 func _gather_waypoints() -> void:
-	pass
+	if waypoints_root == null:
+		return
+	for child in waypoints_root.get_children():
+		var marker := child as Marker2D
+		if marker != null:
+			waypoint_positions.append(marker.global_position)
 
-
-## Base Enemy has already set dead = true and emitted died() by the time this
-## runs. No death sheet in the uploaded art yet, so TODO: fade out / play
-## whatever you have, then queue_free() (don't forget to stop physics/movement
-## and unblock the FSM coroutine if it might be mid-await).
 func _die() -> void:
-	pass
+	velocity = Vector2.ZERO
+	if _flash_tween:
+		_flash_tween.kill()
+	var tween := create_tween()
+	tween.tween_property(sprite, "modulate:a", 0.0, 0.3)
+	tween.tween_callback(func() -> void: queue_free())

@@ -10,9 +10,9 @@ extends Enemy
 @export var chase_range: float = 400.0
 @export var attack_range: float = 60.0
 @export var damage: int = 10
-@export var attack_cooldown: float = 2.5
+@export var attack_cooldown: float = 1.5
 ## Playback speed for the attack animation (lower = slower, more visible swing).
-const ATTACK_ANIM_SPEED: float = 1
+const ATTACK_ANIM_SPEED: float = 1.5
 
 ## Attack hitbox offset per facing, used for the first attack (and the idle/chase
 ## resting position). Edit these in the inspector to tune where the hitbox sits.

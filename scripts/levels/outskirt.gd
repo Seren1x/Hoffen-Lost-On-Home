@@ -72,9 +72,9 @@ func _register_task(id: String, title: String, obj_type: TaskObjective.Type, tar
 
 
 func _connect_enemies() -> void:
-	for zombie: ZombieAxe in get_tree().get_nodes_in_group("enemies"):
-		if not zombie.died.is_connected(_on_mutant_died):
-			zombie.died.connect(_on_mutant_died)
+	for node in get_tree().get_nodes_in_group("enemies"):
+		if node is ZombieAxe and not node.died.is_connected(_on_mutant_died):
+			node.died.connect(_on_mutant_died)
 
 func _spawn_mutant(at_position: Vector2) -> void:
 	var zombie: ZombieAxe = ZOMBIE_SCENE.instantiate()
